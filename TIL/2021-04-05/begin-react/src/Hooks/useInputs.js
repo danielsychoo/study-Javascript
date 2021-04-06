@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
 
-const useInputs = (initialFrom) => {
-  const [form, setFrom] = useState(initialFrom);
+// initialForm은 App.js에서 실제 사용시 parameter로 받을 것
+const useInputs = (initialForm) => {
+  const [form, setForm] = useState(initialForm);
 
   const onChange = useCallback(e => {
     const { name, value } = e.target;
@@ -11,7 +12,7 @@ const useInputs = (initialFrom) => {
     }));
   }, []);
 
-  const reset = useCallback(() => setForm(initialFrom), [initialFrom])
+  const reset = useCallback(() => setForm(initialForm), [initialForm])
   ;
   return [form, onChange, reset];
 }

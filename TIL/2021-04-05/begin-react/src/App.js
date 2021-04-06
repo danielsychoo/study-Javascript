@@ -3,6 +3,8 @@ import React, { useReducer, useRef, useMemo, useCallback } from 'react';
 import CreateUser from './CreateUser';
 import UserList from './UserList';
 
+import useInputs from './Hooks/useInputs';
+
 
   // 활성 사용자를 세는 함수
   const countActiveUsers = users => {
@@ -12,10 +14,10 @@ import UserList from './UserList';
 
   // initial user data
   const initialState = {
-    inputs: {
-      username: '',
-      email: '',
-    },
+    // inputs: {
+    //   username: '',
+    //   email: '',
+    // },
     users: [
       {
         id: 1,
@@ -40,14 +42,14 @@ import UserList from './UserList';
 
   const reducer = (state, action) => {
     switch(action.type) {
-      case 'CHANGE_INPUT':
-        return {
-          ...state,
-          inputs: {
-            ...state.inputs,
-            [action.name]: action.value,
-          },
-        };
+      // case 'CHANGE_INPUT':
+      //   return {
+      //     ...state,
+      //     inputs: {
+      //       ...state.inputs,
+      //       [action.name]: action.value,
+      //     },
+      //   };
       case 'CREATE_USER':
         return {
           inputs: initialState.inputs,
@@ -76,21 +78,26 @@ import UserList from './UserList';
 
 
 function App() {
+  const [{ username, email }, onChange, reset] = useInputs({
+    username: '',
+    email: '',
+  });
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const nextId = useRef(4);
 
   // destructuring
   const { users } = state;
-  const { username, email } = state.inputs;
+  // const { username, email } = state.inputs;
 
-  const onChange = useCallback(e => {
-    const { name, value } = e.target;
-    dispatch({
-      type: 'CHANGE_INPUT',
-      name,
-      value,
-    });
-  }, []);
+  // const onChange = useCallback(e => {
+  //   const { name, value } = e.target;
+  //   dispatch({
+  //     type: 'CHANGE_INPUT',
+  //     name,
+  //     value,
+  //   });
+  // }, []);
 
   const onCreate = useCallback(() => {
     dispatch({
@@ -101,6 +108,7 @@ function App() {
         email,
       }
     });
+    reset(); // 만든 후 input value 초기화 (useInputs 안에 있음)
     nextId.current ++;
   }, [username, email])
 
