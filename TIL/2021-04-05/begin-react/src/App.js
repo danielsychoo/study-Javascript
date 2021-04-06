@@ -1,8 +1,30 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
+
+import CreateUser from './CreateUser';
 import UserList from './UserList';
 
 function App() {
-  const users = [
+  // * state 생성
+  const [inputs, setInputs] = useState({
+    username: '',
+    email: '',
+  });
+
+  // * state destructuring
+  const { username, email } = inputs;
+
+  const onChange = e => {
+    // 각 e.target을 unique하게 사용하기 위해
+    // 물론 이것도 destructuring
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  // initial user data
+  const [users, setUsers] = useState([
     {
       id: 1,
       username: 'velopert',
@@ -18,20 +40,37 @@ function App() {
       username: 'liz',
       email: 'liz@example.com'
     }
-  ];
+  ]);
 
+  // id를 useRef로 관리 initialValue는 4
   const nextId = useRef(4);
   const onCreate = () => {
-    // 추후 배열에 추가하는 부분
+    // setState에 바로 넣으면 복잡하니께 따로 객체로
+    const user = {
+      id: nextId.current,
+      username,
+      email
+    }
+    // 준비된 user객체 setState 이전 data는 spread
+    setUsers([
+      ...users,
+      user
+    ])
+    // onClick 후 input value를 공백으로 만드는 부분
+    setInputs({
+      username: '',
+      email: '',
+    });
 
-    // id가 3까지 있으므로 4, 5, 6 으로 계속 증가하도록
-    // 이때 current는 23번째 줄의 initialValue
+    // id를 계속 ++ 되게 해줌
+    // map으로 돌릴때 unique key이용해야 하니께
     nextId.current++ ;
   }
   return (
-    <div className="App">
+    <>
+      <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate} />
       <UserList users={users} />
-    </div>
+    </>
   );
 }
 
