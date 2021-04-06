@@ -66,10 +66,16 @@ function App() {
     // map으로 돌릴때 unique key이용해야 하니께
     nextId.current++ ;
   }
+
+  // parameter로 받은 id의 user를 제외한 user만 filtering하는
+  // 방식이 얕은 복사로 setState하는 것과 같다.
+  const onRemove = id => {
+    setUsers(users.filter(user => user.id !== id));
+  };
   return (
     <>
       <CreateUser username={username} email={email} onChange={onChange} onCreate={onCreate} />
-      <UserList users={users} />
+      <UserList users={users} onRemove={onRemove} />
     </>
   );
 }
