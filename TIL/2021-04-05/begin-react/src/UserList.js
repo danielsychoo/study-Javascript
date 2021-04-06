@@ -1,7 +1,7 @@
 import React from 'react';
 
 // 각각의 User component
-const User = ({ user, onRemove, onToggle }) => {
+const User = React.memo(({ user, onRemove, onToggle }) => {
   // useEffect(() => {
   //   console.log('user 값이 설정됨');
   //   console.log(user);
@@ -25,7 +25,7 @@ const User = ({ user, onRemove, onToggle }) => {
       <button onClick={() => onRemove(user.id)}>삭제</button>
     </div>
   );
-};
+});
 
 // User component를 묶어주는 component
 const UserList = ({ users, onRemove, onToggle }) => {
@@ -38,4 +38,4 @@ const UserList = ({ users, onRemove, onToggle }) => {
   );
 };
 
-export default UserList;
+export default React.memo(UserList);

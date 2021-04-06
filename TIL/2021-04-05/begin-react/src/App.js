@@ -18,12 +18,12 @@ function App() {
         // 각 e.target을 unique하게 사용하기 위해
         // 물론 이것도 destructuring
         const { name, value } = e.target;
-        setInputs({
+        setInputs(inputs => ({
           ...inputs,
           [name]: value,
-        });
+        }));
       },
-      [inputs]
+      []
   );
 
   // initial user data
@@ -58,11 +58,8 @@ function App() {
         username,
         email
       }
-      // 준비된 user객체 setState 이전 data는 spread
-      setUsers([
-        ...users,
-        user
-      ])
+      // concat 이용하여 함수형으로
+      setUsers(users => users.concat(user));
       // onClick 후 input value를 공백으로 만드는 부분
       setInputs({
         username: '',
@@ -73,24 +70,21 @@ function App() {
       // map으로 돌릴때 unique key이용해야 하니께
       nextId.current++ ;
     },
-    [users, username, email]
+    [username, email]
   );
 
   // parameter로 받은 id의 user를 제외한 user만 filtering하는
   // 방식이 얕은 복사로 setState하는 것과 같다.
   const onRemove = useCallback(
     id => {
-      setUsers(users.filter(user => user.id !== id));
-    },
-    [users]
+      setUsers(users => users.filter(user => user.id !== id));
+    }, []
   );
-  
-
 
   // map으로 돌면서 click된 id가 동일한 것만 active 반전
   const onToggle = useCallback(
     id => {
-      setUsers(
+      setUsers( users =>
         users.map(user =>
           user.id === id
             ? {
@@ -100,11 +94,8 @@ function App() {
             : user
         )
       );
-    },
-    [users]
+    }, []
   );
-  
-
 
   // 활성 사용자를 세는 함수
   const countActiveUsers = users => {
@@ -123,4 +114,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);
