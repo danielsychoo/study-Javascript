@@ -1,8 +1,20 @@
-$navBgColor: #000;
-$navFontColor: #fff;
-
 .Nav {
-  height: 8vh;
-  background-color: $navBgColor;
-  color: $navFontColor;
+  height: 7vh;
+  display: flex;
+  justify-content: space-between;
+
+  .navLogo {
+    width: 38%;
+    font-size: 130%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .navRightBar {
+    width: 25%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 }
