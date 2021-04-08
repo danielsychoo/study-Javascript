@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import "normalize.css";
 
-import App from "./component/App";
+import App from "./client/App";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <App />
-  </React.StrictMode>,
+  </BrowserRouter>,
   document.getElementById("root")
 );

@@ -1,5 +1,5 @@
 import React from "react";
-import "./SearchModal.scss";
+import "../scss/SearchModal.scss";
 
 import { IconContext } from "react-icons";
 import { IoIosSearch } from "react-icons/io";

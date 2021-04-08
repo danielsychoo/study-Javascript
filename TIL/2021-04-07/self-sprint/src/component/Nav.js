@@ -1,9 +1,7 @@
 import React from "react";
-import "./Nav.scss";
-
-import useToggle from "../../../hooks/useToggle";
-
-import SearchModal from "./SearchModal/SearchModal";
+import { useToggle } from "../hooks";
+import { SearchModal } from "../component";
+import "../scss/Nav.scss";
 
 import { IconContext } from "react-icons";
 import { FcFilm, FcTrademark } from "react-icons/fc";
