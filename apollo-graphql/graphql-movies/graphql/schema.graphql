@@ -1,12 +1,14 @@
 # query에 대한 type을 지정 (설명)
-type Daniel {
+type Person {
+  id: Int!,
   name: String!,
   age: Int!,
   gender: String!, 
 }
 
 type Query {
-  person: Daniel! # <쿼리>: <보내 줄 data 타입>! <- '!'는 isRequired
+  people: [Person]! # [Person]으로 이루어져 있으므로 Array로 return 되어야 함
+  person(id: Int!): Person # id로 찾은 person만 보내줌. 없을 수도 있기 때문에 마지막에 '!' 생략
 }
 
 # .graphql 형식은 just text이므로 export할 필요가 없음

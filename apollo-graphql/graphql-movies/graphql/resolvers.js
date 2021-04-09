@@ -1,15 +1,15 @@
 // schema.graphql에서 define한 query를 resolve하는 역할
 
 // data sourse
-const daniel = {
-  name: "daniel",
-  age: 32,
-  gender: "male",
-};
+import { people, getById } from "./db";
 
 const resolvers = {
   Query: {
-    person: () => daniel, // <쿼리>: <schema와 타입이 맞는 결과물 return>
+    people: () => people,
+    person: (_, { id }) => {
+      console.log(id);
+    },
+    // person: (_, { id }) => getById(id),
   },
 };
 
