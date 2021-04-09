@@ -1,6 +1,12 @@
 # query에 대한 type을 지정 (설명)
+type Daniel {
+  name: String!,
+  age: Int!,
+  gender: String!, 
+}
+
 type Query {
-  name: String! # <쿼리>: <보내 줄 data 타입>! <- '!'는 isRequired
+  person: Daniel! # <쿼리>: <보내 줄 data 타입>! <- '!'는 isRequired
 }
 
 # .graphql 형식은 just text이므로 export할 필요가 없음
