@@ -31,16 +31,6 @@ export const getById = (id) => {
   return filteredMovies[0]; // 따라서 array의 0번째 index를 return. 어차피 하나밖에..
 };
 
-export const deleteMovie = (id) => {
-  const cleanedMovies = movies.filter((movie) => movie.id !== id);
-  if (movies.length > cleanedMovies.length) {
-    movies = cleanedMovies;
-    return true;
-  } else {
-    return false;
-  }
-};
-
 export const addMovie = (name, score) => {
   const newMovie = {
     id: `${movies.length + 1}`,
@@ -49,4 +39,14 @@ export const addMovie = (name, score) => {
   };
   movies.push(newMovie);
   return newMovie;
+};
+
+export const deleteMovie = (id) => {
+  const cleanedMovies = movies.filter((movie) => movie.id !== id);
+  if (movies.length > cleanedMovies.length) {
+    movies = cleanedMovies;
+    return true;
+  } else {
+    return false;
+  }
 };

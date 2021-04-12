@@ -12,6 +12,7 @@ type Query {
 
 type Mutation { 
   addMovie(name: String!, score: Int!): Movie! # id의 경우 DB에서 AutoIncrement가 진행될 것이므로 생략
+  deleteMovie(id: Int!): Boolean!
 }
 
 # .graphql 형식은 just text이므로 export할 필요가 없음
