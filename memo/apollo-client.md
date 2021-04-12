@@ -1,14 +1,5 @@
 # Apollo-client & GraphQL
 
-## restAPI와 GraphQL의 차이
-restAPI는 uri를 넣어 post, get 등으로 백단에서 준비한 **전체 데이터를** 받아와 그 중 필요한 부분만을 골라서 사용하게 된다. 즉, **필요한 것보다 많은 데이터**를 가져오게 될 수 있음.
-
-반면에 GraphQL은 프론트단 자체에서 쿼리를 통해 **필요한 정보만을 골라서** 가져올 수 있음.
-
-GraphQL을 fetch로 따지면 모든 요청이 post로 되어있음, 그러나 GraphQL로 쿼리를 사용하지않고 직접 fetch를 하려한다면 하나하나 post를 날려줘야 하기 때문에 비효율적임.
-
----
-
 ## 환경설정
 ```javascript
 npm i @apollo/client
