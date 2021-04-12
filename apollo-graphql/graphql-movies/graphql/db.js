@@ -1,39 +1,52 @@
-export const people = [
+let movies = [
   {
     id: 0,
-    name: "Daniel",
-    age: 32,
-    gender: "male",
+    name: "Star Wars - The new one",
+    score: 1,
   },
   {
     id: 1,
-    name: "Nicolas",
-    age: 18,
-    gender: "male",
+    name: "Avengers - The new one",
+    score: 8,
   },
   {
     id: 2,
-    name: "Japan Guy",
-    age: 18,
-    gender: "male",
+    name: "The Godfather 1",
+    score: 99,
   },
   {
     id: 3,
-    name: "German Guy",
-    age: 40,
-    gender: "male",
-  },
-  {
-    id: 4,
-    name: "Franch Boy",
-    age: 14,
-    gender: "male",
+    name: "Logan",
+    score: 2,
   },
 ];
 
 // ! 아래의 getById와 같이 client에서 어떤 query를 사용하게 할지 만들 수 있음!
+
+export const getMovies = () => movies;
+
 export const getById = (id) => {
   // 전체 중 query의 id와 같은 person을 찾음. (filter이므로 array에 담겨서 나옴)
-  const filteredPeople = people.filter((person) => person.id === id);
-  return filteredPeople[0]; // 따라서 array의 0번째 index를 return. 어차피 하나밖에..
+  const filteredMovies = movies.filter((movie) => movie.id === id);
+  return filteredMovies[0]; // 따라서 array의 0번째 index를 return. 어차피 하나밖에..
+};
+
+export const deleteMovie = (id) => {
+  const cleanedMovies = movies.filter((movie) => movie.id !== id);
+  if (movies.length > cleanedMovies.length) {
+    movies = cleanedMovies;
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const addMovie = (name, score) => {
+  const newMovie = {
+    id: `${movies.length + 1}`,
+    name,
+    score,
+  };
+  movies.push(newMovie);
+  return newMovie;
 };

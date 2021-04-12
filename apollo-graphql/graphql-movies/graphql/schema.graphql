@@ -1,14 +1,17 @@
 # query에 대한 type을 지정 (설명)
-type Person {
+type Movie {
   id: Int!,
   name: String!,
-  age: Int!,
-  gender: String!, 
+  score: Int!,
 }
 
 type Query {
-  people: [Person]! # [Person]으로 이루어져 있으므로 Array로 return 되어야 함
-  person(id: Int!): Person # id로 찾은 person만 보내줌. 없을 수도 있기 때문에 마지막에 '!' 생략
+  movies: [Movie]! # [Movie]으로 이루어져 있으므로 Array로 return 되어야 함
+  movie(id: Int!): Movie # id로 찾은 Movie만 보내줌. 없을 수도 있기 때문에 마지막에 '!' 생략
+}
+
+type Mutation { 
+  addMovie(name: String!, score: Int!): Movie! # id의 경우 DB에서 AutoIncrement가 진행될 것이므로 생략
 }
 
 # .graphql 형식은 just text이므로 export할 필요가 없음
