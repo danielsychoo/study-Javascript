@@ -15,7 +15,7 @@ const GET_MOVIES = gql`
   }
 `;
 
-const Home = () => {
+const Home = ({ setClickedId }) => {
   const { loading, error, data } = useQuery(GET_MOVIES);
 
   if (error) {
@@ -34,7 +34,11 @@ const Home = () => {
 
             return (
               <li key={movie.id}>
-                <Link to={`/${movie.id}`} className="home-movie">
+                <Link
+                  to={`/${movie.id}`}
+                  className="home-movie"
+                  onClick={() => setClickedId(movie.id)}
+                >
                   <img alt={movie.title} src={movie.medium_cover_image} />
                   <div>{resizeTitle}</div>
                   <div>Rating: {movie.rating} / 10</div>
