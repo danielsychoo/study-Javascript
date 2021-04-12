@@ -1,0 +1,52 @@
+@mixin center-position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  border: 1px red solid;
+  height: 10vh;
+  @include center-position()
+}
+
+#loading {
+  width: 100%;
+  height: 90vh;
+  font-size: 200%;
+  @include center-position()
+}
+
+#home-container {
+  margin: 0;
+  padding: 5px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  li {
+    list-style-type: none;
+    .home-movie {
+      margin: 5px;
+      width: 170px;
+      height: 295.65px;
+      color: #000000;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      & > div {
+        font-size: 20px;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 940px) {
+  #home-container {
+    width: 940px;
+    margin: 0 auto;
+  }
+}

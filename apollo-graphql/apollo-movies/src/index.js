@@ -1,11 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import App from "./component/App";
 import client from "./apollo";
-
-import { ApolloProvider } from "@apollo/client/react";
-import "normalize.css";
+import { ApolloProvider } from "@apollo/client";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
