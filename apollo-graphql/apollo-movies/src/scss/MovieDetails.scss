@@ -1,5 +1,23 @@
 #MD-container {
-  border: 1px blue solid;
-  height: 55vh;
+  #MD-info-container {
+    // border: 1px red solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    #MD-info-img {
+      width: 230px;
+      height: 345px;
+      margin: 20px 0;
+    }
+    #MD-info-script {
+      width: 350px;
+      font-size: 110%;
+      #MD-info-genres > span {
+        margin: 0 0 0 3px;
+      }
+    }
+  }
+  #MD-description {
+    border: 1px blue solid;
+  }
 }
-

@@ -1,4 +1,35 @@
+@mixin center-position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  border-top: 2px #e9e9e9 solid;
+  border-bottom: 2px #e9e9e9 solid;
+  height: 10vh;
+  @include center-position()
+}
+
+#SG-header {
+  border-top: 2px #e9e9e9 solid;
+  border-bottom: 2px #e9e9e9 solid;
+  height: 5vh;
+  @include center-position()
+}
+
 #SG-container {
-  border: 1px yellowgreen solid;
-  height: 35vh;
+  margin: 0;
+  padding: 5px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+
+@media screen and (min-width: 940px) {
+  #SG-container {
+    width: 940px;
+    margin: 0 auto;
+  }
 }

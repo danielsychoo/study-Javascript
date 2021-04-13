@@ -3,9 +3,7 @@ import "../scss/Home.scss";
 import { SingleMovie, Loading } from "../component";
 
 const Home = ({ loading, error, data }) => {
-  if (error) {
-    console.log(error);
-  }
+  if (error) console.log(error);
 
   return (
     <div>

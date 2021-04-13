@@ -3,15 +3,21 @@ li {
   .home-movie {
     margin: 5px;
     width: 170px;
-    height: 295.65px;
+    height: 305.65px;
     color: #000000;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    & > img {
+      margin: 0 0 5px 0;
+    }
     & > div {
       font-size: 20px;
       overflow: hidden;
+    }
+    & > div:first-child {
+      margin: 50px 0 0 0;
     }
   }
 }

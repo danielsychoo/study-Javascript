@@ -23,3 +23,32 @@ export const GET_SPECIFIC_MOVIE = gql`
     }
   }
 `;
+
+export const GET_SUGGESTIONS = gql`
+  query getSuggestions($id: Int!) {
+    suggestions(id: $id) {
+      title
+      rating
+      medium_cover_image
+    }
+  }
+`;
+
+export const GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS = gql`
+  query getMovieWithSuggestions($id: Int!) {
+    movie(id: $id) {
+      title
+      rating
+      description_intro
+      language
+      medium_cover_image
+      genres
+    }
+    suggestions(id: $id) {
+      id
+      title
+      rating
+      medium_cover_image
+    }
+  }
+`;

@@ -4,14 +4,15 @@ import { isTitleLong } from "../Function";
 import "../scss/SingleMovie.scss";
 
 const SingleMovie = ({ movie }) => {
-  const resizeTitle = isTitleLong(movie.title);
+  const { id, title, medium_cover_image, rating } = movie;
+  const resizeTitle = isTitleLong(title);
 
   return (
     <li key={movie.id}>
-      <Link to={`/movie-details/${movie.id}`} className="home-movie">
-        <img alt={movie.title} src={movie.medium_cover_image} />
+      <Link to={`/movie-details/${id}`} className="home-movie">
+        <img alt={title} src={medium_cover_image} />
         <div>{resizeTitle}</div>
-        <div>Rating: {movie.rating} / 10</div>
+        <div>Rating: {rating} / 10</div>
       </Link>
     </li>
   );
