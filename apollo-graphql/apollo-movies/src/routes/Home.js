@@ -1,23 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../scss/Home.scss";
-import { useQuery, gql } from "@apollo/client";
-import { isTitleLong } from "../Function";
+import { SingleMovie } from "../component";
 
-const GET_MOVIES = gql`
-  {
-    movies {
-      id
-      title
-      rating
-      medium_cover_image
-    }
-  }
-`;
-
-const Home = ({ setClickedId }) => {
-  const { loading, error, data } = useQuery(GET_MOVIES);
-
+const Home = ({ setClickedId, loading, error, data }) => {
   if (error) {
     console.log(error);
   }
@@ -30,20 +15,12 @@ const Home = ({ setClickedId }) => {
       ) : (
         <ul id="home-container">
           {data.movies.map((movie) => {
-            let resizeTitle = isTitleLong(movie.title);
-
             return (
-              <li key={movie.id}>
-                <Link
-                  to={`/${movie.id}`}
-                  className="home-movie"
-                  onClick={() => setClickedId(movie.id)}
-                >
-                  <img alt={movie.title} src={movie.medium_cover_image} />
-                  <div>{resizeTitle}</div>
-                  <div>Rating: {movie.rating} / 10</div>
-                </Link>
-              </li>
+              <SingleMovie
+                key={movie.id}
+                movie={movie}
+                setClickedId={setClickedId}
+              />
             );
           })}
         </ul>

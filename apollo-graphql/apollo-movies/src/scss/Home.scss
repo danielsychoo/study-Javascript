@@ -24,25 +24,7 @@ header {
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
-  li {
-    list-style-type: none;
-    .home-movie {
-      margin: 5px;
-      width: 170px;
-      height: 295.65px;
-      color: #000000;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      & > div {
-        font-size: 20px;
-        overflow: hidden;
-      }
-    }
-  }
 }
-
 
 @media screen and (min-width: 940px) {
   #home-container {

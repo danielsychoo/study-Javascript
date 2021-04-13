@@ -1,6 +1,6 @@
 const isTitleLong = (title) => {
-  if (title.length >= 15) {
-    let tempTitle = title.slice(0, 15);
+  if (title.length > 13) {
+    let tempTitle = title.slice(0, 13);
     let shortCutTitle = `${tempTitle} ...`;
     return shortCutTitle;
   } else {
