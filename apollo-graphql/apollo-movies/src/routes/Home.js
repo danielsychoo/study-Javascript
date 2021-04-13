@@ -1,8 +1,8 @@
 import React from "react";
 import "../scss/Home.scss";
-import { SingleMovie } from "../component";
+import { SingleMovie, Loading } from "../component";
 
-const Home = ({ setClickedId, loading, error, data }) => {
+const Home = ({ loading, error, data }) => {
   if (error) {
     console.log(error);
   }
@@ -11,17 +11,11 @@ const Home = ({ setClickedId, loading, error, data }) => {
     <div>
       <header>MovieInfo with ApolloClient - GraphQL</header>
       {loading ? (
-        <div id="loading">Loading...</div>
+        <Loading />
       ) : (
         <ul id="home-container">
           {data.movies.map((movie) => {
-            return (
-              <SingleMovie
-                key={movie.id}
-                movie={movie}
-                setClickedId={setClickedId}
-              />
-            );
+            return <SingleMovie key={movie.id} movie={movie} />;
           })}
         </ul>
       )}

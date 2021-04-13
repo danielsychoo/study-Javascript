@@ -1,0 +1,13 @@
+#NT-box {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  #NT-En {
+    font-size: 200%;
+  }
+  #NT-Ko {
+    font-size: 125%;
+  }
+}

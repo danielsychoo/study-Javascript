@@ -1,0 +1,13 @@
+#LD-Box {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  #LD-En {
+    font-size: 200%;
+  }
+  #LD-Ko {
+    font-size: 125%;
+  }
+}
