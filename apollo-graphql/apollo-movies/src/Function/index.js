@@ -1,1 +1,2 @@
-export { default as isTitleLong } from "./TitleLength";
+export { default as isTitleLong } from "./isTitleLong";
+export { default as handleGenres } from "./handleGenres";

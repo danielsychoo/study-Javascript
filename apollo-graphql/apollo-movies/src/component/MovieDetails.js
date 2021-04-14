@@ -1,5 +1,6 @@
 import React from "react";
 import { Suggestions } from "../component";
+import { handleGenres } from "../Function";
 import "../scss/MovieDetails.scss";
 
 const MovieDetails = ({ specificMovie, suggestions }) => {
@@ -12,12 +13,7 @@ const MovieDetails = ({ specificMovie, suggestions }) => {
     description_intro,
   } = specificMovie;
 
-  // genres 사용할 수 있게 가공
-  let lastGenre = genres.slice(-1);
-  const genresExceptLastGenre = genres.slice(0, genres.length - 1);
-  const handleTempGenres = genresExceptLastGenre.map((genre) => `${genre},`);
-  const handleGenres = handleTempGenres.concat(lastGenre);
-  console.log(handleGenres);
+  const refinedGenres = handleGenres(genres);
 
   return (
     <div>
@@ -30,7 +26,7 @@ const MovieDetails = ({ specificMovie, suggestions }) => {
             <div id="MD-info-language">Language: {language}</div>
             <div id="MD-info-genres">
               Genres:{" "}
-              {handleGenres.map((genre) => (
+              {refinedGenres.map((genre) => (
                 <span>{genre}</span>
               ))}
             </div>
