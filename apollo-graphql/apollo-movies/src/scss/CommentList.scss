@@ -1,3 +1,11 @@
 #CL-Wrapper {
-  border : 1px red solid;
+  background-color: #f1f3f5;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 8px;
+  #CL-nameDate-Box {
+    display :flex;
+    justify-content: space-between;
+    margin: 0 0 2px 0;
+  }
 }

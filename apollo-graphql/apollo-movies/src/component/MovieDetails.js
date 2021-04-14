@@ -27,7 +27,7 @@ const MovieDetails = ({ specificMovie, suggestions, comments }) => {
             <div id="MD-info-genres">
               Genres:{" "}
               {refinedGenres.map((genre) => (
-                <span>{genre}</span>
+                <span key={genre}>{genre}</span>
               ))}
             </div>
           </div>
