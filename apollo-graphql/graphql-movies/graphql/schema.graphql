@@ -1,4 +1,10 @@
 # query에 대한 type을 지정 (설명)
+type Comment {
+  id: Int!
+  nickname: String!
+  message: String!
+}
+
 type Movie {
   id: Int!
   title: String!
@@ -13,6 +19,14 @@ type Query {
   movies(limit: Int, rating: Float): [Movie]! # [Movie]으로 이루어져 있으므로 Array로 return 되어야 함
   movie(id: Int!): Movie!
   suggestions(id: Int!): [Movie]!
+  comments: [Comment]
 }
+
+type Mutation {
+  addComment(nickname: String!, message: String!): Comment!
+  deleteComment(id: Int!): String!
+}
+
+
 
 # .graphql 형식은 just text이므로 export할 필요가 없음

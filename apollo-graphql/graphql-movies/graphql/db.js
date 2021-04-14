@@ -44,3 +44,44 @@ export const getSuggestions = async (id) => {
   });
   return movies;
 };
+
+// fake comments data
+export let comments = [
+  {
+    id: 0,
+    nickname: "testuser1",
+    message: "First comment",
+  },
+  {
+    id: 1,
+    nickname: "testuser2",
+    message: "Second comment",
+  },
+  {
+    id: 2,
+    nickname: "testuser1",
+    message: "Third comment",
+  },
+];
+
+export const getComments = () => comments;
+
+export const addComment = (nickname, message) => {
+  const newComment = {
+    id: comments.length + 1,
+    nickname,
+    message,
+  };
+  comments.push(newComment);
+  return newComment;
+};
+
+export const deleteComment = (id) => {
+  const cleanedComments = comments.filter((comment) => comment.id !== id);
+  if (comments.length > 0) {
+    comments = cleanedComments;
+    return "Delete complete";
+  } else {
+    return "No more comments";
+  }
+};
