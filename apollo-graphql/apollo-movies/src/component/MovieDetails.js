@@ -1,9 +1,9 @@
 import React from "react";
-import { Suggestions } from "../component";
+import { Suggestions, Comments } from "../component";
 import { handleGenres } from "../Function";
 import "../scss/MovieDetails.scss";
 
-const MovieDetails = ({ specificMovie, suggestions }) => {
+const MovieDetails = ({ specificMovie, suggestions, comments }) => {
   const {
     medium_cover_image,
     title,
@@ -34,6 +34,7 @@ const MovieDetails = ({ specificMovie, suggestions }) => {
         </div>
         <div id="MD-description">{description_intro}</div>
       </div>
+      <Comments comments={comments} />
       <Suggestions suggestions={suggestions} />
     </div>
   );

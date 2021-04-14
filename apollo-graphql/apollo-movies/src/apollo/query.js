@@ -34,8 +34,8 @@ export const GET_SUGGESTIONS = gql`
   }
 `;
 
-export const GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS = gql`
-  query getMovieWithSuggestions($id: Int!) {
+export const GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS = gql`
+  query getMovieWithSuggestionsAndComments($id: Int!) {
     movie(id: $id) {
       title
       rating
@@ -49,6 +49,11 @@ export const GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS = gql`
       title
       rating
       medium_cover_image
+    }
+    comments {
+      id
+      nickname
+      message
     }
   }
 `;

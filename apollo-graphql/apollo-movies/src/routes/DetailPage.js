@@ -2,13 +2,13 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Loading, MovieDetails } from "../component";
-import { GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS } from "../apollo/query";
+import { GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS } from "../apollo/query";
 
 const Detail = () => {
   const { id } = useParams();
 
   const { loading, error, data } = useQuery(
-    GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS,
+    GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS,
     {
       variables: { id: parseInt(id) },
     }
@@ -26,6 +26,7 @@ const Detail = () => {
           <MovieDetails
             specificMovie={data.movie}
             suggestions={data.suggestions}
+            comments={data.comments}
           />
         )}
       </div>

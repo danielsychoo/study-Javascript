@@ -3,6 +3,7 @@ type Comment {
   id: Int!
   nickname: String!
   message: String!
+  date: String!
 }
 
 type Movie {

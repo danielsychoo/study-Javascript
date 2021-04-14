@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getDateWithFormat } from "./function";
 
 const BASE_URL = "https://yts.mx/api/v2/";
 const LIST_MOVIES_URL = `${BASE_URL}list_movies.json`;
@@ -51,16 +52,19 @@ export let comments = [
     id: 0,
     nickname: "testuser1",
     message: "First comment",
+    date: "2021-04-11",
   },
   {
     id: 1,
     nickname: "testuser2",
     message: "Second comment",
+    date: "2021-04-12",
   },
   {
     id: 2,
     nickname: "testuser1",
     message: "Third comment",
+    date: "2021-04-13",
   },
 ];
 
@@ -71,6 +75,7 @@ export const addComment = (nickname, message) => {
     id: comments.length + 1,
     nickname,
     message,
+    date: getDateWithFormat(),
   };
   comments.push(newComment);
   return newComment;
