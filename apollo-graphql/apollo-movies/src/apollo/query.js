@@ -54,6 +54,7 @@ export const GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS = gql`
       id
       nickname
       message
+      date
     }
   }
 `;
