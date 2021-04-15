@@ -12,8 +12,13 @@ const useOnChange = (initialState) => {
     },
     [state]
   );
+  const onReset = () => setState(initialState);
 
-  return [state, onChange];
+  return {
+    state,
+    onChange,
+    onReset,
+  };
 };
 
 export default useOnChange;

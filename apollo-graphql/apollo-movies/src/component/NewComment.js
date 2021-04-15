@@ -6,7 +6,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_COMMENT } from "../apollo/mutation";
 
 const NewComment = ({ refetch }) => {
-  const [inputs, setInputs] = useOnChange({
+  const { state: inputs, onChange: setInputs, onReset } = useOnChange({
     message: "",
     nickname: "",
   });
@@ -14,9 +14,10 @@ const NewComment = ({ refetch }) => {
   const [addComment] = useMutation(ADD_COMMENT);
   const handleSubmit = () => {
     addComment({ variables: inputs })
-      .then(() => refetch())
-      // .then(() => window.location.reload())
-      .then()
+      .then(() => {
+        onReset();
+        refetch();
+      })
       .catch((err) => {
         console.log(err);
       });
