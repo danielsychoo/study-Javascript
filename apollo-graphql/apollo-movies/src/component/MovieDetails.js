@@ -3,7 +3,7 @@ import { Suggestions, Comments } from "../component";
 import { handleGenres } from "../Function";
 import "../scss/MovieDetails.scss";
 
-const MovieDetails = ({ specificMovie, suggestions, comments }) => {
+const MovieDetails = ({ specificMovie, suggestions, comments, refetch }) => {
   const {
     medium_cover_image,
     title,
@@ -34,7 +34,7 @@ const MovieDetails = ({ specificMovie, suggestions, comments }) => {
         </div>
         <div id="MD-description">{description_intro}</div>
       </div>
-      <Comments comments={comments} />
+      <Comments comments={comments} refetch={refetch} />
       <Suggestions suggestions={suggestions} />
     </div>
   );

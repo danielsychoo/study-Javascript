@@ -7,7 +7,7 @@ import { GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS } from "../apollo/quer
 const Detail = () => {
   const { id } = useParams();
 
-  const { loading, error, data } = useQuery(
+  const { loading, error, data, refetch } = useQuery(
     GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS,
     {
       variables: { id: parseInt(id) },
@@ -24,6 +24,7 @@ const Detail = () => {
           <Loading />
         ) : (
           <MovieDetails
+            refetch={refetch}
             specificMovie={data.movie}
             suggestions={data.suggestions}
             comments={data.comments}
