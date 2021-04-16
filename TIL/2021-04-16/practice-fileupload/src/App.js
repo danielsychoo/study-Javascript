@@ -1,37 +1,15 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
+import { useFileUpload } from "./hooks";
 
 function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files);
-  };
-
-  const handleFileUpload = () => {
-    const formData = new FormData();
-
-    for (let i = 0; i < selectedFile.length; i++) {
-      formData.append("myfile", selectedFile[i], selectedFile[i].name);
-    }
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    };
-
-    console.log(selectedFile);
-
-    axios.post("api/uploadfile", formData, config);
-  };
+  const { selectedFile, handleFileChange, handleFileUpload } = useFileUpload();
 
   const fileData = () => {
     if (selectedFile) {
       return (
         <div>
-          <h2>File Details: {selectedFile.type}</h2>
-          <p>File Name: {selectedFile.name}</p>
+          <h2>File Details: {selectedFile[0].type}</h2>
+          <p>File Name: {selectedFile[0].name}</p>
         </div>
       );
     } else {
