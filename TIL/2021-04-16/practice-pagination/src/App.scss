@@ -1,0 +1,18 @@
+#todoList {
+  border: 1px red solid;
+  font-size: 20px;
+}
+
+#pageNumbers {
+  border: 1px blue solid;
+  display: flex;
+  & > li {
+    border: 1px yellowgreen solid;
+    list-style-type: none;
+    margin: 0 10px;
+    font-size: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
