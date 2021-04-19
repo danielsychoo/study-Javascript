@@ -1,4 +1,14 @@
 #board-wrapper {
   border: 1px blue solid;
   height: 94vh;
+  display: flex;
+  flex-direction: column;
+  #content-wrapper {
+    border : 1px red solid;
+    flex: 7 1 auto;
+  }
+  #board-pagination-wrapper {
+    border: 1px purple solid;
+    flex: 1 1 auto;
+  }
 }

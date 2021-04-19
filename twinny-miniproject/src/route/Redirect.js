@@ -4,15 +4,15 @@ import { Navigation } from "../component";
 import { useTimer } from "../hooks";
 import "../scss/Redirect.scss";
 
-const Redirect = (props) => {
+const Redirect = ({ history }) => {
   const { count, counter } = useTimer();
 
   useEffect(() => {
     counter();
     if (count === 0) {
-      return props.history.push("/");
+      return history.push("/");
     }
-  }, [count, counter, props.history]);
+  }, [count, counter, history]);
 
   return (
     <div>
