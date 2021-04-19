@@ -1,6 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, ContentDetail, CreateContent, Join, NotFound } from "./route";
+import {
+  Home,
+  ContentDetail,
+  CreateContent,
+  Join,
+  Redirect,
+  NotFound,
+} from "./route";
 
 function App() {
   return (
@@ -11,6 +18,7 @@ function App() {
           <Route path="/join" render={() => <Join />} />
           <Route path="/content/:id" render={() => <ContentDetail />} />
           <Route path="/createcontent" render={() => <CreateContent />} />
+          <Route path="/redirect" render={() => <Redirect />} />
           <Route path="*" render={() => <NotFound />} />
         </Switch>
       </Router>

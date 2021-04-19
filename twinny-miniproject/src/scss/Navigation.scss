@@ -1,0 +1,20 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#nav-wrapper {
+  border: 1px red solid;
+  height: 6vh;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  #nav-logo,
+  #nav-loginBtn {
+    width: 10%;
+    @include flex-center;
+  }
+}

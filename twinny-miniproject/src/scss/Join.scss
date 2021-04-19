@@ -1,0 +1,46 @@
+@mixin JC-button {
+  border: none;
+  font-weight: bold;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+#JC-wrapper {
+  margin: 200px auto;
+  padding: 20px;
+  width: 310px;
+  height: 360px;
+  & > div {
+    margin: 7px 0;
+  }
+  & > input {
+    width: 220px;
+    height: 25px;
+    border-radius: 5px;
+    padding: 0 5px;
+  }
+  .JC-inputBtn-box {
+    & > input {
+      width: 220px;
+      height: 25px;
+      border-radius: 5px;
+      padding: 0 5px;
+    }
+    & > button {
+      margin: 0 0 0 5px;
+      @include JC-button;
+    }
+    .JC-icons {
+      margin: 0 0 2px 9px;
+      font-size: 25px;
+      vertical-align: middle;
+    }
+  }
+  & > button {
+    position: relative;
+    display: block;
+    left: 180px;
+    margin: 10px 0 0 0;
+    @include JC-button;
+  }
+}
