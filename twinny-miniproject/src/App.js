@@ -8,20 +8,23 @@ import {
   Redirect,
   NotFound,
 } from "./route";
+import { CookiesProvider } from "react-cookie";
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/" render={() => <Home />} />
-          <Route path="/join" render={() => <Join />} />
-          <Route path="/content/:id" render={() => <ContentDetail />} />
-          <Route path="/createcontent" render={() => <CreateContent />} />
-          <Route path="/redirect" render={() => <Redirect />} />
-          <Route path="*" render={() => <NotFound />} />
-        </Switch>
-      </Router>
+      <CookiesProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/" render={() => <Home />} />
+            <Route path="/join" render={() => <Join />} />
+            <Route path="/content/:id" render={() => <ContentDetail />} />
+            <Route path="/createcontent" render={() => <CreateContent />} />
+            <Route path="/redirect" render={() => <Redirect />} />
+            <Route path="*" render={() => <NotFound />} />
+          </Switch>
+        </Router>
+      </CookiesProvider>
     </div>
   );
 }
