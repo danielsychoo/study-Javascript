@@ -11,7 +11,9 @@ const Navigation = () => {
   return (
     <>
       <div id="nav-wrapper">
-        <div id="nav-logo">새로고침</div>
+        <a id="nav-logo" href="/">
+          새로고침
+        </a>
         <div id="nav-loginBtn" onClick={handleLogin}>
           로그인
         </div>

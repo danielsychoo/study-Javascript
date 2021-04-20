@@ -6,41 +6,42 @@
 }
 
 #JC-wrapper {
-  margin: 200px auto;
+  margin: 120px auto;
   padding: 20px;
-  width: 310px;
-  height: 360px;
+  width: 450px;
+  height: 600px;
   & > div {
     margin: 7px 0;
+    font-size: 30px;
   }
   & > input {
-    width: 220px;
-    height: 25px;
+    width: 380px;
+    height: 40px;
     border-radius: 5px;
     padding: 0 5px;
   }
   .JC-inputBtn-box {
     & > input {
-      width: 220px;
-      height: 25px;
+      width: 380px;
+      height: 40px;
+      font-size: 16px;
       border-radius: 5px;
       padding: 0 5px;
     }
     & > button {
-      margin: 0 0 0 5px;
-      @include JC-button;
+      margin: 15px 0 0 294px;
+      width: 100px;
+      height: 4vh;
+      border: 1px #868e96 solid;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: blod;
+      background-color: #ffffff;
     }
     .JC-icons {
-      margin: 0 0 2px 9px;
-      font-size: 25px;
+      margin: 3px 0 0 5px;
+      font-size: 35px;
       vertical-align: middle;
     }
-  }
-  & > button {
-    position: relative;
-    display: block;
-    left: 180px;
-    margin: 10px 0 0 0;
-    @include JC-button;
   }
 }

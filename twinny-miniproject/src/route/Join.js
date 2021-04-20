@@ -69,7 +69,7 @@ const Join = ({ history }) => {
     <div>
       <Navigation />
       <div id="JC-wrapper">
-        <h2>회원가입</h2>
+        <h1>회원가입</h1>
         <div>ID</div>
         <input
           type="text"
@@ -119,7 +119,7 @@ const Join = ({ history }) => {
             value={state.email}
             onChange={onChange}
           />
-          <button onClick={handleJoin}>회원가입</button>
+          <button onClick={handleJoin}>가입하기</button>
         </div>
       </div>
     </div>

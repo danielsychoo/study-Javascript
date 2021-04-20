@@ -1,14 +1,97 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin text-bold-center {
+  @include flex-center;
+  font-weight: bold;
+}
+
 #board-wrapper {
-  border: 1px blue solid;
   height: 94vh;
   display: flex;
   flex-direction: column;
   #content-wrapper {
-    border : 1px red solid;
-    flex: 7 1 auto;
+    flex: 7 1 0;
+    @include flex-center;
+    #board-table {
+      border-top: 1px #dee2e6 solid;
+      padding: 0;
+      width: 92%;
+      height: 77vh;
+      font-size: 170%;
+      .tr-link {
+        color: #000000;
+        text-decoration: none;
+      }
+      .subject-board-tr {
+        display: flex;
+        height: 7vh;
+        #subject-board-num {
+          flex: 2 1 0;
+          @include text-bold-center;
+        }
+        #subject-board-subject {
+          flex: 10 1 18px;
+          @include text-bold-center;
+        }
+        #subject-board-writer {
+          flex: 2 1 0;
+          @include text-bold-center;
+        }
+        #subject-board-date {
+          flex: 3 1 0;
+          @include text-bold-center;
+        }
+      }
+      .board-tr {
+        display: flex;
+        height: 6vh;
+        &:hover {
+          background-color: #f8f9fa;
+        }
+        .board-td {
+          border-top: 1px #dee2e6 solid;
+          border-bottom: 1px #dee2e6 solid;
+        }
+
+        #board-num {
+          flex: 2 1 0;
+          @include flex-center;
+        }
+        #board-subject {
+          flex: 10 1 0;
+          padding: 0 0 0 20px;
+          display:flex;
+          align-items: center;
+        }
+        #board-writer {
+          flex: 2 1 0;
+          @include flex-center;
+        }
+        #board-date {
+          flex: 3 1 0;
+          @include flex-center;
+        }
+      }
+    }
   }
   #board-pagination-wrapper {
+    padding: 0;
     border: 1px purple solid;
     flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    & > li {
+      margin: 0 10px;
+      list-style-type: none;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .FL-pagination {
+      color: #868e96;
+    }
   }
 }
