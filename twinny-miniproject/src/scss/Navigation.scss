@@ -11,12 +11,35 @@
   justify-content: space-between;
   font-size: 20px;
   font-weight: bold;
-  cursor: pointer;
-  #nav-logo,
+  #nav-left-box {
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    #nav-logo,
+    #nav-writeContent-btn {
+      color: #000000;
+      background-color: #ffffff;
+      border: none;
+      font-weight: bold;
+      text-decoration: none;
+      @include flex-center;
+      cursor: pointer;
+    }
+  }
   #nav-loginBtn {
     width: 10%;
     color: #000000;
     text-decoration: none;
+    cursor: pointer;
     @include flex-center;
+  }
+  #nav-after-login {
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    & > div:nth-last-child(1) {
+      cursor: pointer;
+    }
   }
 }

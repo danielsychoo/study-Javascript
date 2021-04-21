@@ -1,10 +1,9 @@
 import React from "react";
-import { Navigation, Board } from "../component";
+import { Board } from "../component";
 
 const Home = () => {
   return (
     <div>
-      <Navigation />
       <Board />
     </div>
   );

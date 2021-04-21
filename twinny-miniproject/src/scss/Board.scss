@@ -29,6 +29,7 @@
       .subject-board-tr {
         display: flex;
         height: 7vh;
+        border-bottom: 1px #dee2e6 solid;
         #subject-board-num {
           flex: 2 1 0;
           @include text-bold-center;
@@ -48,12 +49,11 @@
       }
       .board-tr {
         display: flex;
-        height: 6vh;
+        height: 7vh;
         &:hover {
           background-color: #f8f9fa;
         }
         .board-td {
-          border-top: 1px #dee2e6 solid;
           border-bottom: 1px #dee2e6 solid;
         }
 
@@ -80,7 +80,6 @@
   }
   #board-pagination-wrapper {
     padding: 0;
-    border: 1px purple solid;
     flex: 1 1 auto;
     display: flex;
     justify-content: center;

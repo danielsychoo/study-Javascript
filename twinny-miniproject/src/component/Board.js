@@ -8,30 +8,32 @@ import qs from "qs";
 
 const Board = () => {
   const [boardContent, setBoardContent] = useState({
-    content: [],
-    currentPage: 1,
+    content: [
+      {
+        subject_id: 1,
+        subject: "subject",
+        content: "content",
+        id: "id",
+        date: "2021-04-16",
+      },
+    ],
     count: 0,
   });
-  const { content, currentPage, count } = boardContent; // state 비구조화 할당
+  const { content, count } = boardContent; // state 비구조화 할당
   const { clickedPage, handleClickedPage } = useClickedPage(); // user가 click한 값으로 바꿈
   const boardPages = countPageLength(count); // page의 전체 값
 
   useEffect(() => {
     axios
-      .post(
-        "/read/pagination",
-        qs.stringify({ page: clickedPage, limit: "10" })
-      )
+      .post("/read/pagination", qs.stringify({ page: clickedPage, limit: 10 }))
       .then((res) => {
         setBoardContent({
           content: res.data.items,
-          currentPage: clickedPage,
           count: res.data.total_count,
         });
       })
       .catch((err) => console.log(err));
   }, [clickedPage]);
-  console.log(currentPage);
 
   return (
     <div id="board-wrapper">
@@ -51,23 +53,23 @@ const Board = () => {
               날짜
             </div>
           </li>
-          {content.map((content) => {
-            const refineDate = content.date.slice(0, 10); // timestamp 형식에서 필요한 값만 정제
+          {content.map((el) => {
+            const refineDate = el.date.slice(0, 10); // timestamp 형식에서 필요한 값만 정제
             return (
               <Link
-                key={content.subject_id}
+                key={el.subject_id}
                 className="tr-link"
-                to={`/content/${content.subject_id}`}
+                to={`/content/${el.subject_id}`}
               >
                 <li className="board-tr">
                   <div id="board-num" className="board-td">
-                    {content.subject_id}
+                    {el.subject_id}
                   </div>
                   <div id="board-subject" className="board-td">
-                    {content.subject}
+                    {el.subject}
                   </div>
                   <div id="board-writer" className="board-td">
-                    {content.id}
+                    {el.id}
                   </div>
                   <div id="board-date" className="board-td">
                     {refineDate}

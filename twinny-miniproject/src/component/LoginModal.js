@@ -4,28 +4,34 @@ import { useOnChange } from "../hooks";
 import "../scss/LoginModal.scss";
 import axios from "axios";
 import qs from "qs";
+import Swal from "sweetalert2";
 
-const LoginModal = () => {
+const LoginModal = ({ handleModal, handleUserId }) => {
   const { state, onChange } = useOnChange({
     id: "",
     password: "",
   });
   const { id, password } = state;
 
-  const handleLogin = async () => {
-    await axios
-      // .get("http://192.168.0.218:8080/read/all")
-      .post("/login", qs.stringify({ id, password }), {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        // crossDomain: true,
-        // HttpOnly: true,
-        // withCredentials: true,
+  const handleLogin = () => {
+    axios
+      .post("/login", qs.stringify({ id, password }))
+      .then((res) => {
+        console.log(res);
+
+        handleUserId(id);
+        handleModal();
       })
-      .then((res) => console.log(res))
-      .then(() => console.log(document.cookie))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // API 명세서와 달리 정확한 아이디 비번외에 모두 500에러
+        console.log(err);
+        handleModal();
+        Swal.fire({
+          icon: "error",
+          title: "정보가 틀립니다.",
+          text: "아이디와 비밀번호를 확인하세요.",
+        });
+      });
   };
 
   return (
