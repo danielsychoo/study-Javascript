@@ -12,6 +12,7 @@
     "normalize.css": "^8.0.1",
     "qs": "^6.7.0",
     "react": "^17.0.2",
+    "react-cookie": "^4.0.3",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
@@ -42,5 +43,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://192.168.0.218:8080/"
 }

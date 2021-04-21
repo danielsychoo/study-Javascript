@@ -19,7 +19,7 @@ const Board = () => {
   useEffect(() => {
     axios
       .post(
-        "http://192.168.0.218:8080/read/pagination",
+        "/read/pagination",
         qs.stringify({ page: clickedPage, limit: "10" })
       )
       .then((res) => {

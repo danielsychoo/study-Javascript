@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   Home,
@@ -8,12 +8,11 @@ import {
   Redirect,
   NotFound,
 } from "./route";
-import { CookiesProvider } from "react-cookie";
 
-function App() {
-  return (
-    <div className="App">
-      <CookiesProvider>
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
         <Router>
           <Switch>
             <Route exact path="/" render={() => <Home />} />
@@ -24,9 +23,9 @@ function App() {
             <Route path="*" render={() => <NotFound />} />
           </Switch>
         </Router>
-      </CookiesProvider>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;

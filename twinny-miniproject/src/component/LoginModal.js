@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useOnChange } from "../hooks";
 import "../scss/LoginModal.scss";
-import Cookies from "js-cookie";
 import axios from "axios";
 import qs from "qs";
 
@@ -13,18 +12,19 @@ const LoginModal = () => {
   });
   const { id, password } = state;
 
-  const [cookie, setCookie] = useState(null);
-
-  const handleLogin = () => {
-    axios
-      .post("http://192.168.0.218:8080/login", qs.stringify({ id, password }))
-      .then((res) => {
-        setCookie({
-          cookie: Cookies.get(res),
-        });
-
-        console.log(cookie);
+  const handleLogin = async () => {
+    await axios
+      // .get("http://192.168.0.218:8080/read/all")
+      .post("/login", qs.stringify({ id, password }), {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        // crossDomain: true,
+        // HttpOnly: true,
+        // withCredentials: true,
       })
+      .then((res) => console.log(res))
+      .then(() => console.log(document.cookie))
       .catch((err) => console.log(err));
   };
 
