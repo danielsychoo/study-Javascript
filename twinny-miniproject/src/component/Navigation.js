@@ -42,9 +42,9 @@ const Navigation = ({ userId, handleUserId, history }) => {
           <a id="nav-logo" href="/">
             새로고침
           </a>
-          <button id="nav-writeContent-btn" onClick={handleCreateContent}>
+          <div id="nav-writeContent-btn" onClick={handleCreateContent}>
             새글쓰기
-          </button>
+          </div>
         </div>
         {userId ? (
           <div id="nav-after-login">

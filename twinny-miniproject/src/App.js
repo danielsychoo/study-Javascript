@@ -14,7 +14,6 @@ import Cookies from "js-cookie";
 
 const App = () => {
   const { userId, handleUserId } = useUserId();
-  console.log(Cookies.get("session"));
 
   return (
     <Router>
