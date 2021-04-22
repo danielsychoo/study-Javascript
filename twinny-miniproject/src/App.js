@@ -10,7 +10,6 @@ import {
 } from "./route";
 import { Navigation } from "./component";
 import { useUserId } from "./hooks";
-import Cookies from "js-cookie";
 
 const App = () => {
   const { userId, handleUserId } = useUserId();

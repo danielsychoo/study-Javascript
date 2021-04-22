@@ -1,15 +1,12 @@
 import React from "react";
-import { Navigation } from "../component";
-import { useOnChange } from "../hooks";
+import { useOnChange, useAxios } from "../hooks";
 import { withRouter } from "react-router-dom"; // props.history.push를 사용하기 위해
 import { FcCheckmark, FcCancel } from "react-icons/fc";
-import { emailValidation } from "../function";
-import Swal from "sweetalert2";
-import axios from "axios";
-import qs from "qs";
 import "../scss/Join.scss";
 
 const Join = ({ history }) => {
+  const { axios_handleJoin } = useAxios();
+
   const { state, onChange, onReset } = useOnChange({
     id: "",
     password: "",
@@ -17,57 +14,10 @@ const Join = ({ history }) => {
     name: "",
     email: "",
   });
-
-  const handleJoin = () => {
-    const { id, password, password_confirm, name, email } = state;
-    if (!id || !password || !password_confirm || !name || !email) {
-      Swal.fire({
-        icon: "error",
-        title: "빈칸이 존재합니다.",
-        text: "모든 칸을 채워주세요.",
-      });
-    } else if (password !== password_confirm) {
-      Swal.fire({
-        icon: "error",
-        title: "비밀번호가 동일하지 않습니다.",
-        text: "비밀번호를 확인하세요.",
-      });
-    } else if (!emailValidation(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "잘못된 이메일 형식입니다.",
-        text: "이메일을 확인하세요.",
-      });
-    } else {
-      axios
-        .post(
-          "http://192.168.0.218:8080/join",
-          qs.stringify({
-            id: id,
-            password: password,
-            name: name,
-            email: email,
-          })
-        )
-        .then((res) => {
-          if (res.data.error) {
-            Swal.fire({
-              icon: "error",
-              title: "이미 존재하는 ID 입니다.",
-              text: "다른 ID를 선택하세요.",
-            });
-          } else {
-            onReset();
-            history.push("/redirect");
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  };
+  const { id, password, password_confirm, name, email } = state;
 
   return (
     <div>
-      <Navigation />
       <div id="JC-wrapper">
         <h1>회원가입</h1>
         <div>ID</div>
@@ -119,7 +69,21 @@ const Join = ({ history }) => {
             value={state.email}
             onChange={onChange}
           />
-          <button onClick={handleJoin}>가입하기</button>
+          <button
+            onClick={() =>
+              axios_handleJoin(
+                id,
+                password,
+                password_confirm,
+                name,
+                email,
+                history,
+                onReset
+              )
+            }
+          >
+            가입하기
+          </button>
         </div>
       </div>
     </div>

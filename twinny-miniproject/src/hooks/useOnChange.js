@@ -14,7 +14,7 @@ const useOnChange = (initialState) => {
     [state]
   );
 
-  const onReset = () => setState(initialState);
+  const onReset = useCallback(() => setState(initialState), [initialState]);
 
   return { state, onChange, onReset };
 };

@@ -1,39 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useClickedPage } from "../hooks";
-import { countPageLength } from "../function";
+import { useClickedPage, useSwal, useAxios, useFunction } from "../hooks";
 import "../scss/Board.scss";
-import axios from "axios";
-import qs from "qs";
+import Cookies from "js-cookie";
 
 const Board = () => {
+  const { swal_loginToRead } = useSwal();
+  const { axios_getContentPagination } = useAxios();
+  const { countPageLength } = useFunction();
+  const { clickedPage, handleClickedPage } = useClickedPage();
+
   const [boardContent, setBoardContent] = useState({
-    content: [
-      {
-        subject_id: 1,
-        subject: "subject",
-        content: "content",
-        id: "id",
-        date: "2021-04-16",
-      },
-    ],
+    content: [],
     count: 0,
   });
   const { content, count } = boardContent; // state 비구조화 할당
-  const { clickedPage, handleClickedPage } = useClickedPage(); // user가 click한 값으로 바꿈
+
   const boardPages = countPageLength(count); // page의 전체 값
 
   useEffect(() => {
-    axios
-      .post("/read/pagination", qs.stringify({ page: clickedPage, limit: 10 }))
-      .then((res) => {
-        setBoardContent({
-          content: res.data.items,
-          count: res.data.total_count,
-        });
-      })
-      .catch((err) => console.log(err));
-  }, [clickedPage]);
+    axios_getContentPagination(clickedPage, setBoardContent);
+  }, [clickedPage, axios_getContentPagination]);
 
   return (
     <div id="board-wrapper">
@@ -55,28 +42,55 @@ const Board = () => {
           </li>
           {content.map((el) => {
             const refineDate = el.date.slice(0, 10); // timestamp 형식에서 필요한 값만 정제
-            return (
-              <Link
-                key={el.subject_id}
-                className="tr-link"
-                to={`/content/${el.subject_id}`}
-              >
-                <li className="board-tr">
-                  <div id="board-num" className="board-td">
-                    {el.subject_id}
-                  </div>
-                  <div id="board-subject" className="board-td">
-                    {el.subject}
-                  </div>
-                  <div id="board-writer" className="board-td">
-                    {el.id}
-                  </div>
-                  <div id="board-date" className="board-td">
-                    {refineDate}
-                  </div>
-                </li>
-              </Link>
-            );
+            const currentCookie = Cookies.get("session");
+
+            if (currentCookie) {
+              return (
+                <Link
+                  key={el.subject_id}
+                  className="tr-link"
+                  to={`/content/${el.subject_id}`}
+                >
+                  <li className="board-tr">
+                    <div id="board-num" className="board-td">
+                      {el.subject_id}
+                    </div>
+                    <div id="board-subject" className="board-td">
+                      {el.subject}
+                    </div>
+                    <div id="board-writer" className="board-td">
+                      {el.id}
+                    </div>
+                    <div id="board-date" className="board-td">
+                      {refineDate}
+                    </div>
+                  </li>
+                </Link>
+              );
+            } else {
+              return (
+                <div
+                  key={el.subject_id}
+                  className="tr-link"
+                  onClick={swal_loginToRead}
+                >
+                  <li className="board-tr">
+                    <div id="board-num" className="board-td">
+                      {el.subject_id}
+                    </div>
+                    <div id="board-subject" className="board-td">
+                      {el.subject}
+                    </div>
+                    <div id="board-writer" className="board-td">
+                      {el.id}
+                    </div>
+                    <div id="board-date" className="board-td">
+                      {refineDate}
+                    </div>
+                  </li>
+                </div>
+              );
+            }
           })}
         </ul>
       </div>
