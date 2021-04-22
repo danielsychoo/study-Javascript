@@ -15,11 +15,30 @@ const useAxios = () => {
   } = useSwal();
   const { emailValidation } = useFunction();
 
-  const axios_getSpecificContent = useCallback((subject_id) => {
+  const axios_getSpecificContent = useCallback((subject_id, setContentData) => {
     axios
       .post("/read/sep", qs.stringify({ subject_id }))
       .then((res) => {
-        console.log(res.data);
+        const {
+          subject,
+          content,
+          id,
+          subject_id,
+          file,
+          filename,
+          date,
+        } = res.data;
+        const refineDate = date.slice(0, 10);
+        const filepath = file;
+        setContentData({
+          subject,
+          content,
+          id,
+          subject_id,
+          filepath,
+          filename,
+          refineDate,
+        });
       })
       .catch((err) => console.log(err));
   }, []);
@@ -111,12 +130,31 @@ const useAxios = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const axios_getCommentPagination = useCallback(
+    (subject_id, clickedPage, setContentComments) => {
+      axios
+        .post(
+          "/comment/pagination",
+          qs.stringify({ subject_id, page: clickedPage, limit: 5 })
+        )
+        .then((res) => {
+          setContentComments({
+            comments: res.data.comments,
+            count: res.data.total_count,
+          });
+        })
+        .catch((err) => console.log(err));
+    },
+    []
+  );
+
   return {
     axios_getSpecificContent,
     axios_handleJoin,
     axios_getContentPagination,
     axios_handleLogin,
     axios_handleLogout,
+    axios_getCommentPagination,
   };
 };
 
