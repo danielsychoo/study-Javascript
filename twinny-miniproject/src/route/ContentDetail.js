@@ -13,7 +13,7 @@ const ContentDetail = () => {
     content: "",
     id: "",
     subject_id: 0,
-    file: "",
+    filepath: "",
     filename: "",
     refineDate: "",
   });
