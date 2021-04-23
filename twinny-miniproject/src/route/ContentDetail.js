@@ -26,10 +26,12 @@ const ContentDetail = ({ userId }) => {
     <div id="CD-wrapper">
       <ContentBox contentData={contentData} />
       <div id="CD-button-box">
-        <div>게시글 수정</div>
-        <div onClick={() => axios_deleteContent(userId, params.id)}>
+        <button>게시글 수정</button>
+        <button
+          onClick={() => axios_deleteContent(userId, contentData.id, params.id)}
+        >
           게시글 삭제
-        </div>
+        </button>
       </div>
       <Comments />
     </div>

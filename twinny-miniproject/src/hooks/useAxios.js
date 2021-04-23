@@ -12,6 +12,9 @@ const useAxios = () => {
     swal_wrongEmail,
     swal_existId,
     swal_loginWrongInfo,
+    swal_subjectIsBlank,
+    swal_contentIsBlank,
+    swal_youAreNotWriter,
   } = useSwal();
   const { emailValidation } = useFunction();
 
@@ -161,7 +164,7 @@ const useAxios = () => {
       formData.append("subject", subject);
       formData.append("content", content);
 
-      // ! 파일이 없으면 안넣기 위한 분기 (아직 이부분 미완)
+      // ! 파일이 없으면 안넣기 위한 분기 (아직 이부분 미완, 현재 500 에러)
       if (filename) {
         const blob = new Blob([file], { type: "image" });
         formData.append("file", blob, refineFilename);
@@ -173,42 +176,35 @@ const useAxios = () => {
         },
       };
 
+      if (!subject) {
+        swal_subjectIsBlank();
+      }
+      if (!content) {
+        swal_contentIsBlank();
+      }
+
       axios
         .post("/board/write", formData, config)
         .then(() => history.push("/"))
         .catch((err) => console.log(err));
     },
-    []
+    [swal_subjectIsBlank, swal_contentIsBlank]
   );
 
-  // const axios_createNewContent = useCallback((subject, content, file) => {
-  //   const formData = new FormData();
-  //   // const blobFile = new Blob(file, { type: "image/png" });
-
-  //   formData.append("subject", subject);
-  //   formData.append("content", content);
-  //   formData.append("file");
-
-  //   const config = {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //     },
-  //   };
-
-  //   axios
-  //     .post("/board/write", { subject, file, file }, config)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  const axios_deleteContent = useCallback((writer, subject_id) => {
-    axios
-      .post("/board/delete", qs.stringify({ writer, subject_id }))
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
+  const axios_deleteContent = useCallback(
+    (writer, content_id, subject_id) => {
+      // 유저가 쓴 글인지 확인로직
+      if (writer === content_id) {
+        axios
+          .post("/board/delete", qs.stringify({ writer, subject_id }))
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err));
+      } else {
+        swal_youAreNotWriter();
+      }
+    },
+    [swal_youAreNotWriter]
+  );
 
   return {
     axios_getSpecificContent,

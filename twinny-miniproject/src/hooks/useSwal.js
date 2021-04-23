@@ -58,6 +58,30 @@ const useSwal = () => {
     });
   }, []);
 
+  const swal_subjectIsBlank = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "제목이 비어있습니다.",
+      text: "제목을 채워주세요.",
+    });
+  }, []);
+
+  const swal_contentIsBlank = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "본문이 비어있습니다.",
+      text: "본문을 채워주세요.",
+    });
+  }, []);
+
+  const swal_youAreNotWriter = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "지울 수 없습니다.",
+      text: "자신이 쓴 글만 지울 수 있습니다.",
+    });
+  }, []);
+
   return {
     swal_emptyInput,
     swal_wrongPassword,
@@ -66,6 +90,9 @@ const useSwal = () => {
     swal_loginToRead,
     swal_loginWrongInfo,
     swal_loginToWrite,
+    swal_subjectIsBlank,
+    swal_contentIsBlank,
+    swal_youAreNotWriter,
   };
 };
 
