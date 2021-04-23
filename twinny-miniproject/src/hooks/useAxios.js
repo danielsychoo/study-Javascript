@@ -148,26 +148,60 @@ const useAxios = () => {
     []
   );
 
-  const axios_createNewContent = useCallback((subject, content, file) => {
-    const formData = new FormData();
+  const axios_createNewContent = useCallback(
+    (subject, content, filename, file, setFile, history) => {
+      // 파일은 아래 두줄로 따로 받아옴 (filelist때문)
+      const fileInput = document.querySelector("#fileInput");
+      setFile(fileInput.files[0]);
 
-    formData.append("subject", subject, subject);
-    formData.append("content", content, content);
-    formData.append("file", file, file);
+      const refineFilename = filename.split("\\")[2]; // 파일이름 추출 및 정제
 
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
+      const formData = new FormData();
 
-    axios
-      .post("/board/write", qs.stringify({ subject, content, file }), config)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+      formData.append("subject", subject);
+      formData.append("content", content);
+
+      // ! 파일이 없으면 안넣기 위한 분기 (아직 이부분 미완)
+      if (filename) {
+        const blob = new Blob([file], { type: "image" });
+        formData.append("file", blob, refineFilename);
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      axios
+        .post("/board/write", formData, config)
+        .then(() => history.push("/"))
+        .catch((err) => console.log(err));
+    },
+    []
+  );
+
+  // const axios_createNewContent = useCallback((subject, content, file) => {
+  //   const formData = new FormData();
+  //   // const blobFile = new Blob(file, { type: "image/png" });
+
+  //   formData.append("subject", subject);
+  //   formData.append("content", content);
+  //   formData.append("file");
+
+  //   const config = {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //   };
+
+  //   axios
+  //     .post("/board/write", { subject, file, file }, config)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const axios_deleteContent = useCallback((writer, subject_id) => {
     axios
