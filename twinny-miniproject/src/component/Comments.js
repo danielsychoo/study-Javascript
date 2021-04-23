@@ -8,14 +8,16 @@ const Comments = () => {
   const { clickedPage, handleClickedPage } = useClickedPage();
   const { axios_getCommentPagination } = useAxios();
   const params = useParams();
-  console.log(params.id);
+  // console.log(params.id);
 
   const [contentComments, setContentComments] = useState({
     comments: [],
     count: 0,
   });
 
-  // ? const { comments, count } = contentComments; // state 비구조화 할당
+  const { comments, count } = contentComments; // state 비구조화 할당
+  console.log(comments);
+  console.log(count);
 
   // ? const commentsPages = countPageLength(count); // page의 전체 값
 
@@ -23,9 +25,14 @@ const Comments = () => {
     axios_getCommentPagination(params.id, clickedPage, setContentComments);
   }, [params.id, clickedPage, axios_getCommentPagination]);
 
-  console.log(contentComments);
-
-  return <div id="comments-wrapper">Comments Component</div>;
+  return (
+    <div id="comments-wrapper">
+      {/* {count === 0 ? <></> : <div>Comments Component</div>} */}
+      <div id="comments-list"></div>
+      <div id="write-comment"></div>
+      <div id="comments-pagination"></div>
+    </div>
+  );
 };
 
 export default Comments;

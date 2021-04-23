@@ -4,8 +4,8 @@ import { ContentBox, Comments } from "../component";
 import { useAxios } from "../hooks";
 import "../scss/ContentDetail.scss";
 
-const ContentDetail = () => {
-  const { axios_getSpecificContent } = useAxios();
+const ContentDetail = ({ userId }) => {
+  const { axios_getSpecificContent, axios_deleteContent } = useAxios();
   const params = useParams();
 
   const [contentData, setContentData] = useState({
@@ -23,11 +23,13 @@ const ContentDetail = () => {
   }, [axios_getSpecificContent, params.id]);
 
   return (
-    <div id="CC-wrapper">
+    <div id="CD-wrapper">
       <ContentBox contentData={contentData} />
-      <div id="CC-button-box">
+      <div id="CD-button-box">
         <div>게시글 수정</div>
-        <div>게시글 삭제</div>
+        <div onClick={() => axios_deleteContent(userId, params.id)}>
+          게시글 삭제
+        </div>
       </div>
       <Comments />
     </div>

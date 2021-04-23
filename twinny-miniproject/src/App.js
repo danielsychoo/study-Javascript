@@ -21,7 +21,10 @@ const App = () => {
         <Switch>
           <Route exact path="/" render={() => <Home />} />
           <Route path="/join" render={() => <Join />} />
-          <Route path="/content/:id" render={() => <ContentDetail />} />
+          <Route
+            path="/content/:id"
+            render={() => <ContentDetail userId={userId} />}
+          />
           <Route path="/createcontent" render={() => <CreateContent />} />
           <Route path="/redirect" render={() => <Redirect />} />
           <Route path="*" render={() => <NotFound />} />

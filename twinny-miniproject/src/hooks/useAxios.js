@@ -148,6 +148,34 @@ const useAxios = () => {
     []
   );
 
+  const axios_createNewContent = useCallback((subject, content, file) => {
+    const formData = new FormData();
+
+    formData.append("subject", subject, subject);
+    formData.append("content", content, content);
+    formData.append("file", file, file);
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    axios
+      .post("/board/write", qs.stringify({ subject, content, file }), config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const axios_deleteContent = useCallback((writer, subject_id) => {
+    axios
+      .post("/board/delete", qs.stringify({ writer, subject_id }))
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, []);
+
   return {
     axios_getSpecificContent,
     axios_handleJoin,
@@ -155,6 +183,8 @@ const useAxios = () => {
     axios_handleLogin,
     axios_handleLogout,
     axios_getCommentPagination,
+    axios_createNewContent,
+    axios_deleteContent,
   };
 };
 
