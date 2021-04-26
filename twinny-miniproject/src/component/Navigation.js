@@ -8,14 +8,14 @@ import "../scss/Navigation.scss";
 const Navigation = ({ userId, handleUserId, history }) => {
   const { isModalOn, handleModal } = useModal();
   const { axios_handleLogout } = useAxios();
-  const { handleRefresh, goToHandleCreateContent } = useFunction();
+  const { handleGoBack, goToHandleCreateContent } = useFunction();
 
   return (
     <>
       <div id="nav-wrapper">
         <div id="nav-left-box">
-          <div id="nav-logo" onClick={() => handleRefresh(history)}>
-            새로고침
+          <div id="nav-logo" onClick={() => handleGoBack(history)}>
+            뒤로가기
           </div>
           <div
             id="nav-writeContent-btn"

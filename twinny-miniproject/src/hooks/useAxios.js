@@ -164,10 +164,11 @@ const useAxios = () => {
       formData.append("subject", subject);
       formData.append("content", content);
 
-      // ! 파일이 없으면 안넣기 위한 분기 (아직 이부분 미완, 현재 500 에러)
       if (filename) {
         const blob = new Blob([file], { type: "image" });
         formData.append("file", blob, refineFilename);
+      } else {
+        formData.append("file", {}); // 없으면 빈객체로
       }
 
       const config = {
@@ -192,12 +193,12 @@ const useAxios = () => {
   );
 
   const axios_deleteContent = useCallback(
-    (writer, content_id, subject_id) => {
+    (writer, content_id, subject_id, history) => {
       // 유저가 쓴 글인지 확인로직
       if (writer === content_id) {
         axios
           .post("/board/delete", qs.stringify({ writer, subject_id }))
-          .then((res) => console.log(res))
+          .then(() => history.push("/"))
           .catch((err) => console.log(err));
       } else {
         swal_youAreNotWriter();

@@ -26,7 +26,7 @@ const useFunction = () => {
     history.push("/join");
   }, []);
 
-  const handleRefresh = useCallback((history) => history.push("/"), []);
+  const handleGoBack = useCallback((history) => history.goBack(), []);
 
   const goToHandleCreateContent = useCallback(
     (userId, history) => {
@@ -40,7 +40,7 @@ const useFunction = () => {
     emailValidation,
     countPageLength,
     goToJoin,
-    handleRefresh,
+    handleGoBack,
     goToHandleCreateContent,
   };
 };

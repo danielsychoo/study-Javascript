@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, withRouter } from "react-router-dom";
 import { ContentBox, Comments } from "../component";
 import { useAxios } from "../hooks";
 import "../scss/ContentDetail.scss";
 
-const ContentDetail = ({ userId }) => {
+const ContentDetail = ({ userId, history }) => {
   const { axios_getSpecificContent, axios_deleteContent } = useAxios();
   const params = useParams();
 
@@ -28,7 +28,9 @@ const ContentDetail = ({ userId }) => {
       <div id="CD-button-box">
         <button>게시글 수정</button>
         <button
-          onClick={() => axios_deleteContent(userId, contentData.id, params.id)}
+          onClick={() =>
+            axios_deleteContent(userId, contentData.id, params.id, history)
+          }
         >
           게시글 삭제
         </button>
@@ -38,4 +40,4 @@ const ContentDetail = ({ userId }) => {
   );
 };
 
-export default ContentDetail;
+export default withRouter(ContentDetail);
