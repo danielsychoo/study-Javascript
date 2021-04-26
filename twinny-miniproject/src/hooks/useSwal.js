@@ -82,6 +82,14 @@ const useSwal = () => {
     });
   }, []);
 
+  const swal_youCantModifyContent = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "수정할 수 없습니다.",
+      text: "자신이 쓴 글만 수정할 수 있습니다.",
+    });
+  }, []);
+
   return {
     swal_emptyInput,
     swal_wrongPassword,
@@ -93,6 +101,7 @@ const useSwal = () => {
     swal_subjectIsBlank,
     swal_contentIsBlank,
     swal_youAreNotWriter,
+    swal_youCantModifyContent,
   };
 };
 

@@ -1,24 +1,8 @@
 import React from "react";
 import "../scss/ContentBox.scss";
-// import FileSaver from "file-saver";
 
 const ContentBox = ({ contentData }) => {
-  const {
-    subject,
-    content,
-    id,
-    // subject_id,
-    filepath,
-    filename,
-    refineDate,
-  } = contentData;
-
-  // let data = new Blob([new ArrayBuffer(filepath)], {
-  //   type: "image/png",
-  // });
-  // let blobUrl = URL.createObjectURL(data); // 차자따아아아아아아
-  // const url = blobUrl.slice(5);
-  // console.log(url);
+  const { subject, content, id, filepath, filename, refineDate } = contentData;
 
   return (
     <div id="CB-wrapper">
@@ -33,8 +17,11 @@ const ContentBox = ({ contentData }) => {
       <div id="CB-file-box">
         {filepath ? (
           <>
+            <img id="CB-uploadImage" src={filepath} alt="filename" />
             <div id="CB-filename">첨부파일: {filename}</div>
-            {/* <img id="CB-file" src={blobUrl} /> */}
+            <a id="CB-download-btn" href={filepath} download={filename}>
+              다운로드
+            </a>
           </>
         ) : (
           <div id="CB-nofile">첨부파일이 없습니다.</div>

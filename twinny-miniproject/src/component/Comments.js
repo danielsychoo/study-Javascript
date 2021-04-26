@@ -27,7 +27,11 @@ const Comments = () => {
 
   return (
     <div id="comments-wrapper">
-      {/* {count === 0 ? <></> : <div>Comments Component</div>} */}
+      {count === 0 ? (
+        <div id="no-comments">댓글이 없습니다.</div>
+      ) : (
+        <div>Comments Component</div>
+      )}
       <div id="comments-list"></div>
       <div id="write-comment"></div>
       <div id="comments-pagination"></div>

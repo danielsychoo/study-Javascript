@@ -5,7 +5,7 @@
 }
 
 #CB-wrapper {
-  padding: 10px 10px 0 10px;;
+  padding: 10px 10px 0 10px;
   height: 50vh;
   display: flex;
   flex-direction: column;
@@ -40,6 +40,28 @@
     flex: 1 1 0;
     padding: 15px;
     @include flex-center;
+    #CB-uploadImage {
+      max-height: 68px;
+    }
+    #CB-filename {
+      margin: 0 20px;
+    }
+    #CB-download-btn {
+      width: 150px;
+      height: 40px;
+      border: 1px #868e96 solid;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: blod;
+      background-color: #ffffff;
+      cursor: pointer;
+      color: #000000;
+      text-decoration: none;
+      @include flex-center;
+      &:hover {
+        background-color: #f1f3f5;
+      }
+    }
     #CB-nofile {
       color: #adb5bd;
     }

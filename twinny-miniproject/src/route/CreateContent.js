@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
-import { useOnChange, useAxios } from "../hooks";
+import { useOnChange, useAxios, useFileChange } from "../hooks";
 import "../scss/CreateContent.scss";
 
 const CreateContent = ({ history }) => {
@@ -8,11 +8,11 @@ const CreateContent = ({ history }) => {
   const { state, onChange } = useOnChange({
     subject: "",
     content: "",
-    filename: "",
   });
-  const { subject, content, filename } = state;
+  const { subject, content } = state;
 
-  const [file, setFile] = useState(null);
+  const { file, onFileChange } = useFileChange(null);
+  console.log(file);
 
   return (
     <div id="CC-wrapper">
@@ -34,25 +34,17 @@ const CreateContent = ({ history }) => {
         onChange={onChange}
       />
       <div id="CC-file-box">
-        <input
-          type="file"
-          id="fileInput"
-          name="filename"
-          value={state.filename}
-          onChange={onChange}
-        />
+        {file ? (
+          <img id="CC-file-img" src={file.previewURL} alt={file.file.name} />
+        ) : (
+          <></>
+        )}
+        <input type="file" id="fileInput" onChange={onFileChange} />
       </div>
       <div id="CC-submit">
         <button
           onClick={() =>
-            axios_createNewContent(
-              subject,
-              content,
-              filename,
-              file,
-              setFile,
-              history
-            )
+            axios_createNewContent(subject, content, file, history)
           }
         >
           글쓰기

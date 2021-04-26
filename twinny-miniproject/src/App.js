@@ -22,6 +22,7 @@ const App = () => {
           <Route exact path="/" render={() => <Home />} />
           <Route path="/join" render={() => <Join />} />
           <Route
+            exact
             path="/content/:id"
             render={() => <ContentDetail userId={userId} />}
           />

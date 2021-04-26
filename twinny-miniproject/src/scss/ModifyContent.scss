@@ -1,0 +1,28 @@
+#MC-file-box {
+  border: 1px #000000 dashed;
+  flex: 1 1 0;
+  margin: 15px 0 0 0;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  #MC-file-box-left {
+    border-right: 1px #000000 dashed;
+    flex: 1 1 0;
+    height: 100%;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    & > p {
+      margin: 0;
+    }
+    & > img {
+      height: 70px;
+    }
+  }
+  #MC-file-box-right {
+    border: 1px blue solid;
+    flex: 3 1 0;
+    height: 100%;
+  }
+}

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useSwal } from "../hooks";
 
 const useFunction = () => {
-  const { swal_loginToWrite } = useSwal();
+  const { swal_loginToWrite, swal_youCantModifyContent } = useSwal();
 
   const emailValidation = useCallback((newEmail) => {
     let emailExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -36,12 +36,21 @@ const useFunction = () => {
     [swal_loginToWrite]
   );
 
+  const checkUserIsWriter = (writer, user, callback) => {
+    if (writer !== user) {
+      swal_youCantModifyContent();
+    } else {
+      callback();
+    }
+  };
+
   return {
     emailValidation,
     countPageLength,
     goToJoin,
     handleGoBack,
     goToHandleCreateContent,
+    checkUserIsWriter,
   };
 };
 

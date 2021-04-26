@@ -6,3 +6,4 @@ export { default as useSwal } from "./useSwal";
 export { default as useAxios } from "./useAxios";
 export { default as useFunction } from "./useFunction";
 export { default as useModal } from "./useModal";
+export { default as useFileChange } from "./useFileChange";

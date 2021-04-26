@@ -31,14 +31,15 @@ const useAxios = () => {
           filename,
           date,
         } = res.data;
+        let decodeStr = `data:image/png;base64,${file}`;
+
         const refineDate = date.slice(0, 10);
-        const filepath = file;
         setContentData({
           subject,
           content,
           id,
           subject_id,
-          filepath,
+          filepath: decodeStr,
           filename,
           refineDate,
         });
@@ -152,21 +153,17 @@ const useAxios = () => {
   );
 
   const axios_createNewContent = useCallback(
-    (subject, content, filename, file, setFile, history) => {
-      // 파일은 아래 두줄로 따로 받아옴 (filelist때문)
-      const fileInput = document.querySelector("#fileInput");
-      setFile(fileInput.files[0]);
-
-      const refineFilename = filename.split("\\")[2]; // 파일이름 추출 및 정제
-
+    (subject, content, file, history) => {
       const formData = new FormData();
 
       formData.append("subject", subject);
       formData.append("content", content);
 
-      if (filename) {
-        const blob = new Blob([file], { type: "image" });
-        formData.append("file", blob, refineFilename);
+      if (file) {
+        // formData.append("file", file, file.file.name);
+        // const blob = new Blob([file], { type: "image" });
+        formData.append("file", file.file);
+        console.log(file);
       } else {
         formData.append("file", {}); // 없으면 빈객체로
       }
@@ -207,6 +204,13 @@ const useAxios = () => {
     [swal_youAreNotWriter]
   );
 
+  const axios_getModifyContent = useCallback((writer, subject_id, callback) => {
+    axios
+      .post("/board/modify_bef", qs.stringify({ writer, subject_id }))
+      .then((res) => callback(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return {
     axios_getSpecificContent,
     axios_handleJoin,
@@ -216,6 +220,7 @@ const useAxios = () => {
     axios_getCommentPagination,
     axios_createNewContent,
     axios_deleteContent,
+    axios_getModifyContent,
   };
 };
 

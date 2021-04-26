@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, withRouter } from "react-router-dom";
-import { ContentBox, Comments } from "../component";
-import { useAxios } from "../hooks";
+import { ContentBox, ModifyContent, Comments } from "../component";
+import { useAxios, useFunction, useModal } from "../hooks";
 import "../scss/ContentDetail.scss";
 
 const ContentDetail = ({ userId, history }) => {
   const { axios_getSpecificContent, axios_deleteContent } = useAxios();
+  const { checkUserIsWriter } = useFunction();
+  const { isModalOn, handleModal } = useModal();
   const params = useParams();
 
   const [contentData, setContentData] = useState({
@@ -17,26 +19,41 @@ const ContentDetail = ({ userId, history }) => {
     filename: "",
     refineDate: "",
   });
+  const { id, subject_id, subject, content, filepath, filename } = contentData;
 
   useEffect(() => {
     axios_getSpecificContent(params.id, setContentData);
   }, [axios_getSpecificContent, params.id]);
 
   return (
-    <div id="CD-wrapper">
-      <ContentBox contentData={contentData} />
-      <div id="CD-button-box">
-        <button>게시글 수정</button>
-        <button
-          onClick={() =>
-            axios_deleteContent(userId, contentData.id, params.id, history)
-          }
-        >
-          게시글 삭제
-        </button>
-      </div>
-      <Comments />
-    </div>
+    <>
+      {isModalOn ? (
+        <ModifyContent
+          subject_id={subject_id}
+          subject={subject}
+          content={content}
+          filepath={filepath}
+          filename={filename}
+        />
+      ) : (
+        <div id="CD-wrapper">
+          <ContentBox contentData={contentData} />
+          <div id="CD-button-box">
+            <button onClick={() => checkUserIsWriter(id, userId, handleModal)}>
+              게시글 수정
+            </button>
+            <button
+              onClick={() =>
+                axios_deleteContent(userId, contentData.id, params.id, history)
+              }
+            >
+              게시글 삭제
+            </button>
+          </div>
+          <Comments />
+        </div>
+      )}
+    </>
   );
 };
 
