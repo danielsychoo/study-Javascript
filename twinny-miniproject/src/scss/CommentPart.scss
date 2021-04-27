@@ -1,11 +1,35 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #comments-wrapper {
-  border: 1px red solid;
+  border-top: 1px #000000 solid;
   height: 36.5vh;
   display : flex;
   flex-direction: column;
   #comment-main-wrapper {
-    border: 1px blue solid;
     flex: 9 1 0;
+    display: flex;
+    #no-comments {
+      flex: 4.1 1 0;
+      font-size: 20px;
+      color: #868e96;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      & > p {
+        margin: 5px;
+      }
+    }
+    #create-comment {
+      margin: 30px 10px;
+      padding: 10px;
+      flex: 1 1 0;
+      border: 1px #000000 dashed;
+    }
   }
   #comment-pagination-wrapper {
     padding: 0;

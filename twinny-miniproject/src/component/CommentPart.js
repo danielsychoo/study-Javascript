@@ -30,11 +30,15 @@ const CommentPart = () => {
     <div id="comments-wrapper">
       <div id="comment-main-wrapper">
         {count === 0 ? (
-          <div id="no-comments">댓글이 없습니다.</div>
+          <div id="no-comments">
+            <p>댓글이 없습니다.</p>
+            <p>첫번째 댓글을 작성해보세요!</p>
+          </div>
         ) : (
           <CommentBox />
         )}
-        <div id="write-comment"></div>
+        <div id="create-comment">CreateComment Component</div>
+        {/* <CreateComment /> */}
       </div>
       <ul id="comment-pagination-wrapper">
         <li className="FL-pagination">&#60; First</li>
