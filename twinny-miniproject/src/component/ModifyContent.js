@@ -20,7 +20,11 @@ const ModifyContent = ({
   });
 
   const { file, onFileChange } = useFileChange(filepath);
-  const { file_status, handleFileStatus, handleClearFile } = useFileStatus();
+  const {
+    file_status,
+    handleFileStatus,
+    handleClearFileTrue,
+  } = useFileStatus();
 
   console.log(file);
   console.log(file_status);
@@ -46,17 +50,17 @@ const ModifyContent = ({
       />
       <div id="MC-file-box">
         <div id="MC-file-box-left">
-          <p>첨부파일</p>
+          <p>미리보기</p>
           {(file_status.isChange === 0 &&
             filepath === "data:image/png;base64,undefined") ||
           file_status.wantClear ? (
             <p>첨부파일이 없습니다.</p>
-          ) : file_status === 1 ? (
+          ) : file_status.isChange === 1 ? (
             <img src={file.previewURL} alt={filename} />
           ) : (
             <img src={filepath} alt={filename} />
           )}
-          <button onClick={handleClearFile}>파일 삭제</button>
+          <button onClick={handleClearFileTrue}>파일 삭제</button>
         </div>
         <div id="MC-file-box-right">
           <p>첨부파일 수정</p>

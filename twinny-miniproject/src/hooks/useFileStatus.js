@@ -8,19 +8,19 @@ const useFileStatus = () => {
 
   const handleFileStatus = useCallback(() => {
     setFile_status({
-      ...file_status,
       isChange: 1,
+      wantClear: false,
     });
-  }, [file_status]);
+  }, []);
 
-  const handleClearFile = useCallback(() => {
+  const handleClearFileTrue = useCallback(() => {
     setFile_status({
       ...file_status,
       wantClear: true,
     });
   }, [file_status]);
 
-  return { file_status, handleFileStatus, handleClearFile };
+  return { file_status, handleFileStatus, handleClearFileTrue };
 };
 
 export default useFileStatus;
