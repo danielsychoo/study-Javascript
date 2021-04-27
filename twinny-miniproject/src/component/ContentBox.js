@@ -15,7 +15,7 @@ const ContentBox = ({ contentData }) => {
       </div>
       <div id="CB-content">{content}</div>
       <div id="CB-file-box">
-        {filepath ? (
+        {filepath !== "data:image/png;base64,undefined" ? (
           <>
             <img id="CB-uploadImage" src={filepath} alt="filename" />
             <div id="CB-filename">첨부파일: {filename}</div>

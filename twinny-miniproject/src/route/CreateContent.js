@@ -12,7 +12,6 @@ const CreateContent = ({ history }) => {
   const { subject, content } = state;
 
   const { file, onFileChange } = useFileChange(null);
-  console.log(file);
 
   return (
     <div id="CC-wrapper">

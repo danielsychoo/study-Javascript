@@ -163,7 +163,6 @@ const useAxios = () => {
         // formData.append("file", file, file.file.name);
         // const blob = new Blob([file], { type: "image" });
         formData.append("file", file.file);
-        console.log(file);
       } else {
         formData.append("file", {}); // 없으면 빈객체로
       }

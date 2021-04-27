@@ -1,7 +1,7 @@
 import React from "react";
 import "../scss/ModifyContent.scss";
 import { withRouter } from "react-router-dom";
-import { useOnChange } from "../hooks";
+import { useOnChange, useFileChange, useFileStatus } from "../hooks";
 
 const ModifyContent = ({
   subject_id,
@@ -18,6 +18,12 @@ const ModifyContent = ({
     filepath: filepath,
     filename: filename,
   });
+
+  const { file, onFileChange } = useFileChange(filepath);
+  const { file_status, handleFileStatus, handleClearFile } = useFileStatus();
+
+  console.log(file);
+  console.log(file_status);
 
   return (
     <div id="CC-wrapper">
@@ -41,12 +47,25 @@ const ModifyContent = ({
       <div id="MC-file-box">
         <div id="MC-file-box-left">
           <p>첨부파일</p>
-          <img src={filepath} alt={filename} />
+          {(file_status.isChange === 0 &&
+            filepath === "data:image/png;base64,undefined") ||
+          file_status.wantClear ? (
+            <p>첨부파일이 없습니다.</p>
+          ) : file_status === 1 ? (
+            <img src={file.previewURL} alt={filename} />
+          ) : (
+            <img src={filepath} alt={filename} />
+          )}
+          <button onClick={handleClearFile}>파일 삭제</button>
         </div>
         <div id="MC-file-box-right">
           <p>첨부파일 수정</p>
-          <div></div>
-          {/* <input type="file" id="fileInput" onChange={onFileChange} /> */}
+          <input
+            type="file"
+            id="fileInput"
+            onChange={onFileChange}
+            onClick={handleFileStatus}
+          />
         </div>
       </div>
       <div id="CC-submit">
