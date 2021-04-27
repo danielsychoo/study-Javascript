@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, withRouter } from "react-router-dom";
-import { ContentBox, ModifyContent, Comments } from "../component";
+import { ContentBox, ModifyContent, CommentPart } from "../component";
 import { useAxios, useFunction, useModal } from "../hooks";
 import "../scss/ContentDetail.scss";
 
@@ -50,7 +50,7 @@ const ContentDetail = ({ userId, history }) => {
               게시글 삭제
             </button>
           </div>
-          <Comments />
+          <CommentPart />
         </div>
       )}
     </>

@@ -1,0 +1,25 @@
+#comments-wrapper {
+  border: 1px red solid;
+  height: 36.5vh;
+  display : flex;
+  flex-direction: column;
+  #comment-main-wrapper {
+    border: 1px blue solid;
+    flex: 9 1 0;
+  }
+  #comment-pagination-wrapper {
+    padding: 0;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    & > li {
+      margin: 0 10px;
+      list-style-type: none;
+      font-size: 25px;
+      cursor: pointer;
+    }
+    .FL-pagination {
+      color: #868e96;
+    }
+  }
+}

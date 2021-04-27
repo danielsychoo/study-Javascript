@@ -100,7 +100,12 @@ const Board = () => {
         </li>
         {boardPages.map((page) => {
           return (
-            <li key={page} value={page} onClick={() => handleClickedPage(page)}>
+            <li
+              id={page === clickedPage ? "clickedColor" : null}
+              key={page}
+              value={page}
+              onClick={() => handleClickedPage(page)}
+            >
               {page}
             </li>
           );

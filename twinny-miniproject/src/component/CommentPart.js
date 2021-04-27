@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { CommentBox, CreateComment, ModifyComment } from "../component";
 import { useFunction, useClickedPage, useAxios } from "../hooks";
-import "../scss/Comments.scss";
+import "../scss/CommentPart.scss";
 
-const Comments = () => {
+const CommentPart = () => {
   const { countPageLength } = useFunction();
   const { clickedPage, handleClickedPage } = useClickedPage();
   const { axios_getCommentPagination } = useAxios();
@@ -27,16 +28,22 @@ const Comments = () => {
 
   return (
     <div id="comments-wrapper">
-      {count === 0 ? (
-        <div id="no-comments">댓글이 없습니다.</div>
-      ) : (
-        <div>Comments Component</div>
-      )}
-      <div id="comments-list"></div>
-      <div id="write-comment"></div>
-      <div id="comments-pagination"></div>
+      <div id="comment-main-wrapper">
+        {count === 0 ? (
+          <div id="no-comments">댓글이 없습니다.</div>
+        ) : (
+          <CommentBox />
+        )}
+        <div id="write-comment"></div>
+      </div>
+      <ul id="comment-pagination-wrapper">
+        <li className="FL-pagination">&#60; First</li>
+        <li>1</li>
+        <li>2</li>
+        <li className="FL-pagination">Last &#62;</li>
+      </ul>
     </div>
   );
 };
 
-export default Comments;
+export default CommentPart;

@@ -1,7 +1,9 @@
 export { default as Navigation } from "./Navigation";
 export { default as Board } from "./Board";
 export { default as LoginModal } from "./LoginModal";
-export { default as UpdateContent } from "./UpdateContent";
-export { default as Comments } from "./Comments";
+export { default as CommentPart } from "./CommentPart";
 export { default as ContentBox } from "./ContentBox";
 export { default as ModifyContent } from "./ModifyContent";
+export { default as CommentBox } from "./CommentBox";
+export { default as CreateComment } from "./CreateComment";
+export { default as ModifyComment } from "./ModifyComment";
