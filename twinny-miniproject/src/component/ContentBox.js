@@ -13,7 +13,7 @@ const ContentBox = ({ contentData }) => {
           <p>작성일: {refineDate}</p>
         </div>
       </div>
-      <div id="CB-content">{content}</div>
+      <pre id="CB-content">{content}</pre>
       <div id="CB-file-box">
         {filepath !== "data:image/png;base64,undefined" ? (
           <>

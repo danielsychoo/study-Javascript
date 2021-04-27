@@ -33,11 +33,7 @@ const CreateContent = ({ history }) => {
         onChange={onChange}
       />
       <div id="CC-file-box">
-        {file ? (
-          <img id="CC-file-img" src={file.previewURL} alt={file.file.name} />
-        ) : (
-          <></>
-        )}
+        {file ? <img id="CC-file-img" src={file.previewURL} alt="" /> : <></>}
         <input type="file" id="fileInput" onChange={onFileChange} />
       </div>
       <div id="CC-submit">

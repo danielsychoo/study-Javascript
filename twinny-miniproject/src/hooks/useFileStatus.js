@@ -15,10 +15,10 @@ const useFileStatus = () => {
 
   const handleClearFileTrue = useCallback(() => {
     setFile_status({
-      ...file_status,
+      isChange: 1,
       wantClear: true,
     });
-  }, [file_status]);
+  }, []);
 
   return { file_status, handleFileStatus, handleClearFileTrue };
 };

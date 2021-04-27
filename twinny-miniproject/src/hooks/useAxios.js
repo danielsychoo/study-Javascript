@@ -160,8 +160,6 @@ const useAxios = () => {
       formData.append("content", content);
 
       if (file) {
-        // formData.append("file", file, file.file.name);
-        // const blob = new Blob([file], { type: "image" });
         formData.append("file", file.file);
       } else {
         formData.append("file", {}); // 없으면 빈객체로
@@ -203,12 +201,34 @@ const useAxios = () => {
     [swal_youAreNotWriter]
   );
 
-  const axios_getModifyContent = useCallback((writer, subject_id, callback) => {
-    axios
-      .post("/board/modify_bef", qs.stringify({ writer, subject_id }))
-      .then((res) => callback(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  const axios_postModifyContent = useCallback(
+    (subject_id, subject, content, file_status, file, history) => {
+      const formData = new FormData();
+
+      formData.append("subject_id", subject_id);
+      formData.append("subject", subject);
+      formData.append("content", content);
+      formData.append("file_status", file_status.isChange);
+
+      if (file_status.wantClear) {
+        formData.append("file", {});
+      } else {
+        formData.append("file", file.file);
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      axios
+        .post("/board/modify_aft", formData, config)
+        .then(() => history.push("/"))
+        .catch((err) => console.log(err));
+    },
+    []
+  );
 
   return {
     axios_getSpecificContent,
@@ -219,7 +239,7 @@ const useAxios = () => {
     axios_getCommentPagination,
     axios_createNewContent,
     axios_deleteContent,
-    axios_getModifyContent,
+    axios_postModifyContent,
   };
 };
 

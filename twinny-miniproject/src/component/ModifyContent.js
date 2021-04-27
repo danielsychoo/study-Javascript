@@ -1,7 +1,7 @@
 import React from "react";
-import "../scss/ModifyContent.scss";
 import { withRouter } from "react-router-dom";
-import { useOnChange, useFileChange, useFileStatus } from "../hooks";
+import "../scss/ModifyContent.scss";
+import { useOnChange, useFileChange, useFileStatus, useAxios } from "../hooks";
 
 const ModifyContent = ({
   subject_id,
@@ -9,6 +9,7 @@ const ModifyContent = ({
   content,
   filepath,
   filename,
+  history,
 }) => {
   // 로컬에서 상태로 관리 (변화를 위해)
   const { state, onChange } = useOnChange({
@@ -20,14 +21,13 @@ const ModifyContent = ({
   });
 
   const { file, onFileChange } = useFileChange(filepath);
+
   const {
     file_status,
     handleFileStatus,
     handleClearFileTrue,
   } = useFileStatus();
-
-  console.log(file);
-  console.log(file_status);
+  const { axios_postModifyContent } = useAxios();
 
   return (
     <div id="CC-wrapper">
@@ -73,7 +73,20 @@ const ModifyContent = ({
         </div>
       </div>
       <div id="CC-submit">
-        <button onClick={() => {}}>수정하기</button>
+        <button
+          onClick={() => {
+            axios_postModifyContent(
+              state.subject_id,
+              state.subject,
+              state.content,
+              file_status,
+              file,
+              history
+            );
+          }}
+        >
+          수정하기
+        </button>
       </div>
     </div>
   );
