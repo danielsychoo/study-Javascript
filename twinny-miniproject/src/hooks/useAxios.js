@@ -258,6 +258,33 @@ const useAxios = () => {
     [swal_loginToWrite, swal_commentIsBlank, axios_getCommentPagination]
   );
 
+  const axios_deleteComment = useCallback(
+    (
+      userId,
+      writer,
+      comment_id,
+      subject_id,
+      clickedPage,
+      setContentComments
+    ) => {
+      if (userId !== writer) {
+        swal_youAreNotWriter();
+      } else {
+        axios
+          .post("/comment/delete", qs.stringify({ comment_id }))
+          .then(() => {
+            axios_getCommentPagination(
+              subject_id,
+              clickedPage,
+              setContentComments
+            );
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+    [swal_youAreNotWriter, axios_getCommentPagination]
+  );
+
   return {
     axios_getSpecificContent,
     axios_handleJoin,
@@ -269,6 +296,7 @@ const useAxios = () => {
     axios_deleteContent,
     axios_postModifyContent,
     axios_postNewComment,
+    axios_deleteComment,
   };
 };
 

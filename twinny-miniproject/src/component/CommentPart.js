@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CommentBox, CreateComment, ModifyComment } from "../component";
-import { useFunction, useClickedPage, useAxios } from "../hooks";
+import { useFunction, useClickedPage, useAxios, useModal } from "../hooks";
 import "../scss/CommentPart.scss";
 
 const CommentPart = ({ userId }) => {
   const { countCommentPageLength } = useFunction();
   const { clickedPage, handleClickedPage } = useClickedPage();
   const { axios_getCommentPagination } = useAxios();
+  const { isModalOn, handleModal } = useModal(); // for modify Component
+
   const subejct_id = useParams().id;
 
   const [contentComments, setContentComments] = useState({
@@ -32,13 +34,22 @@ const CommentPart = ({ userId }) => {
             <p>첫번째 댓글을 작성해보세요!</p>
           </li>
         ) : (
-          <CommentBox userId={userId} comments={comments} />
+          <CommentBox
+            userId={userId}
+            comments={comments}
+            setContentComments={setContentComments}
+            clickedPage={clickedPage}
+          />
         )}
-        <CreateComment
-          setContentComments={setContentComments}
-          clickedPage={clickedPage}
-          userId={userId}
-        />
+        {isModalOn ? (
+          <ModifyComment />
+        ) : (
+          <CreateComment
+            setContentComments={setContentComments}
+            clickedPage={clickedPage}
+            userId={userId}
+          />
+        )}
       </div>
       <ul id="comment-pagination-wrapper">
         <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
