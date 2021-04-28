@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 const Board = () => {
   const { swal_loginToRead } = useSwal();
   const { axios_getContentPagination } = useAxios();
-  const { countPageLength } = useFunction();
+  const { countBoardPageLength } = useFunction();
   const { clickedPage, handleClickedPage } = useClickedPage();
 
   const [boardContent, setBoardContent] = useState({
@@ -16,7 +16,7 @@ const Board = () => {
   });
   const { content, count } = boardContent; // state 비구조화 할당
 
-  const boardPages = countPageLength(count); // page의 전체 값
+  const boardPages = countBoardPageLength(count); // page의 전체 값
 
   useEffect(() => {
     axios_getContentPagination(clickedPage, setBoardContent);

@@ -15,6 +15,8 @@ const useAxios = () => {
     swal_subjectIsBlank,
     swal_contentIsBlank,
     swal_youAreNotWriter,
+    swal_loginToWrite,
+    swal_commentIsBlank,
   } = useSwal();
   const { emailValidation } = useFunction();
 
@@ -139,7 +141,7 @@ const useAxios = () => {
       axios
         .post(
           "/comment/pagination",
-          qs.stringify({ subject_id, page: clickedPage, limit: 5 })
+          qs.stringify({ subject_id, page: clickedPage, limit: 4 })
         )
         .then((res) => {
           setContentComments({
@@ -230,6 +232,32 @@ const useAxios = () => {
     []
   );
 
+  const axios_postNewComment = useCallback(
+    (comment, subject_id, clickedPage, setContentComments, onReset, userId) => {
+      const commentTextbox = document.querySelector("#comment-textbox");
+
+      if (!userId) {
+        swal_loginToWrite();
+      } else if (!comment) {
+        swal_commentIsBlank();
+      } else {
+        axios
+          .post("/comment", qs.stringify({ subject_id, comment }))
+          .then(() => {
+            onReset(); // (241줄을 위해)state를 비우는 것
+            commentTextbox.value = ""; // 보여지는 value 비우는 것
+            axios_getCommentPagination(
+              subject_id,
+              clickedPage,
+              setContentComments
+            );
+          })
+          .catch((err) => console.log(err));
+      }
+    },
+    [swal_loginToWrite, swal_commentIsBlank, axios_getCommentPagination]
+  );
+
   return {
     axios_getSpecificContent,
     axios_handleJoin,
@@ -240,6 +268,7 @@ const useAxios = () => {
     axios_createNewContent,
     axios_deleteContent,
     axios_postModifyContent,
+    axios_postNewComment,
   };
 };
 

@@ -4,12 +4,11 @@ import { CommentBox, CreateComment, ModifyComment } from "../component";
 import { useFunction, useClickedPage, useAxios } from "../hooks";
 import "../scss/CommentPart.scss";
 
-const CommentPart = () => {
-  const { countPageLength } = useFunction();
+const CommentPart = ({ userId }) => {
+  const { countCommentPageLength } = useFunction();
   const { clickedPage, handleClickedPage } = useClickedPage();
   const { axios_getCommentPagination } = useAxios();
-  const params = useParams();
-  // console.log(params.id);
+  const subejct_id = useParams().id;
 
   const [contentComments, setContentComments] = useState({
     comments: [],
@@ -17,34 +16,54 @@ const CommentPart = () => {
   });
 
   const { comments, count } = contentComments; // state 비구조화 할당
-  console.log(comments);
-  console.log(count);
 
-  // ? const commentsPages = countPageLength(count); // page의 전체 값
+  const commentPages = countCommentPageLength(count); // comment의 전체 값
 
   useEffect(() => {
-    axios_getCommentPagination(params.id, clickedPage, setContentComments);
-  }, [params.id, clickedPage, axios_getCommentPagination]);
+    axios_getCommentPagination(subejct_id, clickedPage, setContentComments);
+  }, [subejct_id, clickedPage, axios_getCommentPagination]);
 
   return (
     <div id="comments-wrapper">
       <div id="comment-main-wrapper">
         {count === 0 ? (
-          <div id="no-comments">
+          <li id="no-comments">
             <p>댓글이 없습니다.</p>
             <p>첫번째 댓글을 작성해보세요!</p>
-          </div>
+          </li>
         ) : (
-          <CommentBox />
+          <CommentBox userId={userId} comments={comments} />
         )}
-        <div id="create-comment">CreateComment Component</div>
-        {/* <CreateComment /> */}
+        <CreateComment
+          setContentComments={setContentComments}
+          clickedPage={clickedPage}
+          userId={userId}
+        />
       </div>
       <ul id="comment-pagination-wrapper">
-        <li className="FL-pagination">&#60; First</li>
-        <li>1</li>
-        <li>2</li>
-        <li className="FL-pagination">Last &#62;</li>
+        <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
+          &#60; First
+        </li>
+        {commentPages.map((page) => {
+          return (
+            <li
+              id={page === clickedPage ? "clickedColor" : null}
+              key={page}
+              value={page}
+              onClick={() => handleClickedPage(page)}
+            >
+              {page}
+            </li>
+          );
+        })}
+        <li
+          className="FL-pagination"
+          onClick={() =>
+            handleClickedPage(commentPages[commentPages.length - 1])
+          }
+        >
+          Last &#62;
+        </li>
       </ul>
     </div>
   );

@@ -11,9 +11,10 @@
   flex-direction: column;
   #comment-main-wrapper {
     flex: 9 1 0;
+    padding: 0 0 0 10px;
     display: flex;
     #no-comments {
-      flex: 4.1 1 0;
+      flex: 4.4 1 0;
       font-size: 20px;
       color: #868e96;
       display: flex;
@@ -23,12 +24,6 @@
       & > p {
         margin: 5px;
       }
-    }
-    #create-comment {
-      margin: 30px 10px;
-      padding: 10px;
-      flex: 1 1 0;
-      border: 1px #000000 dashed;
     }
   }
   #comment-pagination-wrapper {

@@ -50,7 +50,7 @@ const ContentDetail = ({ userId, history }) => {
               게시글 삭제
             </button>
           </div>
-          <CommentPart />
+          <CommentPart userId={userId} />
         </div>
       )}
     </>

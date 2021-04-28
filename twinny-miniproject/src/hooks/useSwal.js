@@ -54,7 +54,7 @@ const useSwal = () => {
     Swal.fire({
       icon: "error",
       title: "로그인 하세요.",
-      text: "로그인 후 글을 작성할 수 있습니다.",
+      text: "로그인 후 작성할 수 있습니다.",
     });
   }, []);
 
@@ -90,6 +90,14 @@ const useSwal = () => {
     });
   }, []);
 
+  const swal_commentIsBlank = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "댓글 내용이 없습니다.",
+      text: "댓글 내용을 입력하세요.",
+    });
+  }, []);
+
   return {
     swal_emptyInput,
     swal_wrongPassword,
@@ -102,6 +110,7 @@ const useSwal = () => {
     swal_contentIsBlank,
     swal_youAreNotWriter,
     swal_youCantModifyContent,
+    swal_commentIsBlank,
   };
 };
 
