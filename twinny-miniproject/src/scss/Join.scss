@@ -6,10 +6,13 @@
 }
 
 #JC-wrapper {
-  margin: 120px auto;
+  margin: 0 auto;
   padding: 20px;
   width: 450px;
-  height: 600px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   & > div {
     margin: 7px 0;
     font-size: 30px;

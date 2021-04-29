@@ -17,74 +17,71 @@ const Join = ({ history }) => {
   const { id, password, password_confirm, name, email } = state;
 
   return (
-    <div>
-      <div id="JC-wrapper">
-        <h1>회원가입</h1>
-        <div>ID</div>
-        <input
-          type="text"
-          placeholder="ID를 입력하세요."
-          name="id"
-          value={state.id}
-          onChange={onChange}
-        />
-        <div>PASSWORD</div>
+    <div id="JC-wrapper">
+      <h1>회원가입</h1>
+      <div>ID</div>
+      <input
+        type="text"
+        placeholder="ID를 입력하세요."
+        name="id"
+        value={state.id}
+        onChange={onChange}
+      />
+      <div>PASSWORD</div>
+      <input
+        type="password"
+        placeholder="PASSWORD를 입력하세요."
+        name="password"
+        value={state.password}
+        onChange={onChange}
+      />
+      <div>PASSWORD CONFIRM</div>
+      <div className="JC-inputBtn-box">
         <input
           type="password"
-          placeholder="PASSWORD를 입력하세요."
-          name="password"
-          value={state.password}
+          placeholder="PASSWORD를 한번 더 입력하세요."
+          name="password_confirm"
+          value={state.password_confirm}
           onChange={onChange}
         />
-        <div>PASSWORD CONFIRM</div>
-        <div className="JC-inputBtn-box">
-          <input
-            type="password"
-            placeholder="PASSWORD를 한번 더 입력하세요."
-            name="password_confirm"
-            value={state.password_confirm}
-            onChange={onChange}
-          />
-          {state.password.length &&
-          state.password === state.password_confirm ? (
-            <FcCheckmark className="JC-icons" />
-          ) : (
-            <FcCancel className="JC-icons" />
-          )}
-        </div>
-        <div>NAME</div>
+        {state.password.length && state.password === state.password_confirm ? (
+          <FcCheckmark className="JC-icons" />
+        ) : (
+          <FcCancel className="JC-icons" />
+        )}
+      </div>
+      <div>NAME</div>
+      <input
+        type="text"
+        placeholder="이름을 입력하세요."
+        name="name"
+        value={state.name}
+        onChange={onChange}
+      />
+      <div>E-MAIL</div>
+      <div className="JC-inputBtn-box">
         <input
-          type="text"
-          placeholder="이름을 입력하세요."
-          name="name"
-          value={state.name}
+          type="email"
+          placeholder="E-MAIL을 입력하세요."
+          name="email"
+          value={state.email}
           onChange={onChange}
         />
-        <div>E-MAIL</div>
-        <div className="JC-inputBtn-box">
-          <input
-            type="email"
-            placeholder="E-MAIL을 입력하세요."
-            name="email"
-            value={state.email}
-            onChange={onChange}
-          />
-          <button
-            onClick={() =>
-              axios_handleJoin(
-                id,
-                password,
-                password_confirm,
-                name,
-                email,
-                history,
-                onReset
-              )
-            }
-          >
-            가입하기
-          </button>
-        </div>
+        <button
+          onClick={() =>
+            axios_handleJoin(
+              id,
+              password,
+              password_confirm,
+              name,
+              email,
+              history,
+              onReset
+            )
+          }
+        >
+          가입하기
+        </button>
       </div>
     </div>
   );
