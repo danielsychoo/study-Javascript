@@ -54,6 +54,15 @@ const useFunction = () => {
     }
   };
 
+  const handleModifyOnAndSetCommentId = (
+    setComment_id,
+    comment_id,
+    handleModal
+  ) => {
+    setComment_id(comment_id);
+    handleModal();
+  };
+
   return {
     emailValidation,
     countBoardPageLength,
@@ -62,6 +71,7 @@ const useFunction = () => {
     handleGoBack,
     goToHandleCreateContent,
     checkUserIsWriter,
+    handleModifyOnAndSetCommentId,
   };
 };
 
