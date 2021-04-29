@@ -8,8 +8,9 @@ const CommentPart = ({ userId }) => {
   const { countCommentPageLength } = useFunction();
   const { clickedPage, handleClickedPage } = useClickedPage();
   const { axios_getCommentPagination } = useAxios();
+
   const { isModalOn, handleModal } = useModal(); // for modify Component
-  const { comment_id, setComment_id } = useState(0);
+  const [comment_id, setComment_id] = useState(0);
 
   const subejct_id = useParams().id;
 
@@ -45,7 +46,12 @@ const CommentPart = ({ userId }) => {
           />
         )}
         {isModalOn ? (
-          <ModifyComment comment_id={comment_id} />
+          <ModifyComment
+            comment_id={comment_id}
+            setContentComments={setContentComments}
+            clickedPage={clickedPage}
+            handleModal={handleModal}
+          />
         ) : (
           <CreateComment
             setContentComments={setContentComments}

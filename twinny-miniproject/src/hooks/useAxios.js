@@ -290,24 +290,45 @@ const useAxios = () => {
       axios
         .post("/comment/modify_bef", qs.stringify({ comment_id }))
         .then((res) => {
-          console.log(res);
-          const { subject_id, id, comment, date, comment_id } = res.data;
-          const refineDate = date.slice(0, 10);
-
-          setModifyCommentData({
-            subject_id,
-            id,
-            comment,
-            date: refineDate,
-            comment_id,
-          });
+          setModifyCommentData(res.data[0]);
         })
         .catch((err) => console.log(err));
     },
     []
   );
 
-  const axios_postModifyComment = useCallback(() => {}, []);
+  const axios_postModifyComment = useCallback(
+    (
+      comment_id,
+      comment,
+      onReset,
+      subject_id,
+      clickedPage,
+      setContentComments,
+      handleModal
+    ) => {
+      const commentTextbox = document.querySelector("#comment-textbox");
+
+      if (!comment) {
+        swal_contentIsBlank();
+      }
+
+      axios
+        .post("/comment/modify_aft", qs.stringify({ comment_id, comment }))
+        .then(() => {
+          onReset();
+          commentTextbox.value = "";
+          handleModal();
+          axios_getCommentPagination(
+            subject_id,
+            clickedPage,
+            setContentComments
+          );
+        })
+        .catch((err) => console.log(err));
+    },
+    [swal_contentIsBlank, axios_getCommentPagination]
+  );
 
   return {
     axios_getSpecificContent,
@@ -322,6 +343,7 @@ const useAxios = () => {
     axios_postNewComment,
     axios_deleteComment,
     axios_getModifyComment,
+    axios_postModifyComment,
   };
 };
 

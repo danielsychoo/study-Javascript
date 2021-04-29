@@ -30,9 +30,7 @@ const CommentBox = ({
                 <button
                   className="comment-modify-btn"
                   onClick={() =>
-                    checkUserIsWriter(
-                      id,
-                      userId,
+                    checkUserIsWriter(id, userId, () =>
                       handleModifyOnAndSetCommentId(
                         setComment_id,
                         comment_id,
