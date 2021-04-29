@@ -28,9 +28,9 @@ const Navigation = ({ userId, handleUserId, history }) => {
         {userId ? (
           <div id="nav-after-login">
             <div>{userId} 님</div>
-            <div onClick={() => axios_handleLogout(handleUserId, history)}>
+            <button onClick={() => axios_handleLogout(handleUserId, history)}>
               로그아웃
-            </div>
+            </button>
           </div>
         ) : (
           <button id="nav-loginBtn" onClick={handleModal}>

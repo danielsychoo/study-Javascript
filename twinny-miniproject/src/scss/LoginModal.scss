@@ -1,20 +1,37 @@
+@mixin bg-color {
+  background-color: #f4f9f9;
+}
+
+@mixin hover-color {
+  background-color: #bedcd7;
+}
+
+@mixin text-color {
+  color: #5f9ea0;
+}
+
 #LM-wrapper {
   position: fixed;
-  left: 85%;
+  top: 9%;
+  left: 81.8%;
   width: 230px;
   height: 140px;
   padding: 20px;
-  border: 1px #dee2e6 solid;
+  border: 3px #ffffff solid;
   border-radius: 5px;
-  background-color: #ffffff;
+  @include bg-color;
+  @include text-color;
+  font-weight: bold;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 1;
   & > input {
-    height: 25px;
+    height: 27px;
+    border: none;
     border-radius: 5px;
-    padding: 0 5px;
+    padding: 0 10px;
+    &:focus { outline: none; }
   }
   #LM-btnBox {
     display: flex;
@@ -23,8 +40,7 @@
       margin: 0 0 0 5px;
       border: none;
       font-weight: bold;
-      background-color: #ffffff;
-      color: #000000;
+      @include text-color;
       text-decoration: none;
       cursor: pointer
     }
