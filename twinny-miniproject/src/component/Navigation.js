@@ -14,15 +14,16 @@ const Navigation = ({ userId, handleUserId, history }) => {
     <>
       <div id="nav-wrapper">
         <div id="nav-left-box">
-          <div id="nav-logo" onClick={() => handleGoBack(history)}>
+          <div>Miniproject_Board</div>
+          <button id="nav-logo" onClick={() => handleGoBack(history)}>
             뒤로가기
-          </div>
-          <div
+          </button>
+          <button
             id="nav-writeContent-btn"
             onClick={() => goToHandleCreateContent(userId, history)}
           >
             새글쓰기
-          </div>
+          </button>
         </div>
         {userId ? (
           <div id="nav-after-login">
@@ -32,9 +33,9 @@ const Navigation = ({ userId, handleUserId, history }) => {
             </div>
           </div>
         ) : (
-          <div id="nav-loginBtn" onClick={handleModal}>
+          <button id="nav-loginBtn" onClick={handleModal}>
             로그인
-          </div>
+          </button>
         )}
       </div>
       {isModalOn ? (

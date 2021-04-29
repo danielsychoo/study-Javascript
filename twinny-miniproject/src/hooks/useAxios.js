@@ -118,7 +118,6 @@ const useAxios = () => {
         .catch((err) => {
           // API 명세서와 달리 정확한 아이디 비번외에 모두 500에러
           console.log(err);
-          handleModal();
           swal_loginWrongInfo();
         });
     },
