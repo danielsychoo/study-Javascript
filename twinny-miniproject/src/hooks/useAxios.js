@@ -140,7 +140,7 @@ const useAxios = () => {
       axios
         .post(
           "/comment/pagination",
-          qs.stringify({ subject_id, page: clickedPage, limit: 4 })
+          qs.stringify({ subject_id, page: clickedPage, limit: 3 })
         )
         .then((res) => {
           setContentComments({

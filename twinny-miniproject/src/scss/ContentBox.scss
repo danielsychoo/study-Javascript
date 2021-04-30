@@ -1,69 +1,76 @@
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@import "mixin";
 
 #CB-wrapper {
-  padding: 10px 10px 0 10px;
-  height: 50vh;
+  padding: 0 76px;
+  height: 44vh;
   display: flex;
-  flex-direction: column;
-  #CB-subjectWriter-box {
-    border-bottom: 1px #000000 solid;
+  align-items: center;
+  #CB-left-wrapper {
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin: 0 15px 0 0;
+    flex: 3 1 0;
+    height: 44vh;
+    display: flex;
+    flex-direction: column;
+    #CB-subjectWriter-box {
+      flex: 1 1 0;
+      display: flex;
+      #CB-subject {
+        flex: 12 1 0;
+        font-size: 35px;
+        font-weight: bold;
+        @include flex-center;
+      }
+      #CB-writer {
+        flex: 2 1 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        & > p {
+          margin: 1.5px 10px;
+          font-size: 17px;
+        }
+      }
+    }
+    #CB-content {
+      flex: 4 1 0;
+      padding: 15px;
+      font-size: 20px;
+    }
+  }
+  #CB-right-wrapper {
     flex: 1 1 0;
     display: flex;
-    #CB-subject {
-      flex: 12 1 0;
-      font-size: 35px;
-      font-weight: bold;
-      @include flex-center;
-    }
-    #CB-writer {
-      flex: 2 1 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      & > p {
-        margin: 0 10px;
-        font-size: 20px;
-      }
-    }
-  }
-  #CB-content {
-    flex: 4 1 0;
-    padding: 15px;
-    font-size: 20px;
-  }
-  #CB-file-box {
-    border: 1px #000000 dashed;
-    flex: 1 1 0;
-    padding: 15px;
-    @include flex-center;
-    #CB-uploadImage {
-      max-height: 68px;
-    }
-    #CB-filename {
-      margin: 0 20px;
-    }
-    #CB-download-btn {
-      width: 150px;
-      height: 40px;
-      border: 1px #868e96 solid;
+    flex-direction: column;
+    justify-content: space-between;
+    #CB-file-box {
+      border: 1px #5f9ea0 dashed;
+      height: 44vh;
       border-radius: 5px;
-      font-size: 15px;
-      font-weight: blod;
-      background-color: #ffffff;
-      cursor: pointer;
-      color: #000000;
-      text-decoration: none;
       @include flex-center;
-      &:hover {
-        background-color: #f1f3f5;
+      #CB-uploadImage {
+        width: 88%;
+        height: 75%;
+        object-fit: contain;
+        margin: 0 0 20px 0;
       }
-    }
-    #CB-nofile {
-      color: #adb5bd;
+      #CB-filename {
+        margin: 0 20px;
+      }
+      #CB-download-box {
+        max-width: 88%;
+        display: flex;
+        justify-content: center;
+        #CB-download-btn {
+          @include button-design;
+          text-decoration: none;
+        }
+      }
+      #CB-nofile {
+        font-size: 20px;
+        color: #adb5bd;
+      }
     }
   }
 }

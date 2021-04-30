@@ -1,22 +1,16 @@
+@import "mixin";
+
 #CD-wrapper {
   #CD-button-box {
-    height: 6vh;
+    margin: 0 0 0 76px;
+    width: 92%;
+    height: 8vh;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-        & > button {
-      margin: 0 9px 0 0;
-      width: 150px;
-      height: 40px;
-      border: 1px #868e96 solid;
-      border-radius: 5px;
-      font-size: 15px;
-      font-weight: blod;
-      background-color: #ffffff;
-      cursor: pointer;
-      &:hover {
-        background-color: #f1f3f5;
-      }
+    & > button {
+      @include button-design;
+      margin: 0 15px 0 0;
     }
   }
 }

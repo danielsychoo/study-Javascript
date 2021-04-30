@@ -21,44 +21,44 @@ const CommentBox = ({
 
         return (
           <li className="comment-list" key={comment_id}>
-            <div className="comment-box-firstLine">
+            <div className="comment-box-left">
               <div className="comment-info">
                 <p className="comment-id">{id}</p>
                 <p className="comment-date">{refineDate}</p>
               </div>
-              <div className="comment-btn-box">
-                <button
-                  className="comment-modify-btn"
-                  onClick={() =>
-                    checkUserIsWriter(id, userId, () =>
-                      handleModifyOnAndSetCommentId(
-                        setComment_id,
-                        comment_id,
-                        handleModal
-                      )
-                    )
-                  }
-                >
-                  수정
-                </button>
-                <button
-                  className="comment-delete-btn"
-                  onClick={() => {
-                    axios_deleteComment(
-                      userId,
-                      id,
-                      comment_id,
-                      subject_id,
-                      clickedPage,
-                      setContentComments
-                    );
-                  }}
-                >
-                  삭제
-                </button>
-              </div>
+              <div className="comment-main-comment">{comment}</div>
             </div>
-            <div className="comment-main-comment">{comment}</div>
+            <div className="comment-btn-box">
+              <button
+                className="comment-modify-btn"
+                onClick={() =>
+                  checkUserIsWriter(id, userId, () =>
+                    handleModifyOnAndSetCommentId(
+                      setComment_id,
+                      comment_id,
+                      handleModal
+                    )
+                  )
+                }
+              >
+                수정
+              </button>
+              <button
+                className="comment-delete-btn"
+                onClick={() => {
+                  axios_deleteComment(
+                    userId,
+                    id,
+                    comment_id,
+                    subject_id,
+                    clickedPage,
+                    setContentComments
+                  );
+                }}
+              >
+                삭제
+              </button>
+            </div>
           </li>
         );
       })}

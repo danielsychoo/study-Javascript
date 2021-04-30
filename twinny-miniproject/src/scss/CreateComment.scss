@@ -1,32 +1,22 @@
+@import "mixin";
+
 #create-comment-wrapper {
-  margin: 30px 10px;
-  padding: 10px;
-  flex: 1 1 0;
-  border: 1px #000000 dashed;
+  margin: 24px 0 20px 15px;
+  height: 235px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   & > textarea {
     flex: 1 1 0;
     width: 252px;
-    margin: 0 0 10px 0;
+    margin: 0 0 15px 0;
     padding: 15px;
     font-size: 15px;
+    border: none;
     border-radius: 5px;
     resize: none;
-    &:focus { outline: none; }
   }
   & > button {
-    width: 150px;
-    height: 40px;
-    border: 1px #868e96 solid;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: blod;
-    background-color: #ffffff;
-    cursor: pointer;
-    &:hover {
-      background-color: #f1f3f5;
-    }
+    @include button-design;
   }
 }

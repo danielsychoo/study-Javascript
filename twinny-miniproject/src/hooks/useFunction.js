@@ -22,7 +22,7 @@ const useFunction = () => {
   }, []);
 
   const countCommentPageLength = useCallback((count) => {
-    const boardPageLength = Math.ceil(count / 4);
+    const boardPageLength = Math.ceil(count / 3);
     let commentPages = [];
     for (let i = 1; i <= boardPageLength; i++) {
       commentPages.push(i);
