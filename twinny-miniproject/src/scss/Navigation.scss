@@ -1,35 +1,4 @@
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin bg-color {
-  background-color: #f4f9f9;
-}
-
-@mixin hover-color {
-  background-color: #bedcd7;
-}
-
-@mixin text-color {
-  color: #5f9ea0;
-}
-
-@mixin nav-button-design {
-  width: 100px;
-  height: 50px;
-  background-color: #ffffff;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  @include text-color;
-  @include flex-center;
-  &:hover {
-    @include hover-color;
-  }
-}
+@import "mixin";
 
 #nav-wrapper {
   @include bg-color;
@@ -52,11 +21,11 @@
     }
     #nav-logo,
     #nav-writeContent-btn {
-      @include nav-button-design;
+      @include button-design;
     }
   }
   #nav-loginBtn {
-    @include nav-button-design;
+    @include button-design;
   }
   #nav-after-login {
     width: 220px;
@@ -66,7 +35,7 @@
     @include text-color;
     font-weight: bold;
     & > button {
-      @include nav-button-design;
+      @include button-design;
     }
   }
 }

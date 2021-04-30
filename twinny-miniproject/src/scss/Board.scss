@@ -1,25 +1,4 @@
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin text-bold-center {
-  @include flex-center;
-  font-weight: bold;
-}
-
-@mixin bg-color {
-  background-color: #f4f9f9;
-}
-
-@mixin hover-color {
-  background-color: #bedcd7;
-}
-
-@mixin text-color {
-  color: #5f9ea0;
-}
+@import "mixin";
 
 #board-wrapper {
   @include bg-color;
@@ -37,7 +16,8 @@
       font-size: 170%;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      // justify-content: space-between;
+      justify-content: flex-start;
       .tr-link {
         color: #000000;
         text-decoration: none;
@@ -66,6 +46,7 @@
         }
       }
       .board-tr {
+        margin: 5px 0;
         background-color: #ffffff;
         display: flex;
         height: 6vh;

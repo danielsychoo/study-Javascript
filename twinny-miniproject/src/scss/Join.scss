@@ -1,45 +1,41 @@
-@mixin JC-button {
-  border: none;
-  font-weight: bold;
-  background-color: #ffffff;
-  cursor: pointer;
-}
+@import "mixin";
 
 #JC-wrapper {
   margin: 0 auto;
   padding: 20px;
-  width: 450px;
+  width: 360px;
   height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  & > h1 {
+    @include text-color;
+  }
   & > div {
     margin: 7px 0;
-    font-size: 30px;
+    font-size: 26px;
   }
   & > input {
-    width: 380px;
-    height: 40px;
+    padding: 0 10px;
+    width: 300px;
+    height: 35px;
+    border: none;
     border-radius: 5px;
-    padding: 0 5px;
   }
   .JC-inputBtn-box {
+    margin: 0;
     & > input {
-      width: 380px;
-      height: 40px;
+      padding: 0 10px;
+      width: 300px;
+      height: 35px;
       font-size: 16px;
+      border: none;
       border-radius: 5px;
-      padding: 0 5px;
     }
     & > button {
-      margin: 15px 0 0 294px;
-      width: 100px;
-      height: 4vh;
-      border: 1px #868e96 solid;
-      border-radius: 5px;
-      font-size: 15px;
-      font-weight: blod;
-      background-color: #ffffff;
+      @include button-design;
+      font-size: 20px;
+      margin: 15px 0 0 220px;
     }
     .JC-icons {
       margin: 3px 0 0 5px;

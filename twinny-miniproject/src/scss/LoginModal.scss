@@ -1,14 +1,4 @@
-@mixin bg-color {
-  background-color: #f4f9f9;
-}
-
-@mixin hover-color {
-  background-color: #bedcd7;
-}
-
-@mixin text-color {
-  color: #5f9ea0;
-}
+@import "mixin";
 
 #LM-wrapper {
   position: fixed;

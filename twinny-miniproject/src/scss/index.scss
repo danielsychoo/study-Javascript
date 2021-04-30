@@ -1,6 +1,9 @@
+@import "mixin";
+
 body {
   margin: 0 auto;
   font-family: 'NotoSansKR', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @include bg-color;
 }
