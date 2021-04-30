@@ -12,7 +12,11 @@ const useFileChange = (initialState) => {
         previewURL: reader.result,
       });
     };
-    reader.readAsDataURL(newFile);
+
+    if (newFile) {
+      // 분기안하면 취소시 오류
+      reader.readAsDataURL(newFile);
+    }
   }, []);
 
   return { file, onFileChange };
