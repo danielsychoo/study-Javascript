@@ -174,15 +174,14 @@ const useAxios = () => {
 
       if (!subject) {
         swal_subjectIsBlank();
-      }
-      if (!content) {
+      } else if (!content) {
         swal_contentIsBlank();
+      } else {
+        axios
+          .post("/board/write", formData, config)
+          .then(() => history.push("/"))
+          .catch((err) => console.log(err));
       }
-
-      axios
-        .post("/board/write", formData, config)
-        .then(() => history.push("/"))
-        .catch((err) => console.log(err));
     },
     [swal_subjectIsBlank, swal_contentIsBlank]
   );
@@ -223,12 +222,18 @@ const useAxios = () => {
         },
       };
 
-      axios
-        .post("/board/modify_aft", formData, config)
-        .then(() => history.push("/"))
-        .catch((err) => console.log(err));
+      if (!subject) {
+        swal_subjectIsBlank();
+      } else if (!content) {
+        swal_contentIsBlank();
+      } else {
+        axios
+          .post("/board/modify_aft", formData, config)
+          .then(() => history.push("/"))
+          .catch((err) => console.log(err));
+      }
     },
-    []
+    [swal_subjectIsBlank, swal_contentIsBlank]
   );
 
   const axios_postNewComment = useCallback(
@@ -310,21 +315,21 @@ const useAxios = () => {
 
       if (!comment) {
         swal_contentIsBlank();
+      } else {
+        axios
+          .post("/comment/modify_aft", qs.stringify({ comment_id, comment }))
+          .then(() => {
+            onReset();
+            commentTextbox.value = "";
+            handleModal();
+            axios_getCommentPagination(
+              subject_id,
+              clickedPage,
+              setContentComments
+            );
+          })
+          .catch((err) => console.log(err));
       }
-
-      axios
-        .post("/comment/modify_aft", qs.stringify({ comment_id, comment }))
-        .then(() => {
-          onReset();
-          commentTextbox.value = "";
-          handleModal();
-          axios_getCommentPagination(
-            subject_id,
-            clickedPage,
-            setContentComments
-          );
-        })
-        .catch((err) => console.log(err));
     },
     [swal_contentIsBlank, axios_getCommentPagination]
   );

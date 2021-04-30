@@ -1,73 +1,81 @@
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+@import "mixin";
 
 #CC-wrapper {
-  padding: 10px;
-  height: 92vh;
+  padding: 0 76px 76px 76px;
+  height: 82vh;
   display: flex;
-  flex-direction: column;
-  #CC-subject {
-    border-bottom: 1px #000000 solid;
-    flex: 1 1 0;
+  #CC-left-wrapper {
+    margin: 0 15px 0 0;
+    flex: 3 1 0;
     display: flex;
-    align-items: center;
-    & > div {
+    flex-direction: column;
+    #CC-subject {
       flex: 1 1 0;
-      font-size: 25px;
-      font-weight: bold;
-      @include flex-center;
-    }
-    & > input {
-      flex: 9 1 0;
-      height: 35px;
-      border: none;
-      font-size: 25px;
-      font-weight: bold;
-      text-align: center;
-      &:focus { outline: none; }
-    }
-  }
-  #CC-content {
-    padding: 15px;
-    font-size: 20px;
-    flex: 7 1 0;
-    border: none;
-    resize: none;
-    &:focus { outline: none; }
-  }
-  #CC-file-box {
-    border: 1px #000000 dashed;
-    flex: 1 1 0;
-    margin: 15px 0 0 0;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    #CC-file-img {
-      height: 70px;
-      margin: 0 20px 0 0;
-    }
-  }
-  #CC-submit {
-    flex: 1 1 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    & > button {
-      width: 150px;
-      height: 40px;
-      border: 1px #868e96 solid;
-      border-radius: 5px;
-      font-size: 15px;
-      font-weight: blod;
-      background-color: #ffffff;
-      cursor: pointer;
-      &:hover {
-        background-color: #f1f3f5;
+      display: flex;
+      align-items: center;
+      & > div {
+        flex: 1 1 0;
+        font-size: 25px;
+        @include text-color;
+        @include text-bold-center;
       }
-      &:focus { outline: none; }
+      & > input {
+        flex: 9 1 0;
+        height: 60px;
+        border: none;
+        border-radius: 5px;
+        font-size: 25px;
+        font-weight: bold;
+        text-align: center;
+        &::placeholder {
+          font-weight: normal;
+        }
+      }
+    }
+    #CC-content {
+      padding: 15px;
+      font-size: 20px;
+      flex: 7 1 0;
+      border: none;
+      border-radius: 5px;
+      resize: none;
+    }
+  }
+  #CC-right-wrapper {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    #CC-file-box {
+      border: 1px #5f9ea0 dashed;
+      height: 85%;
+      border-radius: 5px;
+      margin: 15px 0 0 0;
+      padding: 15px;
+      @include flex-center;
+      & > p {
+        @include text-color;
+        font-weight: bold;
+      }
+      #fileInput {
+        display: none;
+      }
+      #CC-file-img {
+        border: 3px #ffffff solid;
+        max-width: 380px;
+      }
+    }
+    #CC-submit {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      #fileInput-button {
+        @include button-design;
+        margin: 0 15px;
+      } 
+      & > button {
+        @include button-design;
+      }
     }
   }
 }

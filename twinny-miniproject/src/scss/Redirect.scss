@@ -1,11 +1,14 @@
+@import "mixin";
+
 #RD-text {
   width: 100%;
-  height: 94vh;
+  height: 85vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   & > p {
+    @include text-color;
+    margin: 15px;
     font-size: 25px;
+    font-weight: bold;
   }
 }
