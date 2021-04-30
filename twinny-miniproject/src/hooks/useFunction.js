@@ -37,6 +37,7 @@ const useFunction = () => {
   }, []);
 
   const handleGoBack = useCallback((history) => history.goBack(), []);
+  const handleGoFirst = useCallback((history) => history.push("/"), []);
 
   const goToHandleCreateContent = useCallback(
     (userId, history) => {
@@ -69,6 +70,7 @@ const useFunction = () => {
     countCommentPageLength,
     goToJoin,
     handleGoBack,
+    handleGoFirst,
     goToHandleCreateContent,
     checkUserIsWriter,
     handleModifyOnAndSetCommentId,

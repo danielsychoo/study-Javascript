@@ -1,34 +1,46 @@
+@import "mixin";
+
 #MC-file-box {
-  border: 1px #000000 dashed;
-  flex: 1 1 0;
+  border: 1px #5f9ea0 dashed;
+  height: 85%;
+  border-radius: 5px;
   margin: 15px 0 0 0;
   padding: 15px;
-  display: flex;
-  align-items: center;
-  #MC-file-box-left {
-    border-right: 1px #000000 dashed;
-    flex: 1 1 0;
-    height: 100%;
+  @include flex-center;
+  & > p {
+    @include text-color;
     font-weight: bold;
+  }
+  & > img {
+    border: 3px #ffffff solid;
+    max-width: 380px;
+  }
+
+  #fileModify-btn-box {
+    margin: 15px;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    & > p {
-      margin: 0;
+    #fileModify-button {
+      @include button-design;
+      margin: 0 15px 0 0;
     }
-    & > img {
-      height: 70px;
+    & > button {
+      @include button-design;
     }
   }
-  #MC-file-box-right {
-    padding: 0 20px;
-    flex: 2 1 0;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    & > p {
-      font-weight: bold;
-    }
+}
+
+#fileInput {
+  display: none;
+}
+
+#MC-file-box-right {
+  padding: 0 20px;
+  flex: 2 1 0;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  & > p {
+    font-weight: bold;
   }
 }

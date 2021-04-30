@@ -8,13 +8,20 @@ import "../scss/Navigation.scss";
 const Navigation = ({ userId, handleUserId, history }) => {
   const { isModalOn, handleModal } = useModal();
   const { axios_handleLogout } = useAxios();
-  const { handleGoBack, goToHandleCreateContent } = useFunction();
+  const {
+    handleGoFirst,
+    handleGoBack,
+    goToHandleCreateContent,
+  } = useFunction();
 
   return (
     <>
       <div id="nav-wrapper">
         <div id="nav-left-box">
           <div>Miniproject_Board</div>
+          <button id="nav-logo" onClick={() => handleGoFirst(history)}>
+            처음으로
+          </button>
           <button id="nav-logo" onClick={() => handleGoBack(history)}>
             뒤로가기
           </button>

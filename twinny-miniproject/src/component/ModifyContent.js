@@ -31,26 +31,27 @@ const ModifyContent = ({
 
   return (
     <div id="CC-wrapper">
-      <div id="CC-subject">
-        <div>제목</div>
-        <input
-          type="text"
-          placeholder="제목을 입력하세요."
-          name="subject"
-          value={state.subject}
+      <div id="CC-left-wrapper">
+        <div id="CC-subject">
+          <div>제목</div>
+          <input
+            type="text"
+            placeholder="제목을 입력하세요."
+            name="subject"
+            value={state.subject}
+            onChange={onChange}
+          />
+        </div>
+        <textarea
+          id="CC-content"
+          placeholder="내용을 입력하세요."
+          name="content"
+          value={state.content}
           onChange={onChange}
         />
       </div>
-      <textarea
-        id="CC-content"
-        placeholder="내용을 입력하세요."
-        name="content"
-        value={state.content}
-        onChange={onChange}
-      />
-      <div id="MC-file-box">
-        <div id="MC-file-box-left">
-          <p>미리보기</p>
+      <div id="CC-right-wrapper">
+        <div id="MC-file-box">
           {(file_status.isChange === 0 &&
             filepath === "data:image/png;base64,undefined") ||
           file_status.wantClear ? (
@@ -60,33 +61,35 @@ const ModifyContent = ({
           ) : (
             <img src={filepath} alt={filename} />
           )}
-          <button onClick={handleClearFileTrue}>파일 삭제</button>
+          <div id="fileModify-btn-box">
+            <label id="fileModify-button" for="fileInput">
+              사진 수정
+            </label>
+            <button onClick={handleClearFileTrue}>사진 삭제</button>
+          </div>
         </div>
-        <div id="MC-file-box-right">
-          <p>첨부파일 수정</p>
-          <input
-            type="file"
-            id="fileInput"
-            onChange={onFileChange}
-            onClick={handleFileStatus}
-          />
+        <input
+          type="file"
+          id="fileInput"
+          onChange={onFileChange}
+          onClick={handleFileStatus}
+        />
+        <div id="CC-submit">
+          <button
+            onClick={() => {
+              axios_postModifyContent(
+                state.subject_id,
+                state.subject,
+                state.content,
+                file_status,
+                file,
+                history
+              );
+            }}
+          >
+            수정하기
+          </button>
         </div>
-      </div>
-      <div id="CC-submit">
-        <button
-          onClick={() => {
-            axios_postModifyContent(
-              state.subject_id,
-              state.subject,
-              state.content,
-              file_status,
-              file,
-              history
-            );
-          }}
-        >
-          수정하기
-        </button>
       </div>
     </div>
   );
