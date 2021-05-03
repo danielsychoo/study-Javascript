@@ -47,22 +47,35 @@ const useFunction = () => {
     [swal_loginToWrite]
   );
 
-  const checkUserIsWriter = (writer, user, callback) => {
-    if (writer !== user) {
-      swal_youCantModifyContent();
-    } else {
-      callback();
-    }
-  };
+  const checkUserIsWriter = useCallback(
+    (writer, user, callback) => {
+      if (writer !== user) {
+        swal_youCantModifyContent();
+      } else {
+        callback();
+      }
+    },
+    [swal_youCantModifyContent]
+  );
 
-  const handleModifyOnAndSetCommentId = (
-    setComment_id,
-    comment_id,
-    handleModal
-  ) => {
-    setComment_id(comment_id);
-    handleModal();
-  };
+  const handleModifyOnAndSetCommentId = useCallback(
+    (setComment_id, comment_id, handleModal) => {
+      setComment_id(comment_id);
+      handleModal();
+    },
+    []
+  );
+
+  const handleEnterKey = useCallback(() => {
+    // axios 자체를 parameter로 넣을 시 error 발생
+    if (window.event.keyCode === 13) {
+      console.log("true");
+      return true;
+    } else {
+      console.log("false");
+      return false;
+    }
+  }, []);
 
   return {
     emailValidation,
@@ -74,6 +87,7 @@ const useFunction = () => {
     goToHandleCreateContent,
     checkUserIsWriter,
     handleModifyOnAndSetCommentId,
+    handleEnterKey,
   };
 };
 

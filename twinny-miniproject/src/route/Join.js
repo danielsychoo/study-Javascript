@@ -1,11 +1,12 @@
 import React from "react";
-import { useOnChange, useAxios } from "../hooks";
+import { useOnChange, useAxios, useFunction } from "../hooks";
 import { withRouter } from "react-router-dom"; // props.history.push를 사용하기 위해
 import { FcCheckmark, FcCancel } from "react-icons/fc";
 import "../scss/Join.scss";
 
 const Join = ({ history }) => {
   const { axios_handleJoin } = useAxios();
+  const { handleEnterKey } = useFunction();
 
   const { state, onChange, onReset } = useOnChange({
     id: "",
@@ -26,6 +27,18 @@ const Join = ({ history }) => {
         name="id"
         value={state.id}
         onChange={onChange}
+        onKeyUp={() => {
+          if (handleEnterKey())
+            axios_handleJoin(
+              id,
+              password,
+              password_confirm,
+              name,
+              email,
+              history,
+              onReset
+            );
+        }}
       />
       <div>PASSWORD</div>
       <input
@@ -34,6 +47,18 @@ const Join = ({ history }) => {
         name="password"
         value={state.password}
         onChange={onChange}
+        onKeyUp={() => {
+          if (handleEnterKey())
+            axios_handleJoin(
+              id,
+              password,
+              password_confirm,
+              name,
+              email,
+              history,
+              onReset
+            );
+        }}
       />
       <div>PASSWORD CONFIRM</div>
       <div className="JC-inputBtn-box">
@@ -43,6 +68,18 @@ const Join = ({ history }) => {
           name="password_confirm"
           value={state.password_confirm}
           onChange={onChange}
+          onKeyUp={() => {
+            if (handleEnterKey())
+              axios_handleJoin(
+                id,
+                password,
+                password_confirm,
+                name,
+                email,
+                history,
+                onReset
+              );
+          }}
         />
         {state.password.length && state.password === state.password_confirm ? (
           <FcCheckmark className="JC-icons" />
@@ -57,6 +94,18 @@ const Join = ({ history }) => {
         name="name"
         value={state.name}
         onChange={onChange}
+        onKeyUp={() => {
+          if (handleEnterKey())
+            axios_handleJoin(
+              id,
+              password,
+              password_confirm,
+              name,
+              email,
+              history,
+              onReset
+            );
+        }}
       />
       <div>E-MAIL</div>
       <div className="JC-inputBtn-box">
@@ -66,6 +115,18 @@ const Join = ({ history }) => {
           name="email"
           value={state.email}
           onChange={onChange}
+          onKeyUp={() => {
+            if (handleEnterKey())
+              axios_handleJoin(
+                id,
+                password,
+                password_confirm,
+                name,
+                email,
+                history,
+                onReset
+              );
+          }}
         />
         <button
           onClick={() =>
