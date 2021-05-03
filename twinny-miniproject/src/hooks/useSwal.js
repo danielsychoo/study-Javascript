@@ -34,14 +34,6 @@ const useSwal = () => {
     });
   }, []);
 
-  const swal_loginToRead = useCallback(() => {
-    Swal.fire({
-      icon: "error",
-      title: "로그인 하세요.",
-      text: "로그인 후 글을 열람할 수 있습니다.",
-    });
-  }, []);
-
   const swal_loginWrongInfo = useCallback(() => {
     Swal.fire({
       icon: "error",
@@ -103,7 +95,6 @@ const useSwal = () => {
     swal_wrongPassword,
     swal_wrongEmail,
     swal_existId,
-    swal_loginToRead,
     swal_loginWrongInfo,
     swal_loginToWrite,
     swal_subjectIsBlank,
