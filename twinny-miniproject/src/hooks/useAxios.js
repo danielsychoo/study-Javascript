@@ -132,8 +132,9 @@ const useAxios = () => {
       .post("/logout")
       .then(() => {
         Cookies.remove("session", { path: "/" });
-        history.push("/");
+        history.push("/"); // 처음으로 이동
       })
+      .then(() => window.location.reload()) // localState도 초기화
       .catch((err) => console.log(err));
   }, []);
 
