@@ -1,7 +1,17 @@
 #not-found {
+  background-color: #ffffff;
   height: 85vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  #errorIcons {
+    font-size: 40px;
+    color: #808080;
+  }
+  & > p {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
 }

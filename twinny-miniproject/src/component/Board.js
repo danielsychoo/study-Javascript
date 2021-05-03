@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useClickedPage, useAxios, useFunction } from "../hooks";
+import { withRouter } from "react-router-dom";
+import { useAxios, useFunction } from "../hooks";
 import "../scss/Board.scss";
 
-const Board = () => {
+const Board = ({ history, clickedPage, handleClickedPage }) => {
   const { axios_getContentPagination } = useAxios();
-  const { countBoardPageLength } = useFunction();
-  const { clickedPage, handleClickedPage } = useClickedPage();
+  const { countBoardPageLength, goToContentDetail } = useFunction();
 
   const [boardContent, setBoardContent] = useState({
     content: [],
@@ -41,10 +40,10 @@ const Board = () => {
           {content.map((el) => {
             const refineDate = el.date.slice(0, 10); // timestamp 형식에서 필요한 값만 정제
             return (
-              <Link
+              <div
                 key={el.subject_id}
                 className="tr-link"
-                to={`/content/${el.subject_id}`}
+                onClick={() => goToContentDetail(el.subject_id, history)}
               >
                 <li className="board-tr">
                   <div id="board-num" className="board-td">
@@ -60,36 +59,40 @@ const Board = () => {
                     {refineDate}
                   </div>
                 </li>
-              </Link>
+              </div>
             );
           })}
         </ul>
       </div>
-      <ul id="board-pagination-wrapper">
-        <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
-          &#60; First
-        </li>
-        {boardPages.map((page) => {
-          return (
-            <li
-              id={page === clickedPage ? "clickedColor" : null}
-              key={page}
-              value={page}
-              onClick={() => handleClickedPage(page)}
-            >
-              {page}
-            </li>
-          );
-        })}
-        <li
-          className="FL-pagination"
-          onClick={() => handleClickedPage(boardPages[boardPages.length - 1])}
-        >
-          Last &#62;
-        </li>
-      </ul>
+      {count ? (
+        <ul id="board-pagination-wrapper">
+          <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
+            &#60; First
+          </li>
+          {boardPages.map((page) => {
+            return (
+              <li
+                id={page === clickedPage ? "clickedColor" : null}
+                key={page}
+                value={page}
+                onClick={() => handleClickedPage(page)}
+              >
+                {page}
+              </li>
+            );
+          })}
+          <li
+            className="FL-pagination"
+            onClick={() => handleClickedPage(boardPages[boardPages.length - 1])}
+          >
+            Last &#62;
+          </li>
+        </ul>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
 
-export default Board;
+export default withRouter(Board);

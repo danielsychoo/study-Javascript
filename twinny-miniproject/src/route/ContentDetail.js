@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams, withRouter } from "react-router-dom";
+import { NotFound } from "../route";
 import { ContentBox, ModifyContent, CommentPart } from "../component";
-import { useAxios, useFunction, useModal } from "../hooks";
+import { useAxios, useModal } from "../hooks";
 import "../scss/ContentDetail.scss";
 
-const ContentDetail = ({ userId, history }) => {
-  const { axios_getSpecificContent, axios_deleteContent } = useAxios();
-  const { checkUserIsWriter } = useFunction();
+const ContentDetail = ({ history }) => {
+  const {
+    axios_getSpecificContent,
+    axios_deleteContent,
+    axios_getModifyContent,
+  } = useAxios();
   const { isModalOn, handleModal } = useModal();
   const params = useParams();
 
@@ -18,8 +22,18 @@ const ContentDetail = ({ userId, history }) => {
     filepath: "",
     filename: "",
     refineDate: "",
+    isContentExist: false,
   });
-  const { id, subject_id, subject, content, filepath, filename } = contentData;
+
+  const {
+    id,
+    subject_id,
+    subject,
+    content,
+    filepath,
+    filename,
+    isContentExist,
+  } = contentData;
 
   useEffect(() => {
     axios_getSpecificContent(params.id, setContentData);
@@ -27,31 +41,41 @@ const ContentDetail = ({ userId, history }) => {
 
   return (
     <>
-      {isModalOn ? (
-        <ModifyContent
-          subject_id={subject_id}
-          subject={subject}
-          content={content}
-          filepath={filepath}
-          filename={filename}
-        />
+      {isContentExist ? (
+        <>
+          {isModalOn ? (
+            <ModifyContent
+              subject_id={subject_id}
+              subject={subject}
+              content={content}
+              filepath={filepath}
+              filename={filename}
+              setContentData={setContentData}
+              handleModal={handleModal}
+            />
+          ) : (
+            <div id="CD-wrapper">
+              <ContentBox contentData={contentData} />
+              <div id="CD-button-box">
+                <button
+                  onClick={() => {
+                    axios_getModifyContent(id, params.id, handleModal);
+                  }}
+                >
+                  게시글 수정
+                </button>
+                <button
+                  onClick={() => axios_deleteContent(id, params.id, history)}
+                >
+                  게시글 삭제
+                </button>
+              </div>
+              <CommentPart />
+            </div>
+          )}
+        </>
       ) : (
-        <div id="CD-wrapper">
-          <ContentBox contentData={contentData} />
-          <div id="CD-button-box">
-            <button onClick={() => checkUserIsWriter(id, userId, handleModal)}>
-              게시글 수정
-            </button>
-            <button
-              onClick={() =>
-                axios_deleteContent(userId, contentData.id, params.id, history)
-              }
-            >
-              게시글 삭제
-            </button>
-          </div>
-          <CommentPart userId={userId} />
-        </div>
+        <NotFound />
       )}
     </>
   );

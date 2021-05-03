@@ -4,7 +4,7 @@ import { CommentBox, CreateComment, ModifyComment } from "../component";
 import { useFunction, useClickedPage, useAxios, useModal } from "../hooks";
 import "../scss/CommentPart.scss";
 
-const CommentPart = ({ userId }) => {
+const CommentPart = () => {
   const { countCommentPageLength } = useFunction();
   const { clickedPage, handleClickedPage } = useClickedPage();
   const { axios_getCommentPagination } = useAxios();
@@ -37,7 +37,6 @@ const CommentPart = ({ userId }) => {
           </li>
         ) : (
           <CommentBox
-            userId={userId}
             comments={comments}
             setContentComments={setContentComments}
             clickedPage={clickedPage}
@@ -56,35 +55,38 @@ const CommentPart = ({ userId }) => {
           <CreateComment
             setContentComments={setContentComments}
             clickedPage={clickedPage}
-            userId={userId}
           />
         )}
       </div>
-      <ul id="comment-pagination-wrapper">
-        <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
-          &#60; First
-        </li>
-        {commentPages.map((page) => {
-          return (
-            <li
-              id={page === clickedPage ? "clickedColor" : null}
-              key={page}
-              value={page}
-              onClick={() => handleClickedPage(page)}
-            >
-              {page}
-            </li>
-          );
-        })}
-        <li
-          className="FL-pagination"
-          onClick={() =>
-            handleClickedPage(commentPages[commentPages.length - 1])
-          }
-        >
-          Last &#62;
-        </li>
-      </ul>
+      {count ? (
+        <ul id="comment-pagination-wrapper">
+          <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
+            &#60; First
+          </li>
+          {commentPages.map((page) => {
+            return (
+              <li
+                id={page === clickedPage ? "clickedColor" : null}
+                key={page}
+                value={page}
+                onClick={() => handleClickedPage(page)}
+              >
+                {page}
+              </li>
+            );
+          })}
+          <li
+            className="FL-pagination"
+            onClick={() =>
+              handleClickedPage(commentPages[commentPages.length - 1])
+            }
+          >
+            Last &#62;
+          </li>
+        </ul>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

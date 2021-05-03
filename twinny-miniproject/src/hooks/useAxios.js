@@ -15,7 +15,7 @@ const useAxios = () => {
     swal_subjectIsBlank,
     swal_contentIsBlank,
     swal_youAreNotWriter,
-    swal_loginToWrite,
+    swal_youCantModifyContent,
     swal_commentIsBlank,
   } = useSwal();
   const { emailValidation } = useFunction();
@@ -35,16 +35,20 @@ const useAxios = () => {
         } = res.data;
         let decodeStr = `data:image/png;base64,${file}`;
 
-        const refineDate = date.slice(0, 10);
-        setContentData({
-          subject,
-          content,
-          id,
-          subject_id,
-          filepath: decodeStr,
-          filename,
-          refineDate,
-        });
+        // 게시물이 존재하지 않으면
+        if (res.data.result !== "2") {
+          const refineDate = date.slice(0, 10);
+          setContentData({
+            subject,
+            content,
+            id,
+            subject_id,
+            filepath: decodeStr,
+            filename,
+            refineDate,
+            isContentExist: true,
+          });
+        }
       })
       .catch((err) => console.log(err));
   }, []);
@@ -107,11 +111,10 @@ const useAxios = () => {
   );
 
   const axios_handleLogin = useCallback(
-    (id, password, handleUserId, handleModal, history) => {
+    (id, password, handleModal, history) => {
       axios
         .post("/login", qs.stringify({ id, password }))
         .then(() => {
-          handleUserId(id);
           handleModal();
           history.push("/");
         })
@@ -124,12 +127,11 @@ const useAxios = () => {
     [swal_loginWrongInfo]
   );
 
-  const axios_handleLogout = useCallback((handleUserId, history) => {
+  const axios_handleLogout = useCallback((history) => {
     axios
       .post("/logout")
       .then(() => {
         Cookies.remove("session", { path: "/" });
-        handleUserId("");
         history.push("/");
       })
       .catch((err) => console.log(err));
@@ -187,22 +189,41 @@ const useAxios = () => {
   );
 
   const axios_deleteContent = useCallback(
-    (writer, content_id, subject_id, history) => {
-      // 유저가 쓴 글인지 확인로직
-      if (writer === content_id) {
-        axios
-          .post("/board/delete", qs.stringify({ writer, subject_id }))
-          .then(() => history.push("/"))
-          .catch((err) => console.log(err));
-      } else {
-        swal_youAreNotWriter();
-      }
+    (writer, subject_id, history) => {
+      axios
+        .post("/board/delete", qs.stringify({ writer, subject_id }))
+        .then((res) => {
+          if (res.data.result === "2") swal_youAreNotWriter();
+          else history.push("/");
+        })
+        .catch((err) => console.log(err));
     },
     [swal_youAreNotWriter]
   );
 
+  const axios_getModifyContent = useCallback(
+    (writer, subject_id, handleModal) => {
+      axios
+        .post("/board/modify_bef", qs.stringify({ writer, subject_id }))
+        .then((res) => {
+          if (res.data.result === "2") swal_youCantModifyContent();
+          else handleModal();
+        })
+        .catch((err) => console.log(err));
+    },
+    [swal_youCantModifyContent]
+  );
+
   const axios_postModifyContent = useCallback(
-    (subject_id, subject, content, file_status, file, history) => {
+    (
+      subject_id,
+      subject,
+      content,
+      file_status,
+      file,
+      setContentData,
+      handleModal
+    ) => {
       const formData = new FormData();
 
       formData.append("subject_id", subject_id);
@@ -229,20 +250,19 @@ const useAxios = () => {
       } else {
         axios
           .post("/board/modify_aft", formData, config)
-          .then(() => history.push("/"))
+          .then(() => axios_getSpecificContent(subject_id, setContentData))
+          .then(() => handleModal())
           .catch((err) => console.log(err));
       }
     },
-    [swal_subjectIsBlank, swal_contentIsBlank]
+    [swal_subjectIsBlank, swal_contentIsBlank, axios_getSpecificContent]
   );
 
   const axios_postNewComment = useCallback(
-    (comment, subject_id, clickedPage, setContentComments, onReset, userId) => {
+    (comment, subject_id, clickedPage, setContentComments, onReset) => {
       const commentTextbox = document.querySelector("#comment-textbox");
 
-      if (!userId) {
-        swal_loginToWrite();
-      } else if (!comment) {
+      if (!comment) {
         swal_commentIsBlank();
       } else {
         axios
@@ -259,34 +279,37 @@ const useAxios = () => {
           .catch((err) => console.log(err));
       }
     },
-    [swal_loginToWrite, swal_commentIsBlank, axios_getCommentPagination]
+    [swal_commentIsBlank, axios_getCommentPagination]
   );
 
   const axios_deleteComment = useCallback(
-    (
-      userId,
-      writer,
-      comment_id,
-      subject_id,
-      clickedPage,
-      setContentComments
-    ) => {
-      if (userId !== writer) {
-        swal_youAreNotWriter();
-      } else {
-        axios
-          .post("/comment/delete", qs.stringify({ comment_id }))
-          .then(() => {
+    (comment_id, subject_id, clickedPage, setContentComments) => {
+      axios
+        .post("/comment/delete", qs.stringify({ comment_id }))
+        .then((res) => {
+          if (res.data.result === "2") swal_youAreNotWriter();
+          else
             axios_getCommentPagination(
               subject_id,
               clickedPage,
               setContentComments
             );
-          })
-          .catch((err) => console.log(err));
-      }
+        })
+        .catch((err) => console.log(err));
     },
     [swal_youAreNotWriter, axios_getCommentPagination]
+  );
+
+  const axios_checkModifyComment = useCallback(
+    (comment_id, handleModal) => {
+      axios
+        .post("/comment/modify_bef", qs.stringify({ comment_id }))
+        .then((res) => {
+          if (res.data.result === "2") swal_youCantModifyContent();
+          else handleModal();
+        });
+    },
+    [swal_youCantModifyContent]
   );
 
   const axios_getModifyComment = useCallback(
@@ -294,11 +317,12 @@ const useAxios = () => {
       axios
         .post("/comment/modify_bef", qs.stringify({ comment_id }))
         .then((res) => {
-          setModifyCommentData(res.data[0]);
+          if (res.data.result === "2") swal_youCantModifyContent();
+          else setModifyCommentData(res.data[0]);
         })
         .catch((err) => console.log(err));
     },
-    []
+    [swal_youCantModifyContent]
   );
 
   const axios_postModifyComment = useCallback(
@@ -343,9 +367,11 @@ const useAxios = () => {
     axios_getCommentPagination,
     axios_createNewContent,
     axios_deleteContent,
+    axios_getModifyContent,
     axios_postModifyContent,
     axios_postNewComment,
     axios_deleteComment,
+    axios_checkModifyComment,
     axios_getModifyComment,
     axios_postModifyComment,
   };

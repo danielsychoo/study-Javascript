@@ -1,17 +1,15 @@
 import React from "react";
-import { useAxios, useFunction } from "../hooks";
+import { useAxios } from "../hooks";
 import "../scss/CommentBox.scss";
 
 const CommentBox = ({
-  userId,
   comments,
   setContentComments,
   clickedPage,
   handleModal,
   setComment_id,
 }) => {
-  const { axios_deleteComment } = useAxios();
-  const { checkUserIsWriter, handleModifyOnAndSetCommentId } = useFunction();
+  const { axios_checkModifyComment, axios_deleteComment } = useAxios();
 
   return (
     <ul id="comment-box-wrapper">
@@ -31,15 +29,10 @@ const CommentBox = ({
             <div className="comment-btn-box">
               <button
                 className="comment-modify-btn"
-                onClick={() =>
-                  checkUserIsWriter(id, userId, () =>
-                    handleModifyOnAndSetCommentId(
-                      setComment_id,
-                      comment_id,
-                      handleModal
-                    )
-                  )
-                }
+                onClick={() => {
+                  axios_checkModifyComment(comment_id, handleModal);
+                  setComment_id(comment_id);
+                }}
               >
                 수정
               </button>
@@ -47,8 +40,6 @@ const CommentBox = ({
                 className="comment-delete-btn"
                 onClick={() => {
                   axios_deleteComment(
-                    userId,
-                    id,
                     comment_id,
                     subject_id,
                     clickedPage,

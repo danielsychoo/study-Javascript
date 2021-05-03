@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import "../scss/ModifyContent.scss";
 import { useOnChange, useFileChange, useFileStatus, useAxios } from "../hooks";
 
@@ -9,7 +8,8 @@ const ModifyContent = ({
   content,
   filepath,
   filename,
-  history,
+  setContentData,
+  handleModal,
 }) => {
   // 로컬에서 상태로 관리 (변화를 위해)
   const { state, onChange } = useOnChange({
@@ -62,7 +62,7 @@ const ModifyContent = ({
             <img src={filepath} alt={filename} />
           )}
           <div id="fileModify-btn-box">
-            <label id="fileModify-button" for="fileInput">
+            <label id="fileModify-button" htmlFor="fileInput">
               사진 수정
             </label>
             <button onClick={handleClearFileTrue}>사진 삭제</button>
@@ -83,7 +83,8 @@ const ModifyContent = ({
                 state.content,
                 file_status,
                 file,
-                history
+                setContentData,
+                handleModal
               );
             }}
           >
@@ -95,4 +96,4 @@ const ModifyContent = ({
   );
 };
 
-export default withRouter(ModifyContent);
+export default ModifyContent;

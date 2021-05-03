@@ -3,39 +3,31 @@ import { withRouter } from "react-router-dom";
 import { LoginModal } from "../component";
 import { useAxios, useFunction } from "../hooks";
 import { useModal } from "../hooks";
+import Cookies from "js-cookie";
 import "../scss/Navigation.scss";
 
-const Navigation = ({ userId, handleUserId, history }) => {
+const Navigation = ({ history }) => {
   const { isModalOn, handleModal } = useModal();
   const { axios_handleLogout } = useAxios();
-  const {
-    handleGoFirst,
-    handleGoBack,
-    goToHandleCreateContent,
-  } = useFunction();
+  const { goToHandleCreateContent } = useFunction();
+
+  const currentCookie = Cookies.get("session");
 
   return (
     <>
       <div id="nav-wrapper">
         <div id="nav-left-box">
           <div>Miniproject_Board</div>
-          <button id="nav-logo" onClick={() => handleGoFirst(history)}>
-            처음으로
-          </button>
-          <button id="nav-logo" onClick={() => handleGoBack(history)}>
-            뒤로가기
-          </button>
-          <button
-            id="nav-writeContent-btn"
-            onClick={() => goToHandleCreateContent(userId, history)}
-          >
-            새글쓰기
-          </button>
         </div>
-        {userId ? (
+        {currentCookie ? (
           <div id="nav-after-login">
-            <div>{userId} 님</div>
-            <button onClick={() => axios_handleLogout(handleUserId, history)}>
+            <button
+              id="nav-writeContent-btn"
+              onClick={() => goToHandleCreateContent(history)}
+            >
+              새글쓰기
+            </button>
+            <button onClick={() => axios_handleLogout(history)}>
               로그아웃
             </button>
           </div>
@@ -45,11 +37,7 @@ const Navigation = ({ userId, handleUserId, history }) => {
           </button>
         )}
       </div>
-      {isModalOn ? (
-        <LoginModal handleModal={handleModal} handleUserId={handleUserId} />
-      ) : (
-        <></>
-      )}
+      {isModalOn ? <LoginModal handleModal={handleModal} /> : <></>}
     </>
   );
 };

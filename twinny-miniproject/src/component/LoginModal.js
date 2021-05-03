@@ -4,7 +4,7 @@ import { useOnChange, useAxios } from "../hooks";
 import { useFunction } from "../hooks";
 import "../scss/LoginModal.scss";
 
-const LoginModal = ({ handleModal, handleUserId, history }) => {
+const LoginModal = ({ history, handleModal }) => {
   const { axios_handleLogin } = useAxios();
   const { goToJoin, handleEnterKey } = useFunction();
 
@@ -25,7 +25,7 @@ const LoginModal = ({ handleModal, handleUserId, history }) => {
         onKeyUp={() => {
           // onKeyPress를 할 경우 모바일에서 지원 안됨
           if (handleEnterKey())
-            axios_handleLogin(id, password, handleUserId, handleModal, history);
+            axios_handleLogin(id, password, handleModal, history);
         }}
       />
       <div>PASSWORD</div>
@@ -36,15 +36,13 @@ const LoginModal = ({ handleModal, handleUserId, history }) => {
         onChange={onChange}
         onKeyUp={() => {
           if (handleEnterKey())
-            axios_handleLogin(id, password, handleUserId, handleModal, history);
+            axios_handleLogin(id, password, handleModal, history);
         }}
       />
       <div id="LM-btnBox">
         <div
           className="LM-btn"
-          onClick={() =>
-            axios_handleLogin(id, password, handleUserId, handleModal, history)
-          }
+          onClick={() => axios_handleLogin(id, password, handleModal, history)}
         >
           로그인
         </div>

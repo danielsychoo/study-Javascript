@@ -1,10 +1,10 @@
 import React from "react";
 import { Board } from "../component";
 
-const Home = () => {
+const Home = ({ clickedPage, handleClickedPage }) => {
   return (
     <div>
-      <Board />
+      <Board clickedPage={clickedPage} handleClickedPage={handleClickedPage} />
     </div>
   );
 };

@@ -1,8 +1,11 @@
 import { useCallback } from "react";
 import { useSwal } from "../hooks";
+import Cookies from "js-cookie";
+
+const currentCookie = Cookies.get("session");
 
 const useFunction = () => {
-  const { swal_loginToWrite, swal_youCantModifyContent } = useSwal();
+  const { swal_loginToWrite, swal_loginToRead } = useSwal();
 
   const emailValidation = useCallback((newEmail) => {
     let emailExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -36,26 +39,21 @@ const useFunction = () => {
     history.push("/join");
   }, []);
 
-  const handleGoBack = useCallback((history) => history.goBack(), []);
-  const handleGoFirst = useCallback((history) => history.push("/"), []);
-
   const goToHandleCreateContent = useCallback(
-    (userId, history) => {
-      if (userId) history.push("/createcontent");
+    (history) => {
+      if (currentCookie) history.push("/createcontent");
       else swal_loginToWrite();
     },
     [swal_loginToWrite]
   );
 
-  const checkUserIsWriter = useCallback(
-    (writer, user, callback) => {
-      if (writer !== user) {
-        swal_youCantModifyContent();
-      } else {
-        callback();
-      }
+  const goToContentDetail = useCallback(
+    (subject_id, history) => {
+      const currentCookie = Cookies.get("session");
+      if (currentCookie) history.push(`/content/${subject_id}`);
+      else swal_loginToRead();
     },
-    [swal_youCantModifyContent]
+    [swal_loginToRead]
   );
 
   const handleModifyOnAndSetCommentId = useCallback(
@@ -69,10 +67,8 @@ const useFunction = () => {
   const handleEnterKey = useCallback(() => {
     // axios 자체를 parameter로 넣을 시 error 발생
     if (window.event.keyCode === 13) {
-      console.log("true");
       return true;
     } else {
-      console.log("false");
       return false;
     }
   }, []);
@@ -82,10 +78,8 @@ const useFunction = () => {
     countBoardPageLength,
     countCommentPageLength,
     goToJoin,
-    handleGoBack,
-    handleGoFirst,
     goToHandleCreateContent,
-    checkUserIsWriter,
+    goToContentDetail,
     handleModifyOnAndSetCommentId,
     handleEnterKey,
   };

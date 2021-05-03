@@ -44,7 +44,7 @@ const CreateContent = ({ history }) => {
           <input type="file" id="fileInput" onChange={onFileChange} />
         </div>
         <div id="CC-submit">
-          <label id="fileInput-button" for="fileInput">
+          <label id="fileInput-button" htmlFor="fileInput">
             사진 업로드
           </label>
           <button
