@@ -1,6 +1,7 @@
 @import "mixin";
 
 #loading-wrapper {
-  height: 80vh;
+  height: 100%;
+  width: 100%;
   @include flex-center;
 }

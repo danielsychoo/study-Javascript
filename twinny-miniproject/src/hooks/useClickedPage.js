@@ -7,7 +7,18 @@ const useClickedPage = () => {
     setClickedPage(page);
   }, []);
 
-  return { clickedPage, handleClickedPage };
+  const [commentClickedPage, setCommentClickedPage] = useState(1);
+
+  const handleCommentClickedPage = useCallback((page) => {
+    setCommentClickedPage(page);
+  }, []);
+
+  return {
+    clickedPage,
+    handleClickedPage,
+    commentClickedPage,
+    handleCommentClickedPage,
+  };
 };
 
 export default useClickedPage;

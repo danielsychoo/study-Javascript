@@ -12,7 +12,12 @@ import { Navigation } from "./component";
 import { useClickedPage } from "./hooks";
 
 const App = () => {
-  const { clickedPage, handleClickedPage } = useClickedPage();
+  const {
+    clickedPage,
+    handleClickedPage,
+    commentClickedPage,
+    handleCommentClickedPage,
+  } = useClickedPage();
 
   return (
     <Router>
@@ -30,7 +35,16 @@ const App = () => {
             )}
           />
           <Route path="/join" render={() => <Join />} />
-          <Route exact path="/content/:id" render={() => <ContentDetail />} />
+          <Route
+            exact
+            path="/content/:id"
+            render={() => (
+              <ContentDetail
+                commentClickedPage={commentClickedPage}
+                handleCommentClickedPage={handleCommentClickedPage}
+              />
+            )}
+          />
           <Route path="/createcontent" render={() => <CreateContent />} />
           <Route path="/redirect" render={() => <Redirect />} />
           <Route path="*" render={() => <NotFound />} />

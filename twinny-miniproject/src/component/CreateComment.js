@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useOnChange, useAxios } from "../hooks";
 import "../scss/CreateComment.scss";
 
-const CreateComment = ({ setContentComments, clickedPage }) => {
+const CreateComment = ({ setContentComments, commentClickedPage }) => {
   const { axios_postNewComment } = useAxios();
   const { state, onChange, onReset } = useOnChange("");
   const subject_id = useParams().id;
@@ -21,7 +21,7 @@ const CreateComment = ({ setContentComments, clickedPage }) => {
           axios_postNewComment(
             state.comment,
             subject_id,
-            clickedPage,
+            commentClickedPage,
             setContentComments,
             onReset
           )

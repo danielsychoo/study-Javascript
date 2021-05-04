@@ -159,11 +159,17 @@ const useAxios = () => {
   }, []);
 
   const axios_getCommentPagination = useCallback(
-    (subject_id, clickedPage, setContentComments) => {
-      axios
+    async (
+      subject_id,
+      commentClickedPage,
+      setContentComments,
+      setIsLoading
+    ) => {
+      await setIsLoading(true);
+      await axios
         .post(
           "/comment/pagination",
-          qs.stringify({ subject_id, page: clickedPage, limit: 3 })
+          qs.stringify({ subject_id, page: commentClickedPage, limit: 3 })
         )
         .then((res) => {
           setContentComments({
@@ -172,6 +178,7 @@ const useAxios = () => {
           });
         })
         .catch((err) => console.log(err));
+      await setIsLoading(false);
     },
     []
   );
@@ -281,7 +288,7 @@ const useAxios = () => {
   );
 
   const axios_postNewComment = useCallback(
-    (comment, subject_id, clickedPage, setContentComments, onReset) => {
+    (comment, subject_id, commentClickedPage, setContentComments, onReset) => {
       const commentTextbox = document.querySelector("#comment-textbox");
 
       if (!comment) {
@@ -294,7 +301,7 @@ const useAxios = () => {
             commentTextbox.value = ""; // 보여지는 value 비우는 것
             axios_getCommentPagination(
               subject_id,
-              clickedPage,
+              commentClickedPage,
               setContentComments
             );
           })
@@ -305,7 +312,7 @@ const useAxios = () => {
   );
 
   const axios_deleteComment = useCallback(
-    (comment_id, subject_id, clickedPage, setContentComments) => {
+    (comment_id, subject_id, commentClickedPage, setContentComments) => {
       axios
         .post("/comment/delete", qs.stringify({ comment_id }))
         .then((res) => {
@@ -313,7 +320,7 @@ const useAxios = () => {
           else
             axios_getCommentPagination(
               subject_id,
-              clickedPage,
+              commentClickedPage,
               setContentComments
             );
         })
@@ -353,7 +360,7 @@ const useAxios = () => {
       comment,
       onReset,
       subject_id,
-      clickedPage,
+      commentClickedPage,
       setContentComments,
       handleModal
     ) => {
@@ -370,7 +377,7 @@ const useAxios = () => {
             handleModal();
             axios_getCommentPagination(
               subject_id,
-              clickedPage,
+              commentClickedPage,
               setContentComments
             );
           })

@@ -9,7 +9,7 @@ import "../scss/Navigation.scss";
 const Navigation = ({ history }) => {
   const { isModalOn, handleModal } = useModal();
   const { axios_handleLogout } = useAxios();
-  const { goToHandleCreateContent } = useFunction();
+  const { goToHandleCreateContent, goToHome } = useFunction();
 
   const currentCookie = Cookies.get("session");
 
@@ -17,7 +17,9 @@ const Navigation = ({ history }) => {
     <>
       <div id="nav-wrapper">
         <div id="nav-left-box">
-          <div>Miniproject_Board</div>
+          <button id="nav-homeBtn" onClick={() => goToHome(history)}>
+            Miniproject_Board
+          </button>
         </div>
         {currentCookie ? (
           <div id="nav-after-login">

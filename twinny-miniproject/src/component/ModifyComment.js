@@ -5,7 +5,7 @@ import "../scss/ModifyComment.scss";
 const ModifyComment = ({
   comment_id,
   setContentComments,
-  clickedPage,
+  commentClickedPage,
   handleModal,
 }) => {
   const { axios_getModifyComment, axios_postModifyComment } = useAxios();
@@ -32,7 +32,7 @@ const ModifyComment = ({
             state.comment,
             onReset,
             modifyCommentData.subject_id,
-            clickedPage,
+            commentClickedPage,
             setContentComments,
             handleModal
           )

@@ -5,7 +5,11 @@ import { ContentBox, ModifyContent, CommentPart, Loading } from "../component";
 import { useAxios, useModal } from "../hooks";
 import "../scss/ContentDetail.scss";
 
-const ContentDetail = ({ history }) => {
+const ContentDetail = ({
+  history,
+  commentClickedPage,
+  handleCommentClickedPage,
+}) => {
   const {
     axios_getSpecificContent,
     axios_deleteContent,
@@ -43,7 +47,9 @@ const ContentDetail = ({ history }) => {
   return (
     <>
       {isLoading ? (
-        <Loading />
+        <div id="CD-loading-wrapper">
+          <Loading />
+        </div>
       ) : (
         <>
           {isContentExist ? (
@@ -76,7 +82,10 @@ const ContentDetail = ({ history }) => {
                       게시글 삭제
                     </button>
                   </div>
-                  <CommentPart />
+                  <CommentPart
+                    commentClickedPage={commentClickedPage}
+                    handleCommentClickedPage={handleCommentClickedPage}
+                  />
                 </div>
               )}
             </>

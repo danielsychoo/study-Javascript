@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { CommentBox, CreateComment, ModifyComment } from "../component";
-import { useFunction, useClickedPage, useAxios, useModal } from "../hooks";
+import {
+  CommentBox,
+  CreateComment,
+  ModifyComment,
+  Loading,
+} from "../component";
+import { useFunction, useAxios, useModal } from "../hooks";
 import "../scss/CommentPart.scss";
 
-const CommentPart = () => {
+const CommentPart = ({ commentClickedPage, handleCommentClickedPage }) => {
   const { countCommentPageLength } = useFunction();
-  const { clickedPage, handleClickedPage } = useClickedPage();
   const { axios_getCommentPagination } = useAxios();
 
   const { isModalOn, handleModal } = useModal(); // for modify Component
@@ -20,56 +24,73 @@ const CommentPart = () => {
   });
 
   const { comments, count } = contentComments; // state 비구조화 할당
+  const [isLoading, setIsLoading] = useState(false);
 
   const commentPages = countCommentPageLength(count); // comment의 전체 값
 
   useEffect(() => {
-    axios_getCommentPagination(subejct_id, clickedPage, setContentComments);
-  }, [subejct_id, clickedPage, axios_getCommentPagination]);
+    axios_getCommentPagination(
+      subejct_id,
+      commentClickedPage,
+      setContentComments,
+      setIsLoading
+    );
+  }, [subejct_id, commentClickedPage, axios_getCommentPagination]);
 
   return (
     <div id="comments-wrapper">
       <div id="comment-main-wrapper">
-        {count === 0 ? (
-          <li id="no-comments">
-            <p>댓글이 없습니다.</p>
-            <p>첫번째 댓글을 작성해보세요!</p>
-          </li>
+        {isLoading ? (
+          <Loading />
         ) : (
-          <CommentBox
-            comments={comments}
-            setContentComments={setContentComments}
-            clickedPage={clickedPage}
-            handleModal={handleModal}
-            setComment_id={setComment_id}
-          />
+          <>
+            {count === 0 ? (
+              <li id="no-comments">
+                <p>댓글이 없습니다.</p>
+                <p>첫번째 댓글을 작성해보세요!</p>
+              </li>
+            ) : (
+              <CommentBox
+                comments={comments}
+                setContentComments={setContentComments}
+                commentClickedPage={commentClickedPage}
+                handleModal={handleModal}
+                setComment_id={setComment_id}
+              />
+            )}
+          </>
         )}
+
+        {/* 댓글 작성부분 */}
         {isModalOn ? (
           <ModifyComment
             comment_id={comment_id}
             setContentComments={setContentComments}
-            clickedPage={clickedPage}
+            commentClickedPage={commentClickedPage}
             handleModal={handleModal}
           />
         ) : (
           <CreateComment
             setContentComments={setContentComments}
-            clickedPage={clickedPage}
+            commentClickedPage={commentClickedPage}
           />
         )}
       </div>
       {count ? (
         <ul id="comment-pagination-wrapper">
-          <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
+          <li
+            className="FL-pagination"
+            onClick={() => handleCommentClickedPage(1)}
+          >
             &#60; First
           </li>
           {commentPages.map((page) => {
             return (
               <li
-                id={page === clickedPage ? "clickedColor" : null}
+                id={page === commentClickedPage ? "clickedColor" : null}
                 key={page}
                 value={page}
-                onClick={() => handleClickedPage(page)}
+                onClick={() => handleCommentClickedPage(page)}
               >
                 {page}
               </li>
@@ -78,7 +99,7 @@ const CommentPart = () => {
           <li
             className="FL-pagination"
             onClick={() =>
-              handleClickedPage(commentPages[commentPages.length - 1])
+              handleCommentClickedPage(commentPages[commentPages.length - 1])
             }
           >
             Last &#62;

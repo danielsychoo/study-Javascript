@@ -5,7 +5,7 @@ import "../scss/CommentBox.scss";
 const CommentBox = ({
   comments,
   setContentComments,
-  clickedPage,
+  commentClickedPage,
   handleModal,
   setComment_id,
 }) => {
@@ -42,7 +42,7 @@ const CommentBox = ({
                   axios_deleteComment(
                     comment_id,
                     subject_id,
-                    clickedPage,
+                    commentClickedPage,
                     setContentComments
                   );
                 }}

@@ -23,10 +23,12 @@ const Board = ({ history, clickedPage, handleClickedPage }) => {
 
   return (
     <div id="board-wrapper">
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div id="content-wrapper">
+      <div id="content-wrapper">
+        {isLoading ? (
+          <div id="content-loading-wrapper">
+            <Loading />
+          </div>
+        ) : (
           <ul id="board-table">
             <li className="subject-board-tr">
               <div id="subject-board-num" className="board-td">
@@ -68,8 +70,8 @@ const Board = ({ history, clickedPage, handleClickedPage }) => {
               );
             })}
           </ul>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* pagination part */}
       {count ? (

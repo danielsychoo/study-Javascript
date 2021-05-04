@@ -47,6 +47,10 @@ const useFunction = () => {
     [swal_loginToWrite]
   );
 
+  const goToHome = useCallback((history) => {
+    history.push("/");
+  }, []);
+
   const goToContentDetail = useCallback(
     (subject_id, history) => {
       const currentCookie = Cookies.get("session");
@@ -79,6 +83,7 @@ const useFunction = () => {
     countCommentPageLength,
     goToJoin,
     goToHandleCreateContent,
+    goToHome,
     goToContentDetail,
     handleModifyOnAndSetCommentId,
     handleEnterKey,

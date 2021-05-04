@@ -14,9 +14,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    & > div {
+    #nav-homeBtn {
       margin: 0 20px 0 0;
       font-size: 36px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      @include bg-color;
       @include text-color;
     }
     #nav-logo,
