@@ -7,3 +7,4 @@ export { default as ModifyContent } from "./ModifyContent";
 export { default as CommentBox } from "./CommentBox";
 export { default as CreateComment } from "./CreateComment";
 export { default as ModifyComment } from "./ModifyComment";
+export { default as Loading } from "./Loading";

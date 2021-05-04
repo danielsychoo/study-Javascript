@@ -1,0 +1,7 @@
+@import "mixin";
+
+#loading-wrapper {
+  border: 1px red solid;
+  height: 80vh;
+  @include flex-center;
+}
