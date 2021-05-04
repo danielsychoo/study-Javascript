@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAxios, useOnChange } from "../hooks";
 import "../scss/ModifyComment.scss";
 
@@ -16,6 +16,7 @@ const ModifyComment = ({
   }, [comment_id, setModifyCommentData, axios_getModifyComment]);
 
   const { state, onChange, onReset } = useOnChange(null);
+  const commentInputDOM = useRef();
 
   return (
     <div id="modify-comment-wrapper">
@@ -24,6 +25,7 @@ const ModifyComment = ({
         name="comment"
         value={state ? state.comment : modifyCommentData.comment}
         onChange={onChange}
+        ref={commentInputDOM}
       />
       <button
         onClick={() =>
@@ -34,7 +36,8 @@ const ModifyComment = ({
             modifyCommentData.subject_id,
             commentClickedPage,
             setContentComments,
-            handleModal
+            handleModal,
+            commentInputDOM.current
           )
         }
       >

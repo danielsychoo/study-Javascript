@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { withRouter } from "react-router-dom";
 import { useOnChange, useAxios, useFileChange } from "../hooks";
 import "../scss/CreateContent.scss";
@@ -12,6 +12,8 @@ const CreateContent = ({ history }) => {
   const { subject, content } = state;
 
   const { file, onFileChange } = useFileChange(null);
+  const subjectInputDOM = useRef();
+  const contentInputDOM = useRef();
 
   return (
     <div id="CC-wrapper">
@@ -24,6 +26,7 @@ const CreateContent = ({ history }) => {
             name="subject"
             value={state.subject}
             onChange={onChange}
+            ref={subjectInputDOM}
           />
         </div>
         <textarea
@@ -32,6 +35,7 @@ const CreateContent = ({ history }) => {
           name="content"
           value={state.content}
           onChange={onChange}
+          ref={contentInputDOM}
         />
       </div>
       <div id="CC-right-wrapper">
@@ -49,7 +53,14 @@ const CreateContent = ({ history }) => {
           </label>
           <button
             onClick={() =>
-              axios_createNewContent(subject, content, file, history)
+              axios_createNewContent(
+                subject,
+                content,
+                file,
+                history,
+                subjectInputDOM.current,
+                contentInputDOM.current
+              )
             }
           >
             글쓰기

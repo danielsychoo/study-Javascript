@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { withRouter } from "react-router-dom";
 import "../scss/ModifyContent.scss";
 import { useOnChange, useFileChange, useFileStatus, useAxios } from "../hooks";
@@ -29,6 +29,8 @@ const ModifyContent = ({
     handleClearFileTrue,
   } = useFileStatus();
   const { axios_postModifyContent } = useAxios();
+  const subjectInputDOM = useRef();
+  const contentInputDOM = useRef();
 
   return (
     <div id="CC-wrapper">
@@ -41,6 +43,7 @@ const ModifyContent = ({
             name="subject"
             value={state.subject}
             onChange={onChange}
+            ref={subjectInputDOM}
           />
         </div>
         <textarea
@@ -49,6 +52,7 @@ const ModifyContent = ({
           name="content"
           value={state.content}
           onChange={onChange}
+          ref={contentInputDOM}
         />
       </div>
       <div id="CC-right-wrapper">
@@ -85,7 +89,9 @@ const ModifyContent = ({
                 file_status,
                 file,
                 setIsLoading,
-                history
+                history,
+                subjectInputDOM.current,
+                contentInputDOM.current
               );
             }}
           >

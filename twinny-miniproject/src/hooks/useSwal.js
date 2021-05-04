@@ -58,19 +58,25 @@ const useSwal = () => {
     });
   }, []);
 
-  const swal_subjectIsBlank = useCallback(() => {
+  const swal_subjectIsBlank = useCallback((subjectInputDOM) => {
     Swal.fire({
       icon: "error",
       title: "제목이 비어있습니다.",
       text: "제목을 채워주세요.",
+      onAfterClose: () => {
+        subjectInputDOM.focus();
+      },
     });
   }, []);
 
-  const swal_contentIsBlank = useCallback(() => {
+  const swal_contentIsBlank = useCallback((contentInputDOM) => {
     Swal.fire({
       icon: "error",
       title: "본문이 비어있습니다.",
       text: "본문을 채워주세요.",
+      onAfterClose: () => {
+        contentInputDOM.focus();
+      },
     });
   }, []);
 
@@ -90,11 +96,14 @@ const useSwal = () => {
     });
   }, []);
 
-  const swal_commentIsBlank = useCallback(() => {
+  const swal_commentIsBlank = useCallback((commentInputDOM) => {
     Swal.fire({
       icon: "error",
       title: "댓글 내용이 없습니다.",
       text: "댓글 내용을 입력하세요.",
+      onAfterClose: () => {
+        commentInputDOM.focus();
+      },
     });
   }, []);
 

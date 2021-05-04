@@ -135,8 +135,7 @@ const useAxios = () => {
         .post("/login", qs.stringify({ id, password }))
         .then(() => {
           handleModal();
-          // history.push("/");
-          history.go(0);
+          history.go(0); // 새로고침
         })
         .catch((err) => {
           // API 명세서와 달리 정확한 아이디 비번외에 모두 500에러
@@ -184,7 +183,7 @@ const useAxios = () => {
   );
 
   const axios_createNewContent = useCallback(
-    (subject, content, file, history) => {
+    (subject, content, file, history, subjectInputDOM, contentInputDOM) => {
       const formData = new FormData();
 
       formData.append("subject", subject);
@@ -203,9 +202,9 @@ const useAxios = () => {
       };
 
       if (!subject) {
-        swal_subjectIsBlank();
+        swal_subjectIsBlank(subjectInputDOM);
       } else if (!content) {
-        swal_contentIsBlank();
+        swal_contentIsBlank(contentInputDOM);
       } else {
         axios
           .post("/board/write", formData, config)
@@ -250,7 +249,9 @@ const useAxios = () => {
       file_status,
       file,
       setIsLoading,
-      history
+      history,
+      subjectInputDOM,
+      contentInputDOM
     ) => {
       const formData = new FormData();
 
@@ -272,9 +273,9 @@ const useAxios = () => {
       };
 
       if (!subject) {
-        swal_subjectIsBlank();
+        swal_subjectIsBlank(subjectInputDOM);
       } else if (!content) {
-        swal_contentIsBlank();
+        swal_contentIsBlank(contentInputDOM);
       } else {
         // loading은 이후 277줄에서 새로고침하면서 다시 false로 됨
         await setIsLoading(true);
@@ -288,11 +289,18 @@ const useAxios = () => {
   );
 
   const axios_postNewComment = useCallback(
-    (comment, subject_id, commentClickedPage, setContentComments, onReset) => {
+    (
+      comment,
+      subject_id,
+      commentClickedPage,
+      setContentComments,
+      onReset,
+      commentInputDOM
+    ) => {
       const commentTextbox = document.querySelector("#comment-textbox");
 
       if (!comment) {
-        swal_commentIsBlank();
+        swal_commentIsBlank(commentInputDOM);
       } else {
         axios
           .post("/comment", qs.stringify({ subject_id, comment }))
@@ -362,12 +370,13 @@ const useAxios = () => {
       subject_id,
       commentClickedPage,
       setContentComments,
-      handleModal
+      handleModal,
+      commentInputDOM
     ) => {
       const commentTextbox = document.querySelector("#comment-textbox");
 
       if (!comment) {
-        swal_contentIsBlank();
+        swal_commentIsBlank(commentInputDOM);
       } else {
         axios
           .post("/comment/modify_aft", qs.stringify({ comment_id, comment }))
@@ -384,7 +393,7 @@ const useAxios = () => {
           .catch((err) => console.log(err));
       }
     },
-    [swal_contentIsBlank, axios_getCommentPagination]
+    [swal_commentIsBlank, axios_getCommentPagination]
   );
 
   return {
