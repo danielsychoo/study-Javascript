@@ -20,38 +20,55 @@ const useAxios = () => {
   } = useSwal();
   const { emailValidation } = useFunction();
 
-  const axios_getSpecificContent = useCallback((subject_id, setContentData) => {
-    axios
-      .post("/read/sep", qs.stringify({ subject_id }))
-      .then((res) => {
-        const {
-          subject,
-          content,
-          id,
-          subject_id,
-          file,
-          filename,
-          date,
-        } = res.data;
-        let decodeStr = `data:image/png;base64,${file}`;
-
-        // 게시물이 존재하지 않으면
-        if (res.data.result !== "2") {
-          const refineDate = date.slice(0, 10);
-          setContentData({
+  const axios_getSpecificContent = useCallback(
+    async (subject_id, setContentData, setIsLoading) => {
+      await setIsLoading(true);
+      await axios
+        .post("/read/sep", qs.stringify({ subject_id }))
+        .then((res) => {
+          const {
             subject,
             content,
             id,
             subject_id,
-            filepath: decodeStr,
+            file,
             filename,
-            refineDate,
-            isContentExist: true,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
+            date,
+          } = res.data;
+          let decodeStr = `data:image/png;base64,${file}`;
+
+          // 게시물이 존재하지 않으면
+          if (res.data.result !== "2") {
+            const refineDate = date.slice(0, 10);
+            setContentData({
+              subject,
+              content,
+              id,
+              subject_id,
+              filepath: decodeStr,
+              filename,
+              refineDate,
+              isContentExist: true,
+            });
+          } else {
+            const refineDate = date.slice(0, 10);
+            setContentData({
+              subject,
+              content,
+              id,
+              subject_id,
+              filepath: decodeStr,
+              filename,
+              refineDate,
+              isContentExist: false,
+            });
+          }
+        })
+        .catch((err) => console.log(err));
+      await setIsLoading(false);
+    },
+    []
+  );
 
   const axios_handleJoin = useCallback(
     (id, password, password_confirm, name, email, history, onReset) => {
@@ -93,8 +110,9 @@ const useAxios = () => {
   );
 
   const axios_getContentPagination = useCallback(
-    (clickedPage, setBoardContent) => {
-      axios
+    async (clickedPage, setBoardContent, setIsLoading) => {
+      await setIsLoading(true);
+      await axios
         .post(
           "/read/pagination",
           qs.stringify({ page: clickedPage, limit: 10 })
@@ -106,6 +124,7 @@ const useAxios = () => {
           });
         })
         .catch((err) => console.log(err));
+      await setIsLoading(false);
     },
     []
   );

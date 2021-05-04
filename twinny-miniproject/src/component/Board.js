@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { useAxios, useFunction } from "../hooks";
+import { Loading } from "../component";
 import "../scss/Board.scss";
 
 const Board = ({ history, clickedPage, handleClickedPage }) => {
   const { axios_getContentPagination } = useAxios();
   const { countBoardPageLength, goToContentDetail } = useFunction();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [boardContent, setBoardContent] = useState({
     content: [],
@@ -16,54 +18,60 @@ const Board = ({ history, clickedPage, handleClickedPage }) => {
   const boardPages = countBoardPageLength(count); // page의 전체 값
 
   useEffect(() => {
-    axios_getContentPagination(clickedPage, setBoardContent);
+    axios_getContentPagination(clickedPage, setBoardContent, setIsLoading);
   }, [clickedPage, axios_getContentPagination]);
 
   return (
     <div id="board-wrapper">
-      <div id="content-wrapper">
-        <ul id="board-table">
-          <li className="subject-board-tr">
-            <div id="subject-board-num" className="board-td">
-              번호
-            </div>
-            <div id="subject-board-subject" className="board-td">
-              제목
-            </div>
-            <div id="subject-board-writer" className="board-td">
-              글쓴이
-            </div>
-            <div id="subject-board-date" className="board-td">
-              날짜
-            </div>
-          </li>
-          {content.map((el) => {
-            const refineDate = el.date.slice(0, 10); // timestamp 형식에서 필요한 값만 정제
-            return (
-              <div
-                key={el.subject_id}
-                className="tr-link"
-                onClick={() => goToContentDetail(el.subject_id, history)}
-              >
-                <li className="board-tr">
-                  <div id="board-num" className="board-td">
-                    {el.subject_id}
-                  </div>
-                  <div id="board-subject" className="board-td">
-                    {el.subject}
-                  </div>
-                  <div id="board-writer" className="board-td">
-                    {el.id}
-                  </div>
-                  <div id="board-date" className="board-td">
-                    {refineDate}
-                  </div>
-                </li>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div id="content-wrapper">
+          <ul id="board-table">
+            <li className="subject-board-tr">
+              <div id="subject-board-num" className="board-td">
+                번호
               </div>
-            );
-          })}
-        </ul>
-      </div>
+              <div id="subject-board-subject" className="board-td">
+                제목
+              </div>
+              <div id="subject-board-writer" className="board-td">
+                글쓴이
+              </div>
+              <div id="subject-board-date" className="board-td">
+                날짜
+              </div>
+            </li>
+            {content.map((el) => {
+              const refineDate = el.date.slice(0, 10); // timestamp 형식에서 필요한 값만 정제
+              return (
+                <div
+                  key={el.subject_id}
+                  className="tr-link"
+                  onClick={() => goToContentDetail(el.subject_id, history)}
+                >
+                  <li className="board-tr">
+                    <div id="board-num" className="board-td">
+                      {el.subject_id}
+                    </div>
+                    <div id="board-subject" className="board-td">
+                      {el.subject}
+                    </div>
+                    <div id="board-writer" className="board-td">
+                      {el.id}
+                    </div>
+                    <div id="board-date" className="board-td">
+                      {refineDate}
+                    </div>
+                  </li>
+                </div>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {/* pagination part */}
       {count ? (
         <ul id="board-pagination-wrapper">
           <li className="FL-pagination" onClick={() => handleClickedPage(1)}>

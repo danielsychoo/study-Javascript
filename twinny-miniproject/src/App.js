@@ -8,7 +8,7 @@ import {
   Redirect,
   NotFound,
 } from "./route";
-import { Navigation, Loading } from "./component";
+import { Navigation } from "./component";
 import { useClickedPage } from "./hooks";
 
 const App = () => {
@@ -18,7 +18,6 @@ const App = () => {
     <Router>
       <div className="App">
         <Navigation />
-        <Loading />
         <Switch>
           <Route
             exact
@@ -34,12 +33,6 @@ const App = () => {
           <Route exact path="/content/:id" render={() => <ContentDetail />} />
           <Route path="/createcontent" render={() => <CreateContent />} />
           <Route path="/redirect" render={() => <Redirect />} />
-          {/* <Route
-            path="/test"
-            render={() => {
-              <Loading />;
-            }}
-          /> */}
           <Route path="*" render={() => <NotFound />} />
         </Switch>
       </div>
