@@ -55,8 +55,7 @@ const ContentDetail = ({ history }) => {
                   content={content}
                   filepath={filepath}
                   filename={filename}
-                  setContentData={setContentData}
-                  handleModal={handleModal}
+                  setIsLoading={setIsLoading}
                 />
               ) : (
                 <div id="CD-wrapper">

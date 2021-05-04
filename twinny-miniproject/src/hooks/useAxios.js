@@ -135,7 +135,8 @@ const useAxios = () => {
         .post("/login", qs.stringify({ id, password }))
         .then(() => {
           handleModal();
-          history.push("/");
+          // history.push("/");
+          history.go(0);
         })
         .catch((err) => {
           // API 명세서와 달리 정확한 아이디 비번외에 모두 500에러
@@ -235,14 +236,14 @@ const useAxios = () => {
   );
 
   const axios_postModifyContent = useCallback(
-    (
+    async (
       subject_id,
       subject,
       content,
       file_status,
       file,
-      setContentData,
-      handleModal
+      setIsLoading,
+      history
     ) => {
       const formData = new FormData();
 
@@ -268,14 +269,15 @@ const useAxios = () => {
       } else if (!content) {
         swal_contentIsBlank();
       } else {
-        axios
+        // loading은 이후 277줄에서 새로고침하면서 다시 false로 됨
+        await setIsLoading(true);
+        await axios
           .post("/board/modify_aft", formData, config)
-          .then(() => axios_getSpecificContent(subject_id, setContentData))
-          .then(() => handleModal())
+          .then(() => history.go(0))
           .catch((err) => console.log(err));
       }
     },
-    [swal_subjectIsBlank, swal_contentIsBlank, axios_getSpecificContent]
+    [swal_subjectIsBlank, swal_contentIsBlank]
   );
 
   const axios_postNewComment = useCallback(

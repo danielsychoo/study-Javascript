@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import "../scss/ModifyContent.scss";
 import { useOnChange, useFileChange, useFileStatus, useAxios } from "../hooks";
 
@@ -8,8 +9,8 @@ const ModifyContent = ({
   content,
   filepath,
   filename,
-  setContentData,
-  handleModal,
+  setIsLoading,
+  history,
 }) => {
   // 로컬에서 상태로 관리 (변화를 위해)
   const { state, onChange } = useOnChange({
@@ -83,8 +84,8 @@ const ModifyContent = ({
                 state.content,
                 file_status,
                 file,
-                setContentData,
-                handleModal
+                setIsLoading,
+                history
               );
             }}
           >
@@ -96,4 +97,4 @@ const ModifyContent = ({
   );
 };
 
-export default ModifyContent;
+export default withRouter(ModifyContent);
