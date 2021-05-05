@@ -8,7 +8,6 @@ const CreateComment = ({ setContentComments, commentClickedPage }) => {
   const { state, onChange, onReset } = useOnChange("");
   const subject_id = useParams().id;
   const commentInputDOM = useRef();
-  console.log(commentInputDOM.current);
 
   return (
     <div id="create-comment-wrapper">

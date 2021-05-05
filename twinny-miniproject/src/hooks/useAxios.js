@@ -201,10 +201,12 @@ const useAxios = () => {
         },
       };
 
-      if (!subject) {
+      if (!subject || !subject.replace(/^\s+|\s+$/g, "")) {
         swal_subjectIsBlank(subjectInputDOM);
-      } else if (!content) {
+        subjectInputDOM.value = "";
+      } else if (!content || !content.replace(/^\s+|\s+$/g, "")) {
         swal_contentIsBlank(contentInputDOM);
+        contentInputDOM.value = "";
       } else {
         axios
           .post("/board/write", formData, config)
@@ -272,10 +274,12 @@ const useAxios = () => {
         },
       };
 
-      if (!subject) {
+      if (!subject || !subject.replace(/^\s+|\s+$/g, "")) {
         swal_subjectIsBlank(subjectInputDOM);
-      } else if (!content) {
+        subjectInputDOM.value = "";
+      } else if (!content || !content.replace(/^\s+|\s+$/g, "")) {
         swal_contentIsBlank(contentInputDOM);
+        contentInputDOM.value = "";
       } else {
         // loading은 이후 277줄에서 새로고침하면서 다시 false로 됨
         await setIsLoading(true);
@@ -299,8 +303,10 @@ const useAxios = () => {
     ) => {
       const commentTextbox = document.querySelector("#comment-textbox");
 
-      if (!comment) {
+      // 정규표현식으로 앞 뒤 공백 제거 후에도 존재하지 않는지 확인
+      if (!comment || !comment.replace(/^\s+|\s+$/g, "")) {
         swal_commentIsBlank(commentInputDOM);
+        commentTextbox.value = "";
       } else {
         axios
           .post("/comment", qs.stringify({ subject_id, comment }))
@@ -375,8 +381,9 @@ const useAxios = () => {
     ) => {
       const commentTextbox = document.querySelector("#comment-textbox");
 
-      if (!comment) {
+      if (!comment || !comment.replace(/^\s+|\s+$/g, "")) {
         swal_commentIsBlank(commentInputDOM);
+        commentTextbox.value = "";
       } else {
         axios
           .post("/comment/modify_aft", qs.stringify({ comment_id, comment }))
