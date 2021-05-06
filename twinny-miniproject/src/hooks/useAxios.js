@@ -37,8 +37,13 @@ const useAxios = () => {
           } = res.data;
 
           // image의 type에 따라 다른 decode
-          const splitFilename = filename.split(".");
-          const fileType = splitFilename[splitFilename.length - 1];
+          let splitFilename = null;
+          let fileType = null;
+
+          if (file) {
+            splitFilename = filename.split(".");
+            fileType = splitFilename[splitFilename.length - 1];
+          }
 
           let decodeStr = `data:image/png;base64,${file}`;
 
