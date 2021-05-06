@@ -293,30 +293,30 @@ const useAxios = () => {
   );
 
   const axios_postNewComment = useCallback(
-    (
+    async (
       comment,
       subject_id,
       commentClickedPage,
       setContentComments,
       onReset,
-      commentInputDOM
+      commentInputDOM,
+      setIsLoading
     ) => {
-      const commentTextbox = document.querySelector("#comment-textbox");
-
       // 정규표현식으로 앞 뒤 공백 제거 후에도 존재하지 않는지 확인
       if (!comment || !comment.replace(/^\s+|\s+$/g, "")) {
         swal_commentIsBlank(commentInputDOM);
-        commentTextbox.value = "";
+        commentInputDOM.value = "";
       } else {
-        axios
+        await axios
           .post("/comment", qs.stringify({ subject_id, comment }))
           .then(() => {
             onReset(); // (241줄을 위해)state를 비우는 것
-            commentTextbox.value = ""; // 보여지는 value 비우는 것
+            commentInputDOM.value = ""; // 보여지는 value 비우는 것
             axios_getCommentPagination(
               subject_id,
               commentClickedPage,
-              setContentComments
+              setContentComments,
+              setIsLoading
             );
           })
           .catch((err) => console.log(err));
@@ -326,7 +326,13 @@ const useAxios = () => {
   );
 
   const axios_deleteComment = useCallback(
-    (comment_id, subject_id, commentClickedPage, setContentComments) => {
+    (
+      comment_id,
+      subject_id,
+      commentClickedPage,
+      setContentComments,
+      setIsLoading
+    ) => {
       axios
         .post("/comment/delete", qs.stringify({ comment_id }))
         .then((res) => {
@@ -335,7 +341,8 @@ const useAxios = () => {
             axios_getCommentPagination(
               subject_id,
               commentClickedPage,
-              setContentComments
+              setContentComments,
+              setIsLoading
             );
         })
         .catch((err) => console.log(err));
@@ -377,24 +384,24 @@ const useAxios = () => {
       commentClickedPage,
       setContentComments,
       handleModal,
-      commentInputDOM
+      commentInputDOM,
+      setIsLoading
     ) => {
-      const commentTextbox = document.querySelector("#comment-textbox");
-
       if (!comment || !comment.replace(/^\s+|\s+$/g, "")) {
         swal_commentIsBlank(commentInputDOM);
-        commentTextbox.value = "";
+        commentInputDOM.value = "";
       } else {
         axios
           .post("/comment/modify_aft", qs.stringify({ comment_id, comment }))
           .then(() => {
             onReset();
-            commentTextbox.value = "";
+            commentInputDOM.value = "";
             handleModal();
             axios_getCommentPagination(
               subject_id,
               commentClickedPage,
-              setContentComments
+              setContentComments,
+              setIsLoading
             );
           })
           .catch((err) => console.log(err));

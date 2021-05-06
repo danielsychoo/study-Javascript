@@ -7,6 +7,7 @@ const ModifyComment = ({
   setContentComments,
   commentClickedPage,
   handleModal,
+  setIsLoading,
 }) => {
   const { axios_getModifyComment, axios_postModifyComment } = useAxios();
   const [modifyCommentData, setModifyCommentData] = useState({});
@@ -37,7 +38,8 @@ const ModifyComment = ({
             commentClickedPage,
             setContentComments,
             handleModal,
-            commentInputDOM.current
+            commentInputDOM.current,
+            setIsLoading
           )
         }
       >

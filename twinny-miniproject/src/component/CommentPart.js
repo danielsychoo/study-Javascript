@@ -56,6 +56,7 @@ const CommentPart = ({ commentClickedPage, handleCommentClickedPage }) => {
                 commentClickedPage={commentClickedPage}
                 handleModal={handleModal}
                 setComment_id={setComment_id}
+                setIsLoading={setIsLoading}
               />
             )}
           </>
@@ -68,11 +69,13 @@ const CommentPart = ({ commentClickedPage, handleCommentClickedPage }) => {
             setContentComments={setContentComments}
             commentClickedPage={commentClickedPage}
             handleModal={handleModal}
+            setIsLoading={setIsLoading}
           />
         ) : (
           <CreateComment
             setContentComments={setContentComments}
             commentClickedPage={commentClickedPage}
+            setIsLoading={setIsLoading}
           />
         )}
       </div>

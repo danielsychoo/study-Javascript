@@ -8,6 +8,7 @@ const CommentBox = ({
   commentClickedPage,
   handleModal,
   setComment_id,
+  setIsLoading,
 }) => {
   const { axios_checkModifyComment, axios_deleteComment } = useAxios();
 
@@ -43,7 +44,8 @@ const CommentBox = ({
                     comment_id,
                     subject_id,
                     commentClickedPage,
-                    setContentComments
+                    setContentComments,
+                    setIsLoading
                   );
                 }}
               >
