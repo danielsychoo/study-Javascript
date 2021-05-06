@@ -15,6 +15,8 @@ const CreateContent = ({ history }) => {
   const subjectInputDOM = useRef();
   const contentInputDOM = useRef();
 
+  console.log(file);
+
   return (
     <div id="CC-wrapper">
       <div id="CC-left-wrapper">
@@ -41,11 +43,20 @@ const CreateContent = ({ history }) => {
       <div id="CC-right-wrapper">
         <div id="CC-file-box">
           {file ? (
-            <img id="CC-file-img" src={file.previewURL} alt="" />
+            <img
+              id="CC-file-img"
+              src={file.previewURL}
+              alt={file && file.file.name}
+            />
           ) : (
             <p>선택된 파일이 없습니다.</p>
           )}
-          <input type="file" id="fileInput" onChange={onFileChange} />
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            onChange={onFileChange}
+          />
         </div>
         <div id="CC-submit">
           <label id="fileInput-button" htmlFor="fileInput">

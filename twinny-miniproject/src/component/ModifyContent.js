@@ -23,6 +23,8 @@ const ModifyContent = ({
 
   const { file, onFileChange } = useFileChange(filepath);
 
+  console.log(file.file);
+
   const {
     file_status,
     handleFileStatus,
@@ -76,6 +78,7 @@ const ModifyContent = ({
         <input
           type="file"
           id="fileInput"
+          accept="image/*"
           onChange={onFileChange}
           onClick={handleFileStatus}
         />
