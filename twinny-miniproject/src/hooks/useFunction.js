@@ -77,6 +77,14 @@ const useFunction = () => {
     }
   }, []);
 
+  const handleDevideFivePages = useCallback((arr) => {
+    const temp = [];
+    for (let i = 0, j = arr.length; i < j; i += 5) {
+      temp.push(arr.slice(i, i + 5));
+    }
+    return temp;
+  }, []);
+
   return {
     emailValidation,
     countBoardPageLength,
@@ -87,6 +95,7 @@ const useFunction = () => {
     goToContentDetail,
     handleModifyOnAndSetCommentId,
     handleEnterKey,
+    handleDevideFivePages,
   };
 };
 

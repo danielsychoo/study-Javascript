@@ -107,6 +107,20 @@ const useSwal = () => {
     });
   }, []);
 
+  const swal_alertItsFirstPage = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "첫 페이지 입니다.",
+    });
+  }, []);
+
+  const swal_alertItsLastPage = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "마지막 페이지 입니다.",
+    });
+  }, []);
+
   return {
     swal_emptyInput,
     swal_wrongPassword,
@@ -120,6 +134,8 @@ const useSwal = () => {
     swal_youAreNotWriter,
     swal_youCantModifyContent,
     swal_commentIsBlank,
+    swal_alertItsFirstPage,
+    swal_alertItsLastPage,
   };
 };
 

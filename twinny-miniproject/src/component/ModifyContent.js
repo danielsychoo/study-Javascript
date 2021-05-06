@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import "../scss/ModifyContent.scss";
 import { useOnChange, useFileChange, useFileStatus, useAxios } from "../hooks";
@@ -23,8 +23,6 @@ const ModifyContent = ({
 
   const { file, onFileChange } = useFileChange(filepath);
 
-  console.log(file.file);
-
   const {
     file_status,
     handleFileStatus,
@@ -33,6 +31,12 @@ const ModifyContent = ({
   const { axios_postModifyContent } = useAxios();
   const subjectInputDOM = useRef();
   const contentInputDOM = useRef();
+
+  useEffect(() => {
+    if (file.file) {
+      handleFileStatus();
+    }
+  }, [file, handleFileStatus]);
 
   return (
     <div id="CC-wrapper">
@@ -80,7 +84,7 @@ const ModifyContent = ({
           id="fileInput"
           accept="image/*"
           onChange={onFileChange}
-          onClick={handleFileStatus}
+          // onClick={handleFileStatus}
         />
         <div id="CC-submit">
           <button

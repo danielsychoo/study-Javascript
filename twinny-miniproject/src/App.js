@@ -17,6 +17,11 @@ const App = () => {
     handleClickedPage,
     commentClickedPage,
     handleCommentClickedPage,
+    clickedDevidePage,
+    handlePrevFirstPage,
+    handleNextLastPage,
+    handlePrevDevidePage,
+    handleNextDevidePage,
   } = useClickedPage();
 
   return (
@@ -31,6 +36,11 @@ const App = () => {
               <Home
                 clickedPage={clickedPage}
                 handleClickedPage={handleClickedPage}
+                clickedDevidePage={clickedDevidePage}
+                handlePrevFirstPage={handlePrevFirstPage}
+                handleNextLastPage={handleNextLastPage}
+                handlePrevDevidePage={handlePrevDevidePage}
+                handleNextDevidePage={handleNextDevidePage}
               />
             )}
           />

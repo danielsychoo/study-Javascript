@@ -25,7 +25,7 @@ const CommentBox = ({
                 <p className="comment-id">{id}</p>
                 <p className="comment-date">{refineDate}</p>
               </div>
-              <div className="comment-main-comment">{comment}</div>
+              <pre className="comment-main-comment">{comment}</pre>
             </div>
             <div className="comment-btn-box">
               <button

@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { useAxios, useFunction } from "../hooks";
+import { useAxios, useFunction, useSwal } from "../hooks";
 import { Loading } from "../component";
 import "../scss/Board.scss";
 
-const Board = ({ history, clickedPage, handleClickedPage }) => {
+const Board = ({
+  history,
+  clickedPage,
+  handleClickedPage,
+  clickedDevidePage,
+  handlePrevFirstPage,
+  handleNextLastPage,
+  handlePrevDevidePage,
+  handleNextDevidePage,
+}) => {
   const { axios_getContentPagination } = useAxios();
-  const { countBoardPageLength, goToContentDetail } = useFunction();
+  const {
+    countBoardPageLength,
+    goToContentDetail,
+    handleDevideFivePages,
+  } = useFunction();
   const [isLoading, setIsLoading] = useState(false);
 
   const [boardContent, setBoardContent] = useState({
@@ -14,12 +27,15 @@ const Board = ({ history, clickedPage, handleClickedPage }) => {
     count: 0,
   });
   const { content, count } = boardContent; // state 비구조화 할당
-
   const boardPages = countBoardPageLength(count); // page의 전체 값
+
+  const devideLongPages = handleDevideFivePages(boardPages);
+
+  const { swal_alertItsFirstPage, swal_alertItsLastPage } = useSwal();
 
   useEffect(() => {
     axios_getContentPagination(clickedPage, setBoardContent, setIsLoading);
-  }, [clickedPage, axios_getContentPagination]);
+  }, [clickedPage, handleClickedPage, axios_getContentPagination]);
 
   return (
     <div id="board-wrapper">
@@ -75,28 +91,111 @@ const Board = ({ history, clickedPage, handleClickedPage }) => {
 
       {/* pagination part */}
       {count ? (
-        <ul id="board-pagination-wrapper">
-          <li className="FL-pagination" onClick={() => handleClickedPage(1)}>
-            &#60; First
-          </li>
-          {boardPages.map((page) => {
-            return (
+        <ul className="board-pagination-wrapper">
+          {boardPages.length < 5 ? (
+            <>
               <li
-                id={page === clickedPage ? "clickedColor" : null}
-                key={page}
-                value={page}
-                onClick={() => handleClickedPage(page)}
+                className="FL-pagination"
+                onClick={() => handleClickedPage(1)}
               >
-                {page}
+                &#60; First
               </li>
-            );
-          })}
-          <li
-            className="FL-pagination"
-            onClick={() => handleClickedPage(boardPages[boardPages.length - 1])}
-          >
-            Last &#62;
-          </li>
+              <li
+                className="FL-pagination"
+                onClick={() =>
+                  handleClickedPage(boardPages[boardPages.length - 1])
+                }
+              >
+                Last &#62;
+              </li>
+            </>
+          ) : (
+            <>
+              <li
+                className="FL-pagination"
+                onClick={() => {
+                  handleClickedPage(1);
+                  handlePrevFirstPage();
+                }}
+              >
+                &#60;&#60; 처음
+              </li>
+
+              <li
+                className="FL-pagination"
+                onClick={
+                  clickedDevidePage === 0
+                    ? () => swal_alertItsFirstPage()
+                    : () => {
+                        handleClickedPage(
+                          parseInt(devideLongPages[clickedDevidePage - 1])
+                        );
+                        handlePrevDevidePage();
+                      }
+                }
+              >
+                &#60; 이전
+              </li>
+
+              {devideLongPages[clickedDevidePage].map((page, index) => {
+                return (
+                  <li
+                    key={index}
+                    id={page === clickedPage ? "clickedColor" : null}
+                    onClick={() => handleClickedPage(page)}
+                  >
+                    {page}
+                  </li>
+                );
+              })}
+              {clickedDevidePage === 2 ? (
+                <></>
+              ) : (
+                <>
+                  <span>...</span>
+                  <li
+                    key={boardPages[boardPages.length - 1]}
+                    id={
+                      boardPages[boardPages.length - 1] === clickedPage
+                        ? "clickedColor"
+                        : null
+                    }
+                    onClick={() =>
+                      handleClickedPage(boardPages[boardPages.length - 1])
+                    }
+                  >
+                    {boardPages[boardPages.length - 1]}
+                  </li>
+                </>
+              )}
+
+              <li
+                className="FL-pagination"
+                onClick={
+                  clickedDevidePage === 2
+                    ? () => swal_alertItsLastPage()
+                    : () => {
+                        handleClickedPage(
+                          parseInt(devideLongPages[clickedDevidePage + 1])
+                        );
+                        handleNextDevidePage(devideLongPages.length - 1);
+                      }
+                }
+              >
+                다음 &#62;
+              </li>
+
+              <li
+                className="FL-pagination"
+                onClick={() => {
+                  handleClickedPage(boardPages[boardPages.length - 1]);
+                  handleNextLastPage(devideLongPages.length - 1);
+                }}
+              >
+                맨뒤 &#62;&#62;
+              </li>
+            </>
+          )}
         </ul>
       ) : (
         <></>

@@ -35,7 +35,17 @@ const useAxios = () => {
             filename,
             date,
           } = res.data;
+
+          // image의 type에 따라 다른 decode
+          const splitFilename = filename.split(".");
+          const fileType = splitFilename[splitFilename.length - 1];
+          console.log(fileType);
+
           let decodeStr = `data:image/png;base64,${file}`;
+
+          if (fileType === "svg") {
+            decodeStr = `data:image/svg+xml;base64,${file}`;
+          }
 
           // 게시물이 존재하지 않으면
           if (res.data.result !== "2") {

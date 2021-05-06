@@ -15,8 +15,6 @@ const CreateContent = ({ history }) => {
   const subjectInputDOM = useRef();
   const contentInputDOM = useRef();
 
-  console.log(file);
-
   return (
     <div id="CC-wrapper">
       <div id="CC-left-wrapper">
