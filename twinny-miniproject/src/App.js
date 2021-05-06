@@ -52,6 +52,11 @@ const App = () => {
               <ContentDetail
                 commentClickedPage={commentClickedPage}
                 handleCommentClickedPage={handleCommentClickedPage}
+                clickedDevidePage={clickedDevidePage}
+                handlePrevFirstPage={handlePrevFirstPage}
+                handleNextLastPage={handleNextLastPage}
+                handlePrevDevidePage={handlePrevDevidePage}
+                handleNextDevidePage={handleNextDevidePage}
               />
             )}
           />

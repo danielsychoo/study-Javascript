@@ -100,6 +100,18 @@ const Board = ({
               >
                 &#60; First
               </li>
+              {boardPages.map((page) => {
+                return (
+                  <li
+                    id={page === clickedPage ? "clickedColor" : null}
+                    key={page}
+                    value={page}
+                    onClick={() => handleClickedPage(page)}
+                  >
+                    {page}
+                  </li>
+                );
+              })}
               <li
                 className="FL-pagination"
                 onClick={() =>

@@ -9,6 +9,11 @@ const ContentDetail = ({
   history,
   commentClickedPage,
   handleCommentClickedPage,
+  clickedDevidePage,
+  handlePrevFirstPage,
+  handleNextLastPage,
+  handlePrevDevidePage,
+  handleNextDevidePage,
 }) => {
   const {
     axios_getSpecificContent,
@@ -85,6 +90,11 @@ const ContentDetail = ({
                   <CommentPart
                     commentClickedPage={commentClickedPage}
                     handleCommentClickedPage={handleCommentClickedPage}
+                    clickedDevidePage={clickedDevidePage}
+                    handlePrevFirstPage={handlePrevFirstPage}
+                    handleNextLastPage={handleNextLastPage}
+                    handlePrevDevidePage={handlePrevDevidePage}
+                    handleNextDevidePage={handleNextDevidePage}
                   />
                 </div>
               )}

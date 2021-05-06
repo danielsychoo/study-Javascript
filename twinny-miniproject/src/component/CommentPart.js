@@ -6,11 +6,19 @@ import {
   ModifyComment,
   Loading,
 } from "../component";
-import { useFunction, useAxios, useModal } from "../hooks";
+import { useFunction, useAxios, useModal, useSwal } from "../hooks";
 import "../scss/CommentPart.scss";
 
-const CommentPart = ({ commentClickedPage, handleCommentClickedPage }) => {
-  const { countCommentPageLength } = useFunction();
+const CommentPart = ({
+  commentClickedPage,
+  handleCommentClickedPage,
+  clickedDevidePage,
+  handlePrevFirstPage,
+  handleNextLastPage,
+  handlePrevDevidePage,
+  handleNextDevidePage,
+}) => {
+  const { countCommentPageLength, handleDevideFivePages } = useFunction();
   const { axios_getCommentPagination } = useAxios();
 
   const { isModalOn, handleModal } = useModal(); // for modify Component
@@ -27,6 +35,10 @@ const CommentPart = ({ commentClickedPage, handleCommentClickedPage }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const commentPages = countCommentPageLength(count); // comment의 전체 값
+
+  const devideLongPages = handleDevideFivePages(commentPages);
+
+  const { swal_alertItsFirstPage, swal_alertItsLastPage } = useSwal();
 
   useEffect(() => {
     axios_getCommentPagination(
@@ -81,32 +93,129 @@ const CommentPart = ({ commentClickedPage, handleCommentClickedPage }) => {
       </div>
       {count ? (
         <ul id="comment-pagination-wrapper">
-          <li
-            className="FL-pagination"
-            onClick={() => handleCommentClickedPage(1)}
-          >
-            &#60; First
-          </li>
-          {commentPages.map((page) => {
-            return (
+          {commentPages.length < 5 ? (
+            <>
               <li
-                id={page === commentClickedPage ? "clickedColor" : null}
-                key={page}
-                value={page}
-                onClick={() => handleCommentClickedPage(page)}
+                className="FL-pagination"
+                onClick={() => handleCommentClickedPage(1)}
               >
-                {page}
+                &#60; First
               </li>
-            );
-          })}
-          <li
-            className="FL-pagination"
-            onClick={() =>
-              handleCommentClickedPage(commentPages[commentPages.length - 1])
-            }
-          >
-            Last &#62;
-          </li>
+              {commentPages.map((page) => {
+                return (
+                  <li
+                    id={page === commentClickedPage ? "clickedColor" : null}
+                    key={page}
+                    value={page}
+                    onClick={() => handleCommentClickedPage(page)}
+                  >
+                    {page}
+                  </li>
+                );
+              })}
+              <li
+                className="FL-pagination"
+                onClick={() =>
+                  handleCommentClickedPage(
+                    commentPages[commentPages.length - 1]
+                  )
+                }
+              >
+                Last &#62;
+              </li>
+            </>
+          ) : (
+            <>
+              <li
+                className="FL-pagination"
+                onClick={() => {
+                  handleCommentClickedPage(1);
+                  handlePrevFirstPage();
+                }}
+              >
+                &#60;&#60; 처음
+              </li>
+
+              <li
+                className="FL-pagination"
+                onClick={
+                  clickedDevidePage === 0
+                    ? () => swal_alertItsFirstPage()
+                    : () => {
+                        handleCommentClickedPage(
+                          parseInt(devideLongPages[clickedDevidePage - 1])
+                        );
+                        handlePrevDevidePage();
+                      }
+                }
+              >
+                &#60; 이전
+              </li>
+
+              {devideLongPages[clickedDevidePage].map((page, index) => {
+                return (
+                  <li
+                    key={index}
+                    id={page === commentClickedPage ? "clickedColor" : null}
+                    onClick={() => handleCommentClickedPage(page)}
+                  >
+                    {page}
+                  </li>
+                );
+              })}
+              {clickedDevidePage === 2 ? (
+                <></>
+              ) : (
+                <>
+                  <span>...</span>
+                  <li
+                    key={commentPages[commentPages.length - 1]}
+                    id={
+                      commentPages[commentPages.length - 1] ===
+                      commentClickedPage
+                        ? "clickedColor"
+                        : null
+                    }
+                    onClick={() =>
+                      handleCommentClickedPage(
+                        commentPages[commentPages.length - 1]
+                      )
+                    }
+                  >
+                    {commentPages[commentPages.length - 1]}
+                  </li>
+                </>
+              )}
+
+              <li
+                className="FL-pagination"
+                onClick={
+                  clickedDevidePage === 2
+                    ? () => swal_alertItsLastPage()
+                    : () => {
+                        handleCommentClickedPage(
+                          parseInt(devideLongPages[clickedDevidePage + 1])
+                        );
+                        handleNextDevidePage(devideLongPages.length - 1);
+                      }
+                }
+              >
+                다음 &#62;
+              </li>
+
+              <li
+                className="FL-pagination"
+                onClick={() => {
+                  handleCommentClickedPage(
+                    commentPages[commentPages.length - 1]
+                  );
+                  handleNextLastPage(devideLongPages.length - 1);
+                }}
+              >
+                맨뒤 &#62;&#62;
+              </li>
+            </>
+          )}
         </ul>
       ) : (
         <></>
