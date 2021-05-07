@@ -11,6 +11,8 @@ const useClickedPage = () => {
   const [commentClickedPage, setCommentClickedPage] = useState(1);
   const handleCommentClickedPage = useCallback((page) => {
     setCommentClickedPage(page);
+    // console.log("working");
+    // console.log(page);
   }, []);
 
   // content Long Page

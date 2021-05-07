@@ -345,7 +345,9 @@ const useAxios = () => {
       subject_id,
       commentClickedPage,
       setContentComments,
-      setIsLoading
+      setIsLoading,
+      devideLongPages,
+      handleCommentClickedPage
     ) => {
       axios
         .post("/comment/delete", qs.stringify({ comment_id }))
@@ -359,18 +361,26 @@ const useAxios = () => {
               setIsLoading
             );
         })
+        .then(() => {
+          if (
+            commentClickedPage > 1 &&
+            !devideLongPages.includes(commentClickedPage)
+          ) {
+            handleCommentClickedPage(commentClickedPage - 1);
+          }
+        })
         .catch((err) => console.log(err));
     },
     [swal_youAreNotWriter, axios_getCommentPagination]
   );
 
   const axios_checkModifyComment = useCallback(
-    (comment_id, handleModal) => {
+    (comment_id, isModalOn, handleModal) => {
       axios
         .post("/comment/modify_bef", qs.stringify({ comment_id }))
         .then((res) => {
           if (res.data.result === "2") swal_youCantModifyContent();
-          else handleModal();
+          else if (!isModalOn) handleModal();
         });
     },
     [swal_youCantModifyContent]

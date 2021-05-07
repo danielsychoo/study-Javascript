@@ -6,9 +6,12 @@ const CommentBox = ({
   comments,
   setContentComments,
   commentClickedPage,
+  isModalOn,
   handleModal,
   setComment_id,
   setIsLoading,
+  devideLongPages,
+  handleCommentClickedPage,
 }) => {
   const { axios_checkModifyComment, axios_deleteComment } = useAxios();
 
@@ -31,7 +34,7 @@ const CommentBox = ({
               <button
                 className="comment-modify-btn"
                 onClick={() => {
-                  axios_checkModifyComment(comment_id, handleModal);
+                  axios_checkModifyComment(comment_id, isModalOn, handleModal);
                   setComment_id(comment_id);
                 }}
               >
@@ -40,12 +43,15 @@ const CommentBox = ({
               <button
                 className="comment-delete-btn"
                 onClick={() => {
+                  if (isModalOn) handleModal();
                   axios_deleteComment(
                     comment_id,
                     subject_id,
                     commentClickedPage,
                     setContentComments,
-                    setIsLoading
+                    setIsLoading,
+                    devideLongPages,
+                    handleCommentClickedPage
                   );
                 }}
               >

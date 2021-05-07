@@ -16,7 +16,14 @@
     border-radius: 5px;
     resize: none;
   }
-  & > button {
+  #modify-btn-wrapper {
+    display: flex;
+    & > button {
     @include button-design;
+      &:nth-last-child(1) {
+        margin: 0 0 0 15px;
+      }
+    }
+
   }
 }

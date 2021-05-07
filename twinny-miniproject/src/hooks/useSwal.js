@@ -95,6 +95,12 @@ const useSwal = () => {
       text: "자신이 쓴 글만 수정할 수 있습니다.",
     });
   }, []);
+  const swal_didntChangeComment = useCallback(() => {
+    Swal.fire({
+      icon: "error",
+      title: "변경사항이 없습니다.",
+    });
+  }, []);
 
   const swal_commentIsBlank = useCallback((commentInputDOM) => {
     Swal.fire({
@@ -133,6 +139,7 @@ const useSwal = () => {
     swal_contentIsBlank,
     swal_youAreNotWriter,
     swal_youCantModifyContent,
+    swal_didntChangeComment,
     swal_commentIsBlank,
     swal_alertItsFirstPage,
     swal_alertItsLastPage,

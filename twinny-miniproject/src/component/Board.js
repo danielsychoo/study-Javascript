@@ -148,7 +148,8 @@ const Board = ({
               >
                 &#60; 이전
               </li>
-
+              {devideLongPages[clickedDevidePage] === [] &&
+                handleClickedPage(clickedPage - 1)}
               {devideLongPages[clickedDevidePage].map((page, index) => {
                 return (
                   <li

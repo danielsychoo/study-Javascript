@@ -66,9 +66,12 @@ const CommentPart = ({
                 comments={comments}
                 setContentComments={setContentComments}
                 commentClickedPage={commentClickedPage}
+                isModalOn={isModalOn}
                 handleModal={handleModal}
                 setComment_id={setComment_id}
                 setIsLoading={setIsLoading}
+                devideLongPages={devideLongPages}
+                handleCommentClickedPage={handleCommentClickedPage}
               />
             )}
           </>
@@ -135,7 +138,6 @@ const CommentPart = ({
               >
                 &#60;&#60; 처음
               </li>
-
               <li
                 className="FL-pagination"
                 onClick={
