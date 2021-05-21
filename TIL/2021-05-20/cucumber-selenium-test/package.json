@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cucumber/cucumber": "^7.2.1"
+    "@cucumber/cucumber": "^7.2.1",
+    "dotenv": "^9.0.2"
   },
   "devDependencies": {
     "chromedriver": "^90.0.1",
