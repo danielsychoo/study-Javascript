@@ -1,5 +1,15 @@
-Feature: Google search
-    Scenario: Googling remarkablemark.
-        Given I am on the Google homepage
-        When I search for remarkablemark
-        Then the page title is remarkablemark - Google Search
+# language: ko
+
+기능: 구글 검색 자동화 테스트
+
+    시나리오: 첫 번째 테스트 - 트위니 검색해보기
+        조건 크롬브라우저로 구글에 접속
+        만일 검색창에 "트위니"를 검색
+        그러면 "트위니 - Google 검색" 창으로 이동
+        그리고 크롬브라우저 닫기
+
+    시나리오: 두 번째 테스트 - 비즈박스 들어가기
+        조건 크롬브라우저로 비즈박스 접속
+        만일 아이디와 패스워드 입력
+        그리고 로그인버튼 클릭
+        그러면 "(주)트위니" 창으로 이동
