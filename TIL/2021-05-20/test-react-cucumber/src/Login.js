@@ -27,7 +27,7 @@ const Login = () => {
                 pw: <input type="password" name="password" value={userInfo.pw} onChange={onChange}></input>
             </div>
             <p>
-                <button onClick={handleLogin}>로그인</button>
+                <button name="loginBtn" onClick={handleLogin}>로그인</button>
             </p>
         </div>
     )

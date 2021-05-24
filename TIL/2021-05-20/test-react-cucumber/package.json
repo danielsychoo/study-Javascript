@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cucumber-js",
+    "test": "node_modules/@cucumber/cucumber/bin/cucumber-js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^7.2.1",
-    "hamjest": "^3.7.2"
+    "chromedriver": "^90.0.1",
+    "selenium-webdriver": "*"
   }
 }

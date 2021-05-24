@@ -1,4 +1,4 @@
-const { setDefaultTimeout, AfterAll } = require('@cucumber/cucumber');
+const { setDefaultTimeout } = require('@cucumber/cucumber');
 const { Builder, Capabilities } = require('selenium-webdriver');
 require('chromedriver');
 require('dotenv').config();
@@ -26,4 +26,4 @@ const driver = new Builder().withCapabilities(capabilities).build();
 // 각 시나리오 테스트 실시
 googleSearchTwinny(driver); // 첫 번째 시나리오
 loginToBizbox(driver, envUserInfo.bizboxPassword); // 두 번째 시나리오
-checkGoogleSchedule(driver, envUserInfo.googlePassword); // 세 번째 시나리오
+checkGoogleSchedule(driver); // 세 번째 시나리오
