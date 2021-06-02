@@ -9,6 +9,8 @@ import "normalize.css";
 function App() {
   const { loading, error, data } = useQuery(GET_MOVIES);
 
+  console.log(data.movies)
+
   return (
     <div className="App">
       <Router>

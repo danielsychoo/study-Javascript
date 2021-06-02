@@ -3,6 +3,7 @@
 /algorithm/.idea/
 .idea/
 /TIL/2021-01-28/c3 #2.1-2.4/node_modules/
+apollo-graphql/graphql-movies/node_modules
 
 /**/node_modules
 /**/.env
