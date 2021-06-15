@@ -12,7 +12,7 @@ const Home = () => {
 
   const { loading, data } = useCustomQuery<GetSpecificMovie>(
     GET_SPECIFIC_MOVIE,
-    { variables: { id: 13143 } },
+    { variables: { id: 111234 } },
   );
 
   if (loading) return <Loading />;

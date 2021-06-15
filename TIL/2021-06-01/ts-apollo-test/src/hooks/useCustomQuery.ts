@@ -8,7 +8,7 @@ const useCustomQuery = <T>(
   const { data, loading, error } = useQuery(queryName, param);
 
   if (error) {
-    console.log(error);
+    console.error(error);
   }
 
   return { loading, data };
