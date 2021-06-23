@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ToDo } from '../components';
 import { useInput } from '../hooks';
-import { actionCreators } from '../store/store';
+import { add } from '../redux/store';
 
 const Home = ({ toDos, addToDo }) => {
   const { text, onChange, onReset } = useInput();
@@ -35,7 +35,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    addToDo: text => dispatch(actionCreators.addToDo(text)),
+    addToDo: text => dispatch(add(text)),
   };
 };
 

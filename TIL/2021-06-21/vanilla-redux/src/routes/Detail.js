@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { actionCreators } from '../store/store';
+import { remove } from '../redux/store';
 
 const Detail = ({ oneToDo, deleteToDo }) => {
   const { push } = useHistory();
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   console.log(typeof id);
 
   return {
-    deleteToDo: () => dispatch(actionCreators.deleteToDo(id)),
+    deleteToDo: () => dispatch(remove(id)),
   };
 };
 
