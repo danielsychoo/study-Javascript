@@ -2,18 +2,20 @@ import React from "react";
 import { useMutation } from "@apollo/client";
 import { DELETE_COMMENT } from "../apollo/mutation";
 import "../scss/CommentList.scss";
+import { GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS } from "../apollo/query";
 
-const CommentList = ({ comment, refetch }) => {
-  console.log(comment);
+const CommentList = ({ comment }) => {
   const { nickname, message, date, id } = comment;
 
-  const [deleteComment] = useMutation(DELETE_COMMENT);
+  const [deleteComment] = useMutation(DELETE_COMMENT, {
+    refetchQueries: [{
+      query: GET_SPECIFIC_MOVIE_WITH_SUGGESTIONS_AND_COMMENTS, 
+      variables: { id: parseInt(id) },
+    }]
+  });
+
   const handleDelete = () => {
     deleteComment({ variables: { id: parseInt(id) } })
-      .then(() => {
-        refetch();
-      })
-      .catch((err) => console.log(err));
   };
 
   return (

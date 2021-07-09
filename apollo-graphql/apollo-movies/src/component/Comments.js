@@ -7,7 +7,7 @@ const Comments = ({ comments, refetch }) => {
     <div>
       <div id="SG-header">한줄 평 남기기</div>
       {comments.map((comment) => (
-        <CommentList key={comment.id} comment={comment} refetch={refetch} />
+        <CommentList key={comment.id} comment={comment} />
       ))}
       <NewComment refetch={refetch} />
     </div>
