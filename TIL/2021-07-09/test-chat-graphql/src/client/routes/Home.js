@@ -21,7 +21,6 @@ const Home = () => {
         const { newChat } = subscriptionData.data;
 
         return {
-          // ...prev, // ! ??? 구현 하고 한번만 다시 보자 이상한뎅
           chatting: [...prev.chatting, newChat],
         };
       },

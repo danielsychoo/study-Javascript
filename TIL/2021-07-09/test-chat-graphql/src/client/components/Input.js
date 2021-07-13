@@ -12,18 +12,19 @@ const Input = () => {
   }, []);
 
   // 메세지 작성
-  const { description, onChange, onReset } = useInput('');
-  const [onMutation] = useMutation(writeChat, {
+  const { description, onChange } = useInput('');
+  const [handleWriteChat, ...rest] = useMutation(writeChat, {
     variables: {
       writer,
-      description,
+      description: description.value,
     },
   });
 
+  console.log(rest);
+
   // 뮤테이션 발동!!!
   const handleMutation = () => {
-    onMutation();
-    onReset();
+    handleWriteChat();
   };
 
   // 엔터 키 핸들러
@@ -36,6 +37,7 @@ const Input = () => {
   return (
     <div>
       <input
+        id="descriptionInput"
         type="text"
         placeholder="내용을 입력하세요."
         onChange={onChange}

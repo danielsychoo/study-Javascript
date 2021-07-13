@@ -54,6 +54,4 @@ const resolvers = {
 
 const server = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } });
 
-server.start(() =>
-  console.log(`[Server] 'localhost:4000' 으로 GraphQL 서버 연결됨!!!!!!`),
-);
+server.start(() => console.log(`[Server] 'localhost:4000' 으로 GraphQL 서버 연결됨!!!!!!`));

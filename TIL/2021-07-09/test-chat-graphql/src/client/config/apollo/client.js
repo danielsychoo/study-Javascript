@@ -2,7 +2,7 @@ import { ApolloClient, createHttpLink, split } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
-import { URI, WS_URI } from '../../../utils/constants/uriConstant';
+import { URI, WS_URI } from '../../utils/constants/uriConstant';
 import { cache } from './cache';
 
 // http 엔드포인트

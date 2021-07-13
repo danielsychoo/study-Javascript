@@ -8,7 +8,9 @@ const useInput = (initialState) => {
     setDescription({ ...description, value });
   };
 
-  const onReset = () => setDescription(initialState);
+  const onReset = () => {
+    setDescription(initialState);
+  };
 
   return { description, setDescription, onChange, onReset };
 };
